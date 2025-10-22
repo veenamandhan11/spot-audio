@@ -25,6 +25,10 @@ BASELINE_END_DATE = "10/18/2025 23:59:59"
 MAX_ROWS_PER_REQUEST = 1000
 RATE_LIMIT_DELAY = 1  # seconds between API calls
 
+# Test Mode Configuration
+TEST_MODE = True  # Set to True to test with first station only, False for production
+TEST_CREATIVES_FILE = "test_creatives.json"  # Separate file for test output
+
 # Output Settings
 SAVE_DETAILED_RECORDS = True  # Set to False to only save creative summaries
 
@@ -37,7 +41,8 @@ class MediaMonitorsTracker:
         self.username = username
         self.password = password
         self.sequence_file = SEQUENCE_FILE
-        self.creatives_file = CREATIVES_FILE
+        self.creatives_file = TEST_CREATIVES_FILE if TEST_MODE else CREATIVES_FILE
+        self.test_mode = TEST_MODE
         
     def get_licensed_stations(self):
         """Get all licensed stations from the API"""
@@ -100,15 +105,16 @@ class MediaMonitorsTracker:
                             'end_time': end_time_val
                         }
             
-            # Get sequence numbers
+            # Get sequence numbers (only needed in production mode)
             sequences = {}
-            for elem in root.iter():
-                if elem.tag.endswith('BiggestSequenceForAirPlayChange'):
-                    sequences['airplay'] = int(elem.text)
-                elif elem.tag.endswith('BiggestSequenceForTitleAssignmentChange'):
-                    sequences['title'] = int(elem.text)
-                elif elem.tag.endswith('BiggestSequenceForMetaTitleIDChange'):
-                    sequences['meta_title'] = int(elem.text)
+            if not self.test_mode:
+                for elem in root.iter():
+                    if elem.tag.endswith('BiggestSequenceForAirPlayChange'):
+                        sequences['airplay'] = int(elem.text)
+                    elif elem.tag.endswith('BiggestSequenceForTitleAssignmentChange'):
+                        sequences['title'] = int(elem.text)
+                    elif elem.tag.endswith('BiggestSequenceForMetaTitleIDChange'):
+                        sequences['meta_title'] = int(elem.text)
             
             # Convert dict values back to list
             creatives_list = list(creatives.values())
@@ -168,8 +174,8 @@ class MediaMonitorsTracker:
                                     'end_time': end_time_val
                                 }
                         
-                        # Track highest sequence
-                        if 'sequence_id' in record:
+                        # Track highest sequence (only needed in production mode)
+                        if not self.test_mode and 'sequence_id' in record:
                             seq_id = int(record['sequence_id'])
                             highest_sequence = max(highest_sequence, seq_id)
             
@@ -186,7 +192,11 @@ class MediaMonitorsTracker:
             return [], last_sequence, []
 
     def save_sequence(self, sequence_data):
-        """Save sequence data to file"""
+        """Save sequence data to file (skipped in test mode)"""
+        if self.test_mode:
+            print("Test mode: Skipping sequence file save")
+            return
+            
         with open(self.sequence_file, 'w') as f:
             json.dump(sequence_data, f, indent=2)
 
@@ -198,6 +208,7 @@ class MediaMonitorsTracker:
         output_data = {
             'timestamp': timestamp,
             'count': len(creatives),
+            'test_mode': self.test_mode,
             'creatives': creatives
         }
         
@@ -205,14 +216,78 @@ class MediaMonitorsTracker:
             json.dump(output_data, f, indent=2)
 
     def load_sequence(self):
-        """Load sequence data from file"""
+        """Load sequence data from file (skipped in test mode)"""
+        if self.test_mode:
+            return None
+            
         if os.path.exists(self.sequence_file):
             with open(self.sequence_file, 'r') as f:
                 return json.load(f)
         return None
 
+    def test_first_station(self, start_date=BASELINE_START_DATE, end_date=BASELINE_END_DATE):
+        """Test mode: Get airplay data from first station only"""
+        print("=== TEST MODE: Processing first station only ===")
+        
+        # Get all stations
+        stations_xml = self.get_licensed_stations()
+        if not stations_xml:
+            print("Failed to get stations")
+            return False
+        
+        # Parse stations
+        try:
+            root = ET.fromstring(stations_xml)
+            stations = []
+            for elem in root.iter():
+                station_id_child = None
+                for child in elem:
+                    if child.tag.endswith('StationID'):
+                        station_id_child = child
+                        break
+                if station_id_child is not None:
+                    stations.append(elem)
+            
+            print(f"Found {len(stations)} total stations")
+        except ET.ParseError as e:
+            print(f"Error parsing stations XML: {e}")
+            return False
+        
+        # Process only the first station
+        if stations:
+            first_station = stations[0]
+            station_id_elem = None
+            station_name_elem = None
+            
+            for child in first_station:
+                if child.tag.endswith('StationID'):
+                    station_id_elem = child
+                elif child.tag.endswith('Station') and not child.tag.endswith('StationID'):
+                    station_name_elem = child
+            
+            if station_id_elem is not None:
+                station_id = station_id_elem.text
+                station_name = station_name_elem.text if station_name_elem is not None else "Unknown"
+                
+                print(f"Testing with station {station_id} ({station_name})...")
+                print(f"Date range: {start_date} to {end_date}")
+                
+                count, sequences, creatives = self.get_airplay_snapshot_for_baseline(station_id, start_date, end_date)
+                
+                print(f"Found {count} total airplay records")
+                print(f"Extracted {len(creatives)} unique creatives")
+                
+                return creatives
+        
+        print("Failed to process first station")
+        return []
+
     def establish_baseline(self, start_date=BASELINE_START_DATE, end_date=BASELINE_END_DATE):
-        """Establish baseline by getting snapshot of all stations"""
+        """Establish baseline by getting snapshot of all stations (production mode only)"""
+        if self.test_mode:
+            print("Test mode: Skipping baseline establishment")
+            return True
+            
         print("Establishing baseline...")
         
         # Get all stations
@@ -273,7 +348,11 @@ class MediaMonitorsTracker:
         return False
 
     def get_new_records_and_creatives(self):
-        """Get count and creative data of new records since last check"""
+        """Get count and creative data of new records since last check (production mode only)"""
+        if self.test_mode:
+            print("Test mode: Skipping new records check")
+            return 0, []
+            
         sequence_data = self.load_sequence()
         
         if not sequence_data or not sequence_data.get('baseline_established'):
@@ -341,12 +420,42 @@ def main():
     
     print("Media Monitors New Records Tracker")
     print("=" * 50)
+    print(f"Mode: {'TEST' if TEST_MODE else 'PRODUCTION'}")
     print(f"Username: {USERNAME}")
-    print(f"Baseline Date Range: {BASELINE_START_DATE} to {BASELINE_END_DATE}")
-    print(f"Max Rows Per Request: {MAX_ROWS_PER_REQUEST}")
-    print(f"Rate Limit Delay: {RATE_LIMIT_DELAY}s")
+    print(f"Date Range: {BASELINE_START_DATE} to {BASELINE_END_DATE}")
+    if not TEST_MODE:
+        print(f"Max Rows Per Request: {MAX_ROWS_PER_REQUEST}")
+        print(f"Rate Limit Delay: {RATE_LIMIT_DELAY}s")
     print("=" * 50)
     
+    if TEST_MODE:
+        # Test mode: Process first station only
+        creatives = tracker.test_first_station()
+        
+        print(f"\n=== TEST RESULTS ===")
+        print(f"Unique creatives found: {len(creatives)}")
+        
+        # Save creatives to test JSON file
+        if creatives:
+            tracker.save_creatives(creatives)
+            print(f"Test creatives saved to {tracker.creatives_file}")
+            
+            # Show sample of creative data for verification
+            print("\nSample creative data:")
+            for i, creative in enumerate(creatives[:3]):
+                print(f"  {i+1}. ID: {creative['creative_id']}")
+                print(f"      Name: {creative['creative_name']}")
+                print(f"      Start: {creative['start_time']}")
+                print(f"      End: {creative['end_time']}")
+            
+            if len(creatives) > 3:
+                print(f"... and {len(creatives) - 3} more")
+        else:
+            print("No creatives found in test")
+        
+        return
+    
+    # Production mode: Original functionality
     # Check if baseline exists
     sequence_data = tracker.load_sequence()
     
@@ -387,7 +496,6 @@ def main():
 
 if __name__ == "__main__":
     main()
-
 
 
 # import json
