@@ -5,12 +5,39 @@ import json
 import os
 from datetime import datetime
 
+# =============================================================================
+# CONFIGURATION SECTION
+# =============================================================================
+
+# API Credentials
+USERNAME = "CSugrue"
+PASSWORD = "Ussu8229"
+
+# File Paths
+SEQUENCE_FILE = "last_sequence.json"
+CREATIVES_FILE = "new_creatives.json"
+
+# Baseline Configuration
+BASELINE_START_DATE = "10/18/2025 00:00:00"
+BASELINE_END_DATE = "10/18/2025 23:59:59"
+
+# API Settings
+MAX_ROWS_PER_REQUEST = 1000
+RATE_LIMIT_DELAY = 1  # seconds between API calls
+
+# Output Settings
+SAVE_DETAILED_RECORDS = True  # Set to False to only save creative summaries
+
+# =============================================================================
+# END CONFIGURATION SECTION
+# =============================================================================
+
 class MediaMonitorsTracker:
-    def __init__(self, username, password):
+    def __init__(self, username=USERNAME, password=PASSWORD):
         self.username = username
         self.password = password
-        self.sequence_file = "last_sequence.json"
-        self.creatives_file = "new_creatives.json"
+        self.sequence_file = SEQUENCE_FILE
+        self.creatives_file = CREATIVES_FILE
         
     def get_licensed_stations(self):
         """Get all licensed stations from the API"""
@@ -47,7 +74,7 @@ class MediaMonitorsTracker:
             
             # Count Table3 elements and extract creative data
             table3_count = 0
-            creatives = []
+            creatives = {}  # Use dict for deduplication by creative_id
             
             for elem in root.iter():
                 if elem.tag.endswith('Table3'):
@@ -59,12 +86,19 @@ class MediaMonitorsTracker:
                         tag_name = child.tag.split('}')[-1] if '}' in child.tag else child.tag
                         creative_data[tag_name] = child.text
                     
-                    # Add to creatives list if we have the key fields
-                    if creative_data.get('CreativeID') and creative_data.get('Account_x002F_Title'):
-                        creatives.append({
-                            'creative_id': creative_data.get('CreativeID'),
-                            'creative_name': creative_data.get('Account_x002F_Title')
-                        })
+                    # Add to creatives dict if we have the key fields (deduplicates automatically)
+                    creative_id = creative_data.get('CreativeID')
+                    creative_name = creative_data.get('Account_x002F_Title')
+                    start_time_val = creative_data.get('start_time')
+                    end_time_val = creative_data.get('end_time')
+                    
+                    if creative_id and creative_name:
+                        creatives[creative_id] = {
+                            'creative_id': creative_id,
+                            'creative_name': creative_name,
+                            'start_time': start_time_val,
+                            'end_time': end_time_val
+                        }
             
             # Get sequence numbers
             sequences = {}
@@ -76,7 +110,10 @@ class MediaMonitorsTracker:
                 elif elem.tag.endswith('BiggestSequenceForMetaTitleIDChange'):
                     sequences['meta_title'] = int(elem.text)
             
-            return table3_count, sequences, creatives
+            # Convert dict values back to list
+            creatives_list = list(creatives.values())
+            
+            return table3_count, sequences, creatives_list
             
         except requests.RequestException as e:
             print(f"Error fetching snapshot for station {station_id}: {e}")
@@ -85,7 +122,7 @@ class MediaMonitorsTracker:
             print(f"Error parsing XML for station {station_id}: {e}")
             return 0, {}, []
 
-    def get_airplay_changes(self, last_sequence, max_rows=1000):
+    def get_airplay_changes(self, last_sequence, max_rows=MAX_ROWS_PER_REQUEST):
         """Get airplay changes since last sequence - returns records with creative data"""
         url = "https://data.mediamonitors.com/mmwebservices/service1.asmx/GetAirPlayChangesAfterSequenceString"
         params = {
@@ -102,7 +139,7 @@ class MediaMonitorsTracker:
             root = ET.fromstring(response.text)
             
             records = []
-            creatives = []
+            creatives = {}  # Use dict for deduplication by creative_id
             highest_sequence = last_sequence
             
             for elem in root.iter():
@@ -116,19 +153,30 @@ class MediaMonitorsTracker:
                     if record:
                         records.append(record)
                         
-                        # Extract creative data for new additions only
-                        if record.get('action') == 'true' and record.get('CreativeID') and record.get('Account_x002F_Title'):
-                            creatives.append({
-                                'creative_id': record.get('CreativeID'),
-                                'creative_name': record.get('Account_x002F_Title')
-                            })
+                        # Extract creative data for new additions only (deduplicates automatically)
+                        if record.get('action') == 'true':
+                            creative_id = record.get('CreativeID')
+                            creative_name = record.get('Account_x002F_Title')
+                            start_time_val = record.get('start_time')
+                            end_time_val = record.get('end_time')
+                            
+                            if creative_id and creative_name:
+                                creatives[creative_id] = {
+                                    'creative_id': creative_id,
+                                    'creative_name': creative_name,
+                                    'start_time': start_time_val,
+                                    'end_time': end_time_val
+                                }
                         
                         # Track highest sequence
                         if 'sequence_id' in record:
                             seq_id = int(record['sequence_id'])
                             highest_sequence = max(highest_sequence, seq_id)
             
-            return records, highest_sequence, creatives
+            # Convert dict values back to list
+            creatives_list = list(creatives.values())
+            
+            return records, highest_sequence, creatives_list
             
         except requests.RequestException as e:
             print(f"Error fetching airplay changes: {e}")
@@ -163,7 +211,7 @@ class MediaMonitorsTracker:
                 return json.load(f)
         return None
 
-    def establish_baseline(self, start_date="10/18/2025 00:00:00", end_date="10/18/2025 23:59:59"):
+    def establish_baseline(self, start_date=BASELINE_START_DATE, end_date=BASELINE_END_DATE):
         """Establish baseline by getting snapshot of all stations"""
         print("Establishing baseline...")
         
@@ -236,12 +284,12 @@ class MediaMonitorsTracker:
         print(f"Checking for changes since sequence: {last_sequence}")
         
         total_new_count = 0
-        all_new_creatives = []
+        all_new_creatives = {}  # Use dict for deduplication across all batches
         current_sequence = last_sequence
         
         # Keep fetching until we get all new records
         while True:
-            records, highest_sequence, creatives = self.get_airplay_changes(current_sequence, max_rows=1000)
+            records, highest_sequence, creatives = self.get_airplay_changes(current_sequence, max_rows=MAX_ROWS_PER_REQUEST)
             
             if not records:
                 break
@@ -253,18 +301,23 @@ class MediaMonitorsTracker:
                     new_additions += 1
             
             total_new_count += new_additions
-            all_new_creatives.extend(creatives)
-            print(f"Batch: {len(records)} total records, {new_additions} new additions, {len(creatives)} new creatives")
+            
+            # Merge creatives into the main dict (automatic deduplication)
+            for creative in creatives:
+                creative_id = creative['creative_id']
+                all_new_creatives[creative_id] = creative
+            
+            print(f"Batch: {len(records)} total records, {new_additions} new additions, {len(creatives)} unique creatives in batch")
             
             # Update sequence for next batch
             current_sequence = highest_sequence
             
             # If we got less than max_rows, we're done
-            if len(records) < 1000:
+            if len(records) < MAX_ROWS_PER_REQUEST:
                 break
             
             # Rate limiting
-            time.sleep(1)
+            time.sleep(RATE_LIMIT_DELAY)
         
         # Update saved sequence
         if current_sequence > last_sequence:
@@ -273,7 +326,10 @@ class MediaMonitorsTracker:
             self.save_sequence(sequence_data)
             print(f"Updated sequence to: {current_sequence}")
         
-        return total_new_count, all_new_creatives
+        # Convert dict values back to list
+        all_new_creatives_list = list(all_new_creatives.values())
+        
+        return total_new_count, all_new_creatives_list
 
     def get_new_records_count(self):
         """Get count of new records since last check (backward compatibility)"""
@@ -281,13 +337,14 @@ class MediaMonitorsTracker:
         return count
 
 def main():
-    # API credentials
-    username = "CSugrue"
-    password = "Ussu8229"
-    
-    tracker = MediaMonitorsTracker(username, password)
+    tracker = MediaMonitorsTracker()
     
     print("Media Monitors New Records Tracker")
+    print("=" * 50)
+    print(f"Username: {USERNAME}")
+    print(f"Baseline Date Range: {BASELINE_START_DATE} to {BASELINE_END_DATE}")
+    print(f"Max Rows Per Request: {MAX_ROWS_PER_REQUEST}")
+    print(f"Rate Limit Delay: {RATE_LIMIT_DELAY}s")
     print("=" * 50)
     
     # Check if baseline exists
@@ -310,18 +367,26 @@ def main():
     
     print(f"\n=== RESULTS ===")
     print(f"New airplay records since last check: {new_count}")
-    print(f"New creatives found: {len(new_creatives)}")
+    print(f"Unique new creatives found: {len(new_creatives)}")
     
     # Save creatives to JSON file
     if new_creatives:
         tracker.save_creatives(new_creatives)
         print(f"New creatives saved to {tracker.creatives_file}")
+        
+        # Show sample of creative data for verification
+        print("\nSample creative data:")
+        for i, creative in enumerate(new_creatives[:3]):
+            print(f"  {i+1}. ID: {creative['creative_id']}, Name: {creative['creative_name']}")
+            print(f"      Start: {creative['start_time']}, End: {creative['end_time']}")
+        
+        if len(new_creatives) > 3:
+            print(f"... and {len(new_creatives) - 3} more")
     else:
         print("No new creatives to save")
 
 if __name__ == "__main__":
     main()
-
 
 
 
