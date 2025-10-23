@@ -2,6 +2,7 @@ import json
 import os
 import subprocess
 import time
+import concurrent.futures
 from datetime import datetime
 
 # Configuration
@@ -13,7 +14,8 @@ TARGET_PATH = r"C:\temp"
 # Constants
 INI_PATH = r"C:\Program Files\Media Monitors"
 GETMEDIA_EXE = r"C:\Program Files\Media Monitors\Getmedia.exe"
-TIMEOUT_SECONDS = 90  # 1.5 minutes
+BATCH_SIZE = 10
+BATCH_TIMEOUT = 60  # 1 minute per batch
 
 def convert_time_format(time_str):
     """
@@ -54,44 +56,66 @@ def create_ini_file(creative):
     
     return ini_filename
 
-def wait_for_completion(aircheck_id):
+def run_single_getmedia(aircheck_id):
     """
-    Wait for processing to complete and check if PCM file was created
-    Returns True if successful, False if failed
+    Run Getmedia.exe for a single aircheck_id
+    Returns aircheck_id if successful, None if failed
     """
-    pcm_file = os.path.join(TARGET_PATH, f"{aircheck_id}_pcm.wav")
-    
-    print(f"Waiting up to 1.5 minutes for {aircheck_id} to complete...")
-    
-    # Wait up to TIMEOUT_SECONDS for the file to appear
-    for _ in range(TIMEOUT_SECONDS):
-        if os.path.exists(pcm_file):
-            return True
-        time.sleep(1)
-    
-    return False
-
-def run_getmedia(creative):
-    """
-    Run Getmedia.exe with the specified creative
-    Returns True if successful, False if failed
-    """
-    aircheck_id = creative["aircheck_id"]
-    ini_filename = f"{aircheck_id}.ini"
-    
     try:
-        # Change to the Media Monitors directory
-        os.chdir(INI_PATH)
+        ini_filename = f"{aircheck_id}.ini"
         
         # Run the command
         cmd = [GETMEDIA_EXE, f"/f:{ini_filename}", "/s"]
-        subprocess.run(cmd, capture_output=True, text=True)
+        subprocess.run(cmd, capture_output=True, text=True, cwd=INI_PATH)
         
-        # Wait for completion and check if PCM file was created
-        return wait_for_completion(aircheck_id)
+        return aircheck_id
         
     except Exception as e:
-        return False
+        return None
+
+def check_batch_success(batch_aircheck_ids):
+    """
+    Check which aircheck_ids in the batch were successful based on PCM file existence
+    Returns list of successful aircheck_ids and list of failed ones
+    """
+    successful = []
+    failed = []
+    
+    for aircheck_id in batch_aircheck_ids:
+        pcm_file = os.path.join(TARGET_PATH, f"{aircheck_id}_pcm.wav")
+        if os.path.exists(pcm_file):
+            successful.append(aircheck_id)
+        else:
+            failed.append(aircheck_id)
+    
+    return successful, failed
+
+def process_batch(batch_creatives, batch_num, total_batches):
+    """
+    Process a batch of creatives in parallel
+    Returns list of successful and failed aircheck_ids
+    """
+    batch_aircheck_ids = [creative["aircheck_id"] for creative in batch_creatives]
+    
+    print(f"Processing batch {batch_num}/{total_batches} ({len(batch_creatives)} items)...")
+    
+    # Run all processes in parallel
+    with concurrent.futures.ThreadPoolExecutor(max_workers=BATCH_SIZE) as executor:
+        futures = {executor.submit(run_single_getmedia, aircheck_id): aircheck_id 
+                  for aircheck_id in batch_aircheck_ids}
+        
+        # Wait for all to complete or timeout
+        try:
+            concurrent.futures.wait(futures, timeout=BATCH_TIMEOUT)
+        except Exception as e:
+            print(f"Batch {batch_num} timeout or error: {e}")
+    
+    # Check which ones were successful
+    successful, failed = check_batch_success(batch_aircheck_ids)
+    
+    print(f"Batch {batch_num}/{total_batches} completed: {len(successful)}/{len(batch_creatives)} successful")
+    
+    return successful, failed
 
 def combine_out_files(creatives):
     """
@@ -138,52 +162,53 @@ def main():
         print(f"Processing {data['count']} creatives...")
         print(f"Test mode: {data['test_mode']}")
         print(f"Date range: {data['date_range']['start']} to {data['date_range']['end']}")
-        print("Starting processing...\n")
+        print(f"Batch size: {BATCH_SIZE}, Batch timeout: {BATCH_TIMEOUT} seconds\n")
         
         # Create target directory if it doesn't exist
         os.makedirs(TARGET_PATH, exist_ok=True)
         
-        success_count = 0
-        failed_creatives = []
-        total_count = len(data['creatives'])
+        creatives = data['creatives']
+        total_count = len(creatives)
         
+        # Create all .ini files first
         print("Creating all .ini files...")
-        
-        for i, creative in enumerate(data['creatives'], 1):
-            aircheck_id = creative["aircheck_id"]
-            
-            # Create .ini file
-            ini_filename = create_ini_file(creative)
-        
+        for creative in creatives:
+            create_ini_file(creative)
         print(f"All {total_count} .ini files created successfully!\n")
         
-        for i, creative in enumerate(data['creatives'], 1):
-            aircheck_id = creative["aircheck_id"]
-            
-            # Run Getmedia.exe and check for success
-            if run_getmedia(creative):
-                success_count += 1
-            else:
+        # Process in batches
+        all_successful = []
+        all_failed = []
+        
+        # Split into batches
+        batches = [creatives[i:i + BATCH_SIZE] for i in range(0, total_count, BATCH_SIZE)]
+        total_batches = len(batches)
+        
+        for batch_num, batch_creatives in enumerate(batches, 1):
+            successful, failed = process_batch(batch_creatives, batch_num, total_batches)
+            all_successful.extend(successful)
+            all_failed.extend(failed)
+        
+        # Create failed creatives list with full details
+        failed_creatives = []
+        for creative in creatives:
+            if creative["aircheck_id"] in all_failed:
                 failed_creatives.append({
-                    'aircheck_id': aircheck_id,
+                    'aircheck_id': creative["aircheck_id"],
                     'creative_id': creative['creative_id'],
                     'name': creative['creative_name'],
                     'station': creative['station_id']
                 })
-            
-            # Show progress
-            if i % 10 == 0 or i == total_count:
-                print(f"Progress: {i}/{total_count} processed")
         
         # Combine all .out files
         print("\nCombining output files...")
-        combine_out_files(data['creatives'])
+        combine_out_files(creatives)
         
         # Print summary
         print(f"\n--- FINAL SUMMARY ---")
         print(f"Total creatives: {total_count}")
-        print(f"Successfully processed: {success_count}")
-        print(f"Failed: {len(failed_creatives)}")
+        print(f"Successfully processed: {len(all_successful)}")
+        print(f"Failed: {len(all_failed)}")
         
         if failed_creatives:
             print(f"\nFailed creatives:")
