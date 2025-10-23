@@ -17,19 +17,18 @@ PASSWORD = "Ussu8229"
 
 # File Paths
 SEQUENCE_FILE = "last_sequence.json"
-CREATIVES_FILE = "new_creatives.json"
+CREATIVES_FOLDER = "creatives_metadata"
 
 # Baseline Configuration
 BASELINE_START_DATE = "10/18/2025 00:00:00"
 BASELINE_END_DATE = "10/18/2025 23:59:59"
 
 # API Settings
-MAX_ROWS_PER_REQUEST = 1000
 RATE_LIMIT_DELAY = 1  # seconds between API calls
 
 # Test Mode Configuration
 TEST_MODE = False  # Set to True to test with first station only, False for production
-TEST_CREATIVES_FILE = "test_creatives.json"  # Separate file for test output
+TEST_CREATIVES_FILE = "test_creatives.json"  # Test file in current directory
 
 # Next Script Configuration
 NEXT_SCRIPT = "get_creatives.py"  # Script to run after completion
@@ -46,9 +45,41 @@ class MediaMonitorsTracker:
         self.username = username
         self.password = password
         self.sequence_file = SEQUENCE_FILE
-        self.creatives_file = TEST_CREATIVES_FILE if TEST_MODE else CREATIVES_FILE
+        self.creatives_folder = CREATIVES_FOLDER
         self.test_mode = TEST_MODE
         
+        # Ensure creatives folder exists for production mode
+        if not self.test_mode:
+            self.ensure_creatives_folder()
+        
+    def ensure_creatives_folder(self):
+        """Create creatives metadata folder if it doesn't exist"""
+        if not os.path.exists(self.creatives_folder):
+            os.makedirs(self.creatives_folder)
+            print(f"Created directory: {self.creatives_folder}")
+
+    def generate_production_filename(self, start_date, end_date):
+        """Generate filename for production mode based on date range"""
+        def parse_date_string(date_str):
+            # Parse "10/18/2025 00:00:00" format
+            date_part, time_part = date_str.split(' ')
+            month, day, year = date_part.split('/')
+            hour, minute, second = time_part.split(':')
+            return f"{year}{month.zfill(2)}{day.zfill(2)}_{hour.zfill(2)}{minute.zfill(2)}{second.zfill(2)}"
+        
+        start_formatted = parse_date_string(start_date)
+        end_formatted = parse_date_string(end_date)
+        
+        filename = f"base_{start_formatted}_{end_formatted}.json"
+        return os.path.join(self.creatives_folder, filename)
+
+    def get_creatives_file_path(self, start_date=BASELINE_START_DATE, end_date=BASELINE_END_DATE):
+        """Get the appropriate file path based on mode"""
+        if self.test_mode:
+            return TEST_CREATIVES_FILE  # In current directory
+        else:
+            return self.generate_production_filename(start_date, end_date)  # In creatives folder
+
     def get_licensed_stations(self):
         """Get all licensed stations from the API"""
         url = "https://data.mediamonitors.com/mmwebservices/service1.asmx/GetLicensedStations"
@@ -229,6 +260,9 @@ class MediaMonitorsTracker:
         if timestamp is None:
             timestamp = datetime.now().isoformat()
         
+        # Get appropriate file path based on mode
+        creatives_file = self.get_creatives_file_path()
+        
         output_data = {
             'timestamp': timestamp,
             'count': len(creatives),
@@ -240,8 +274,10 @@ class MediaMonitorsTracker:
             'creatives': creatives
         }
         
-        with open(self.creatives_file, 'w') as f:
+        with open(creatives_file, 'w') as f:
             json.dump(output_data, f, indent=2)
+        
+        return creatives_file
 
     def run_next_script(self, script_name=NEXT_SCRIPT):
         """Run the next script in the pipeline"""
@@ -337,14 +373,13 @@ class MediaMonitorsTracker:
         print("Failed to establish baseline")
         return False
 
-    def get_airplay_changes(self, last_sequence, max_rows=MAX_ROWS_PER_REQUEST):
+    def get_airplay_changes(self, last_sequence):
         """Get airplay changes since last sequence (for future use)"""
         url = "https://data.mediamonitors.com/mmwebservices/service1.asmx/GetAirPlayChangesAfterSequenceString"
         params = {
             'username': self.username,
             'password': self.password,
-            'sequenceID': last_sequence,
-            'maximum_rows': max_rows
+            'sequenceID': last_sequence
         }
         
         try:
@@ -412,6 +447,7 @@ def main():
     print(f"Username: {USERNAME}")
     print(f"Date Range: {BASELINE_START_DATE} to {BASELINE_END_DATE}")
     print(f"Rate Limit Delay: {RATE_LIMIT_DELAY}s")
+    print(f"Output File: {tracker.get_creatives_file_path()}")
     print(f"Next Script: {NEXT_SCRIPT}")
     print("=" * 50)
     
@@ -420,8 +456,8 @@ def main():
     
     # Save creatives to JSON file
     if creatives:
-        tracker.save_creatives(creatives)
-        print(f"\nCreatives saved to {tracker.creatives_file}")
+        saved_file = tracker.save_creatives(creatives)
+        print(f"\nCreatives saved to {saved_file}")
         
         # Show sample of creative data for verification
         print("\nSample creative data:")
