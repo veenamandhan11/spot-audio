@@ -7,7 +7,6 @@ from datetime import datetime
 JSON_FILE_PATH = "./new_creatives.json"
 USERNAME = "CSugrue"
 PASSWORD = "Ussu8229"
-STATION_ID = "153"
 TARGET_PATH = r"C:\temp"
 
 # Constants
@@ -16,9 +15,13 @@ GETMEDIA_EXE = r"C:\Program Files\Media Monitors\Getmedia.exe"
 
 def convert_time_format(time_str):
     """
-    Convert time from '2025-10-18 09:30:00' format to '20251018-09:30:00' format
+    Convert time from '2025-10-18 04:47:22.000' format to '20251018-04:47:22' format
     """
-    dt = datetime.strptime(time_str, "%Y-%m-%d %H:%M:%S")
+    # Handle both formats: with and without milliseconds
+    if '.' in time_str:
+        dt = datetime.strptime(time_str, "%Y-%m-%d %H:%M:%S.%f")
+    else:
+        dt = datetime.strptime(time_str, "%Y-%m-%d %H:%M:%S")
     return dt.strftime("%Y%m%d-%H:%M:%S")
 
 def create_ini_file(creative):
@@ -26,13 +29,14 @@ def create_ini_file(creative):
     Create .ini file for a creative
     """
     creative_id = creative["creative_id"]
+    station_id = creative["station_id"]
     start_time = convert_time_format(creative["start_time"])
     end_time = convert_time_format(creative["end_time"])
     
     ini_content = f"""/u:{USERNAME}
 /p:{PASSWORD}
 /w:https://data.mediamonitors.com/mmwebservices/
-/r:{STATION_ID}
+/r:{station_id}
 /i:{creative_id}
 /s:{start_time}
 /e:{end_time}
@@ -80,6 +84,7 @@ def main():
         
         print(f"Processing {data['count']} creatives...")
         print(f"Test mode: {data['test_mode']}")
+        print(f"Date range: {data['date_range']['start']} to {data['date_range']['end']}")
         
         # Create target directory if it doesn't exist
         os.makedirs(TARGET_PATH, exist_ok=True)
@@ -88,7 +93,7 @@ def main():
         total_count = len(data['creatives'])
         
         for creative in data['creatives']:
-            print(f"\nProcessing creative: {creative['creative_id']} - {creative['creative_name']}")
+            print(f"\nProcessing creative: {creative['creative_id']} - {creative['creative_name']} (Station: {creative['station_id']})")
             
             # Create .ini file
             ini_filename = create_ini_file(creative)
