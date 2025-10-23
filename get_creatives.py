@@ -61,6 +61,8 @@ def wait_for_completion(aircheck_id):
     """
     pcm_file = os.path.join(TARGET_PATH, f"{aircheck_id}_pcm.wav")
     
+    print(f"Waiting up to 1.5 minutes for {aircheck_id} to complete...")
+    
     # Wait up to TIMEOUT_SECONDS for the file to appear
     for _ in range(TIMEOUT_SECONDS):
         if os.path.exists(pcm_file):
@@ -145,11 +147,18 @@ def main():
         failed_creatives = []
         total_count = len(data['creatives'])
         
+        print("Creating all .ini files...")
+        
         for i, creative in enumerate(data['creatives'], 1):
             aircheck_id = creative["aircheck_id"]
             
             # Create .ini file
             ini_filename = create_ini_file(creative)
+        
+        print(f"All {total_count} .ini files created successfully!\n")
+        
+        for i, creative in enumerate(data['creatives'], 1):
+            aircheck_id = creative["aircheck_id"]
             
             # Run Getmedia.exe and check for success
             if run_getmedia(creative):
