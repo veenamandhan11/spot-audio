@@ -21,8 +21,8 @@ CREATIVES_FOLDER = "creatives_metadata"
 MASTER_CREATIVE_IDS_FILE = "master_creative_ids.json"
 
 # Baseline Configuration
-BASELINE_START_DATE = "10/18/2025 00:00:00"
-BASELINE_END_DATE = "10/18/2025 23:59:59"
+BASELINE_START_DATE = "10/20/2025 00:00:00"
+BASELINE_END_DATE = "10/20/2025 23:59:59"
 
 # API Settings
 RATE_LIMIT_DELAY = 1  # seconds between API calls
