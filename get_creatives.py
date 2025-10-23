@@ -30,7 +30,7 @@ def create_ini_file(creative):
     """
     Create .ini file for a creative
     """
-    creative_id = creative["creative_id"]
+    aircheck_id = creative["aircheck_id"]
     station_id = creative["station_id"]
     start_time = convert_time_format(creative["start_time"])
     end_time = convert_time_format(creative["end_time"])
@@ -39,14 +39,14 @@ def create_ini_file(creative):
 /p:{PASSWORD}
 /w:https://data.mediamonitors.com/mmwebservices/
 /r:{station_id}
-/i:{creative_id}
+/i:{aircheck_id}
 /s:{start_time}
 /e:{end_time}
 /t:{TARGET_PATH}\\
-/n:{creative_id}
+/n:{aircheck_id}
 /l"""
     
-    ini_filename = f"{creative_id}.ini"
+    ini_filename = f"{aircheck_id}.ini"
     ini_filepath = os.path.join(INI_PATH, ini_filename)
     
     with open(ini_filepath, 'w') as f:
@@ -54,12 +54,12 @@ def create_ini_file(creative):
     
     return ini_filename
 
-def wait_for_completion(creative_id):
+def wait_for_completion(aircheck_id):
     """
     Wait for processing to complete and check if PCM file was created
     Returns True if successful, False if failed
     """
-    pcm_file = os.path.join(TARGET_PATH, f"{creative_id}_pcm.wav")
+    pcm_file = os.path.join(TARGET_PATH, f"{aircheck_id}_pcm.wav")
     
     # Wait up to TIMEOUT_SECONDS for the file to appear
     for _ in range(TIMEOUT_SECONDS):
@@ -74,8 +74,8 @@ def run_getmedia(creative):
     Run Getmedia.exe with the specified creative
     Returns True if successful, False if failed
     """
-    creative_id = creative["creative_id"]
-    ini_filename = f"{creative_id}.ini"
+    aircheck_id = creative["aircheck_id"]
+    ini_filename = f"{aircheck_id}.ini"
     
     try:
         # Change to the Media Monitors directory
@@ -86,7 +86,7 @@ def run_getmedia(creative):
         subprocess.run(cmd, capture_output=True, text=True)
         
         # Wait for completion and check if PCM file was created
-        return wait_for_completion(creative_id)
+        return wait_for_completion(aircheck_id)
         
     except Exception as e:
         return False
@@ -103,10 +103,12 @@ def combine_out_files(creatives):
         summary.write("=" * 50 + "\n\n")
         
         for creative in creatives:
+            aircheck_id = creative["aircheck_id"]
             creative_id = creative["creative_id"]
             creative_name = creative["creative_name"]
-            out_file = os.path.join(TARGET_PATH, f"{creative_id}.out")
+            out_file = os.path.join(TARGET_PATH, f"{aircheck_id}.out")
             
+            summary.write(f"Aircheck ID: {aircheck_id}\n")
             summary.write(f"Creative ID: {creative_id}\n")
             summary.write(f"Creative Name: {creative_name}\n")
             summary.write(f"Station ID: {creative['station_id']}\n")
@@ -119,7 +121,7 @@ def combine_out_files(creatives):
                 except Exception as e:
                     summary.write(f"Error reading .out file: {e}")
             else:
-                summary.write("No .out file found for this creative.")
+                summary.write("No .out file found for this aircheck.")
             
             summary.write("\n" + "=" * 50 + "\n\n")
     
@@ -144,7 +146,7 @@ def main():
         total_count = len(data['creatives'])
         
         for i, creative in enumerate(data['creatives'], 1):
-            creative_id = creative["creative_id"]
+            aircheck_id = creative["aircheck_id"]
             
             # Create .ini file
             ini_filename = create_ini_file(creative)
@@ -154,7 +156,8 @@ def main():
                 success_count += 1
             else:
                 failed_creatives.append({
-                    'id': creative_id,
+                    'aircheck_id': aircheck_id,
+                    'creative_id': creative['creative_id'],
                     'name': creative['creative_name'],
                     'station': creative['station_id']
                 })
@@ -176,7 +179,7 @@ def main():
         if failed_creatives:
             print(f"\nFailed creatives:")
             for failed in failed_creatives:
-                print(f"  - {failed['id']} ({failed['name']}) - Station {failed['station']}")
+                print(f"  - Aircheck: {failed['aircheck_id']} | Creative: {failed['creative_id']} ({failed['name']}) - Station {failed['station']}")
         
         print(f"\nAudio files saved to: {TARGET_PATH}")
         
