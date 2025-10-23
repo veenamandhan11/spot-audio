@@ -1,6 +1,7 @@
 import json
 import os
 import subprocess
+import time
 from datetime import datetime
 
 # Configuration
@@ -12,6 +13,7 @@ TARGET_PATH = r"C:\temp"
 # Constants
 INI_PATH = r"C:\Program Files\Media Monitors"
 GETMEDIA_EXE = r"C:\Program Files\Media Monitors\Getmedia.exe"
+TIMEOUT_SECONDS = 90  # 1.5 minutes
 
 def convert_time_format(time_str):
     """
@@ -52,29 +54,76 @@ def create_ini_file(creative):
     
     return ini_filename
 
-def run_getmedia(ini_filename):
+def wait_for_completion(creative_id):
     """
-    Run Getmedia.exe with the specified .ini file
+    Wait for processing to complete and check if PCM file was created
+    Returns True if successful, False if failed
     """
+    pcm_file = os.path.join(TARGET_PATH, f"{creative_id}_pcm.wav")
+    
+    # Wait up to TIMEOUT_SECONDS for the file to appear
+    for _ in range(TIMEOUT_SECONDS):
+        if os.path.exists(pcm_file):
+            return True
+        time.sleep(1)
+    
+    return False
+
+def run_getmedia(creative):
+    """
+    Run Getmedia.exe with the specified creative
+    Returns True if successful, False if failed
+    """
+    creative_id = creative["creative_id"]
+    ini_filename = f"{creative_id}.ini"
+    
     try:
         # Change to the Media Monitors directory
         os.chdir(INI_PATH)
         
         # Run the command
         cmd = [GETMEDIA_EXE, f"/f:{ini_filename}", "/s"]
-        result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+        subprocess.run(cmd, capture_output=True, text=True)
         
-        print(f"Successfully processed {ini_filename}")
-        return True
+        # Wait for completion and check if PCM file was created
+        return wait_for_completion(creative_id)
         
-    except subprocess.CalledProcessError as e:
-        print(f"Error processing {ini_filename}: {e}")
-        print(f"Return code: {e.returncode}")
-        print(f"Output: {e.output}")
-        return False
     except Exception as e:
-        print(f"Unexpected error processing {ini_filename}: {e}")
         return False
+
+def combine_out_files(creatives):
+    """
+    Combine all .out files into a single formatted summary file
+    """
+    summary_file = os.path.join(TARGET_PATH, "processing_summary.txt")
+    
+    with open(summary_file, 'w') as summary:
+        summary.write("=== MEDIA PROCESSING SUMMARY ===\n")
+        summary.write(f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+        summary.write("=" * 50 + "\n\n")
+        
+        for creative in creatives:
+            creative_id = creative["creative_id"]
+            creative_name = creative["creative_name"]
+            out_file = os.path.join(TARGET_PATH, f"{creative_id}.out")
+            
+            summary.write(f"Creative ID: {creative_id}\n")
+            summary.write(f"Creative Name: {creative_name}\n")
+            summary.write(f"Station ID: {creative['station_id']}\n")
+            summary.write("-" * 30 + "\n")
+            
+            if os.path.exists(out_file):
+                try:
+                    with open(out_file, 'r') as f:
+                        summary.write(f.read())
+                except Exception as e:
+                    summary.write(f"Error reading .out file: {e}")
+            else:
+                summary.write("No .out file found for this creative.")
+            
+            summary.write("\n" + "=" * 50 + "\n\n")
+    
+    print(f"Combined summary saved to: {summary_file}")
 
 def main():
     try:
@@ -85,29 +134,51 @@ def main():
         print(f"Processing {data['count']} creatives...")
         print(f"Test mode: {data['test_mode']}")
         print(f"Date range: {data['date_range']['start']} to {data['date_range']['end']}")
+        print("Starting processing...\n")
         
         # Create target directory if it doesn't exist
         os.makedirs(TARGET_PATH, exist_ok=True)
         
         success_count = 0
+        failed_creatives = []
         total_count = len(data['creatives'])
         
-        for creative in data['creatives']:
-            print(f"\nProcessing creative: {creative['creative_id']} - {creative['creative_name']} (Station: {creative['station_id']})")
+        for i, creative in enumerate(data['creatives'], 1):
+            creative_id = creative["creative_id"]
             
             # Create .ini file
             ini_filename = create_ini_file(creative)
-            print(f"Created {ini_filename}")
             
-            # Run Getmedia.exe
-            if run_getmedia(ini_filename):
+            # Run Getmedia.exe and check for success
+            if run_getmedia(creative):
                 success_count += 1
+            else:
+                failed_creatives.append({
+                    'id': creative_id,
+                    'name': creative['creative_name'],
+                    'station': creative['station_id']
+                })
+            
+            # Show progress
+            if i % 10 == 0 or i == total_count:
+                print(f"Progress: {i}/{total_count} processed")
         
-        print(f"\n--- Summary ---")
+        # Combine all .out files
+        print("\nCombining output files...")
+        combine_out_files(data['creatives'])
+        
+        # Print summary
+        print(f"\n--- FINAL SUMMARY ---")
         print(f"Total creatives: {total_count}")
         print(f"Successfully processed: {success_count}")
-        print(f"Failed: {total_count - success_count}")
-        print(f"Audio files saved to: {TARGET_PATH}")
+        print(f"Failed: {len(failed_creatives)}")
+        
+        if failed_creatives:
+            print(f"\nFailed creatives:")
+            for failed in failed_creatives:
+                print(f"  - {failed['id']} ({failed['name']}) - Station {failed['station']}")
+        
+        print(f"\nAudio files saved to: {TARGET_PATH}")
         
     except FileNotFoundError:
         print(f"Error: JSON file not found at {JSON_FILE_PATH}")
