@@ -90,6 +90,48 @@ def check_batch_success(batch_aircheck_ids):
     
     return successful, failed
 
+def update_summary_file(batch_creatives, batch_num, is_first_batch=False):
+    """
+    Update summary file with batch results
+    """
+    summary_file = os.path.join(TARGET_PATH, "processing_summary.txt")
+    
+    mode = 'w' if is_first_batch else 'a'
+    
+    with open(summary_file, mode) as summary:
+        if is_first_batch:
+            summary.write("=== MEDIA PROCESSING SUMMARY ===\n")
+            summary.write(f"Started: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+            summary.write("=" * 50 + "\n\n")
+        
+        summary.write(f"BATCH {batch_num} RESULTS:\n")
+        summary.write("-" * 30 + "\n")
+        
+        for creative in batch_creatives:
+            aircheck_id = creative["aircheck_id"]
+            creative_id = creative["creative_id"]
+            creative_name = creative["creative_name"]
+            out_file = os.path.join(TARGET_PATH, f"{aircheck_id}.out")
+            
+            summary.write(f"Aircheck ID: {aircheck_id}\n")
+            summary.write(f"Creative ID: {creative_id}\n")
+            summary.write(f"Creative Name: {creative_name}\n")
+            summary.write(f"Station ID: {creative['station_id']}\n")
+            summary.write("-" * 20 + "\n")
+            
+            if os.path.exists(out_file):
+                try:
+                    with open(out_file, 'r') as f:
+                        summary.write(f.read())
+                except Exception as e:
+                    summary.write(f"Error reading .out file: {e}")
+            else:
+                summary.write("No .out file found for this aircheck.")
+            
+            summary.write("\n" + "-" * 20 + "\n\n")
+        
+        summary.write("=" * 50 + "\n\n")
+
 def process_batch(batch_creatives, batch_num, total_batches):
     """
     Process a batch of creatives in parallel
@@ -115,43 +157,12 @@ def process_batch(batch_creatives, batch_num, total_batches):
     
     print(f"Batch {batch_num}/{total_batches} completed: {len(successful)}/{len(batch_creatives)} successful")
     
+    # Update summary file immediately
+    is_first = batch_num == 1
+    update_summary_file(batch_creatives, batch_num, is_first)
+    print(f"Summary updated with batch {batch_num} results")
+    
     return successful, failed
-
-def combine_out_files(creatives):
-    """
-    Combine all .out files into a single formatted summary file
-    """
-    summary_file = os.path.join(TARGET_PATH, "processing_summary.txt")
-    
-    with open(summary_file, 'w') as summary:
-        summary.write("=== MEDIA PROCESSING SUMMARY ===\n")
-        summary.write(f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
-        summary.write("=" * 50 + "\n\n")
-        
-        for creative in creatives:
-            aircheck_id = creative["aircheck_id"]
-            creative_id = creative["creative_id"]
-            creative_name = creative["creative_name"]
-            out_file = os.path.join(TARGET_PATH, f"{aircheck_id}.out")
-            
-            summary.write(f"Aircheck ID: {aircheck_id}\n")
-            summary.write(f"Creative ID: {creative_id}\n")
-            summary.write(f"Creative Name: {creative_name}\n")
-            summary.write(f"Station ID: {creative['station_id']}\n")
-            summary.write("-" * 30 + "\n")
-            
-            if os.path.exists(out_file):
-                try:
-                    with open(out_file, 'r') as f:
-                        summary.write(f.read())
-                except Exception as e:
-                    summary.write(f"Error reading .out file: {e}")
-            else:
-                summary.write("No .out file found for this aircheck.")
-            
-            summary.write("\n" + "=" * 50 + "\n\n")
-    
-    print(f"Combined summary saved to: {summary_file}")
 
 def main():
     try:
@@ -200,11 +211,7 @@ def main():
                     'station': creative['station_id']
                 })
         
-        # Combine all .out files
-        print("\nCombining output files...")
-        combine_out_files(creatives)
-        
-        # Print summary
+        # Print final summary
         print(f"\n--- FINAL SUMMARY ---")
         print(f"Total creatives: {total_count}")
         print(f"Successfully processed: {len(all_successful)}")
@@ -216,6 +223,7 @@ def main():
                 print(f"  - Aircheck: {failed['aircheck_id']} | Creative: {failed['creative_id']} ({failed['name']}) - Station {failed['station']}")
         
         print(f"\nAudio files saved to: {TARGET_PATH}")
+        print(f"Summary file: {os.path.join(TARGET_PATH, 'processing_summary.txt')}")
         
     except FileNotFoundError:
         print(f"Error: JSON file not found at {JSON_FILE_PATH}")
