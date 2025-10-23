@@ -91,8 +91,9 @@ class MediaMonitorsTracker:
                         tag_name = child.tag.split('}')[-1] if '}' in child.tag else child.tag
                         creative_data[tag_name] = child.text
                     
-                    # Add to creatives dict if we have the key fields (deduplicates automatically)
+                    # Add to creatives dict if we have the key fields (deduplicates automatically by creative_id)
                     creative_id = creative_data.get('CreativeID')
+                    aircheck_id = creative_data.get('AircheckID')
                     creative_name = creative_data.get('Account_x002F_Title')
                     start_time_val = creative_data.get('start_time')
                     end_time_val = creative_data.get('end_time')
@@ -100,6 +101,7 @@ class MediaMonitorsTracker:
                     if creative_id and creative_name:
                         creatives[creative_id] = {
                             'creative_id': creative_id,
+                            'aircheck_id': aircheck_id,
                             'creative_name': creative_name,
                             'station_id': station_id,
                             'start_time': start_time_val,
@@ -195,7 +197,7 @@ class MediaMonitorsTracker:
             
             print(f"  Station {station_id}: {count} records, {len(creatives)} unique creatives")
             
-            # Merge creatives into global dict (automatic deduplication)
+            # Merge creatives into global dict (automatic deduplication by creative_id)
             for creative in creatives:
                 creative_id = creative['creative_id']
                 all_creatives[creative_id] = creative
@@ -324,6 +326,7 @@ class MediaMonitorsTracker:
                         # Extract creative data for new additions only
                         if record.get('action') == 'true':
                             creative_id = record.get('CreativeID')
+                            aircheck_id = record.get('AircheckID')
                             creative_name = record.get('Account_x002F_Title')
                             start_time_val = record.get('start_time')
                             end_time_val = record.get('end_time')
@@ -331,6 +334,7 @@ class MediaMonitorsTracker:
                             if creative_id and creative_name:
                                 creatives[creative_id] = {
                                     'creative_id': creative_id,
+                                    'aircheck_id': aircheck_id,
                                     'creative_name': creative_name,
                                     'station_id': None,  # Not available in changes API
                                     'start_time': start_time_val,
@@ -376,7 +380,8 @@ def main():
         # Show sample of creative data for verification
         print("\nSample creative data:")
         for i, creative in enumerate(creatives[:3]):
-            print(f"  {i+1}. ID: {creative['creative_id']}")
+            print(f"  {i+1}. Creative ID: {creative['creative_id']}")
+            print(f"      Aircheck ID: {creative['aircheck_id']}")
             print(f"      Station: {creative['station_id']}")
             print(f"      Name: {creative['creative_name']}")
             print(f"      Start: {creative['start_time']}")
