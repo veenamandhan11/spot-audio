@@ -1,0 +1,2075 @@
+{
+  "timestamp": "2025-10-23T06:55:13.885815",
+  "count": 258,
+  "test_mode": true,
+  "date_range": {
+    "start": "10/18/2025 00:00:00",
+    "end": "10/18/2025 23:59:59"
+  },
+  "creatives": [
+    {
+      "creative_id": "M3574575-287320653",
+      "aircheck_id": "832111130",
+      "creative_name": "Communities In Schools",
+      "station_id": "153",
+      "start_time": "2025-10-18 04:47:22.000",
+      "end_time": "2025-10-18 04:47:52.000"
+    },
+    {
+      "creative_id": "M3135790-291062775",
+      "aircheck_id": "782803758",
+      "creative_name": "NCPC National Crime Prevention Council",
+      "station_id": "153",
+      "start_time": "2025-10-18 04:57:16.000",
+      "end_time": "2025-10-18 04:57:46.000"
+    },
+    {
+      "creative_id": "M4374229-31764846",
+      "aircheck_id": "499120093",
+      "creative_name": "NHTSA Natl Highway Traffic Safety Administration",
+      "station_id": "153",
+      "start_time": "2025-10-18 00:09:18.000",
+      "end_time": "2025-10-18 00:10:14.000"
+    },
+    {
+      "creative_id": "M4200024-346947844",
+      "aircheck_id": "999130435",
+      "creative_name": "Professional Life & Casualty Company",
+      "station_id": "153",
+      "start_time": "2025-10-18 23:45:29.000",
+      "end_time": "2025-10-18 23:45:51.000"
+    },
+    {
+      "creative_id": "M2837571-342913355",
+      "aircheck_id": "983696434",
+      "creative_name": "Advent",
+      "station_id": "153",
+      "start_time": "2025-10-18 02:50:42.000",
+      "end_time": "2025-10-18 02:51:41.000"
+    },
+    {
+      "creative_id": "M3593205-329146866",
+      "aircheck_id": "983336297",
+      "creative_name": "Legal Tax Defense",
+      "station_id": "153",
+      "start_time": "2025-10-18 01:24:06.000",
+      "end_time": "2025-10-18 01:25:06.000"
+    },
+    {
+      "creative_id": "M2857366-8152491",
+      "aircheck_id": "632612475",
+      "creative_name": "United Way",
+      "station_id": "153",
+      "start_time": "2025-10-18 00:19:01.000",
+      "end_time": "2025-10-18 00:20:01.000"
+    },
+    {
+      "creative_id": "M2162991-345900927",
+      "aircheck_id": "995635171",
+      "creative_name": "Razny Jewelers",
+      "station_id": "153",
+      "start_time": "2025-10-18 00:26:29.000",
+      "end_time": "2025-10-18 00:27:23.000"
+    },
+    {
+      "creative_id": "M3591202-348073800",
+      "aircheck_id": "1003813273",
+      "creative_name": "QC Kinetix",
+      "station_id": "153",
+      "start_time": "2025-10-18 10:36:40.000",
+      "end_time": "2025-10-18 10:37:40.000"
+    },
+    {
+      "creative_id": "M2013154-23196137",
+      "aircheck_id": "616485609",
+      "creative_name": "Goodwill",
+      "station_id": "153",
+      "start_time": "2025-10-18 00:36:27.000",
+      "end_time": "2025-10-18 00:37:30.000"
+    },
+    {
+      "creative_id": "M2931312-293200065",
+      "aircheck_id": "795890713",
+      "creative_name": "National Forest Foundation",
+      "station_id": "153",
+      "start_time": "2025-10-18 04:57:46.000",
+      "end_time": "2025-10-18 04:58:18.000"
+    },
+    {
+      "creative_id": "M3341555-347824462",
+      "aircheck_id": "1003491316",
+      "creative_name": "Viant",
+      "station_id": "153",
+      "start_time": "2025-10-18 00:45:21.000",
+      "end_time": "2025-10-18 00:45:47.000"
+    },
+    {
+      "creative_id": "M3769551-346074202",
+      "aircheck_id": "1003970429",
+      "creative_name": "Home Title Lock",
+      "station_id": "153",
+      "start_time": "2025-10-18 23:57:14.000",
+      "end_time": "2025-10-18 23:58:14.000"
+    },
+    {
+      "creative_id": "M3887786-339473198",
+      "aircheck_id": "970329735",
+      "creative_name": "IHA IL Health & Hospital Association",
+      "station_id": "153",
+      "start_time": "2025-10-18 05:25:59.000",
+      "end_time": "2025-10-18 05:26:28.000"
+    },
+    {
+      "creative_id": "M2618485-297670022",
+      "aircheck_id": "813716812",
+      "creative_name": "Arbor Day Foundation",
+      "station_id": "153",
+      "start_time": "2025-10-18 04:59:21.000",
+      "end_time": "2025-10-18 04:59:51.000"
+    },
+    {
+      "creative_id": "M2162991-348100106",
+      "aircheck_id": "1003931956",
+      "creative_name": "Razny Jewelers",
+      "station_id": "153",
+      "start_time": "2025-10-18 23:51:44.000",
+      "end_time": "2025-10-18 23:52:43.000"
+    },
+    {
+      "creative_id": "M3001906-18964753",
+      "aircheck_id": "615012298",
+      "creative_name": "US Conference Of Catholic Bishops",
+      "station_id": "153",
+      "start_time": "2025-10-18 00:55:12.000",
+      "end_time": "2025-10-18 00:56:13.000"
+    },
+    {
+      "creative_id": "M4212840-321517017",
+      "aircheck_id": "905211945",
+      "creative_name": "Stand Up To Cancer",
+      "station_id": "153",
+      "start_time": "2025-10-18 00:56:22.000",
+      "end_time": "2025-10-18 00:56:52.000"
+    },
+    {
+      "creative_id": "M3087751-299421376",
+      "aircheck_id": "824728489",
+      "creative_name": "LUNGevity",
+      "station_id": "153",
+      "start_time": "2025-10-18 04:37:32.000",
+      "end_time": "2025-10-18 04:38:03.000"
+    },
+    {
+      "creative_id": "M3642713-280826664",
+      "aircheck_id": "948536689",
+      "creative_name": "NCOA National Council On Aging",
+      "station_id": "153",
+      "start_time": "2025-10-18 04:46:50.000",
+      "end_time": "2025-10-18 04:47:22.000"
+    },
+    {
+      "creative_id": "M2837571-342914956",
+      "aircheck_id": "983682821",
+      "creative_name": "Advent",
+      "station_id": "153",
+      "start_time": "2025-10-18 01:03:44.000",
+      "end_time": "2025-10-18 01:04:43.000"
+    },
+    {
+      "creative_id": "M3679549-348126040",
+      "aircheck_id": "1004042221",
+      "creative_name": "DEA US Drug Enforcement Administration",
+      "station_id": "153",
+      "start_time": "2025-10-18 14:55:31.000",
+      "end_time": "2025-10-18 14:55:45.000"
+    },
+    {
+      "creative_id": "M4183387-347502689",
+      "aircheck_id": "1002402049",
+      "creative_name": "Treetime",
+      "station_id": "153",
+      "start_time": "2025-10-18 01:50:22.000",
+      "end_time": "2025-10-18 01:50:50.000"
+    },
+    {
+      "creative_id": "M3562236-348047982",
+      "aircheck_id": "1003692905",
+      "creative_name": "DeVry Univ",
+      "station_id": "153",
+      "start_time": "2025-10-18 01:13:35.000",
+      "end_time": "2025-10-18 01:14:33.000"
+    },
+    {
+      "creative_id": "M4247505-347503813",
+      "aircheck_id": "1001372574",
+      "creative_name": "Arnold Electric",
+      "station_id": "153",
+      "start_time": "2025-10-18 22:13:38.000",
+      "end_time": "2025-10-18 22:14:37.000"
+    },
+    {
+      "creative_id": "M2394508-337850826",
+      "aircheck_id": "964105449",
+      "creative_name": "Lerner & Rowe",
+      "station_id": "153",
+      "start_time": "2025-10-18 01:23:34.000",
+      "end_time": "2025-10-18 01:24:06.000"
+    },
+    {
+      "creative_id": "M4127612-347696549",
+      "aircheck_id": "1002210584",
+      "creative_name": "Duane Blanton Plumbing Sewer Heating & Cooling",
+      "station_id": "153",
+      "start_time": "2025-10-18 23:35:57.000",
+      "end_time": "2025-10-18 23:36:26.000"
+    },
+    {
+      "creative_id": "M3428310-347759513",
+      "aircheck_id": "1002753767",
+      "creative_name": "HassleLess Mattress",
+      "station_id": "153",
+      "start_time": "2025-10-18 17:22:22.000",
+      "end_time": "2025-10-18 17:23:23.000"
+    },
+    {
+      "creative_id": "M3130642-38560216",
+      "aircheck_id": "550788836",
+      "creative_name": "Mega Pros",
+      "station_id": "153",
+      "start_time": "2025-10-18 01:41:28.000",
+      "end_time": "2025-10-18 01:42:28.000"
+    },
+    {
+      "creative_id": "M2464799-333369943",
+      "aircheck_id": "982767243",
+      "creative_name": "National Debt Relief",
+      "station_id": "153",
+      "start_time": "2025-10-18 06:45:01.000",
+      "end_time": "2025-10-18 06:45:59.000"
+    },
+    {
+      "creative_id": "M2887800-344273368",
+      "aircheck_id": "988928796",
+      "creative_name": "Green T Services",
+      "station_id": "153",
+      "start_time": "2025-10-18 12:52:45.000",
+      "end_time": "2025-10-18 12:53:23.000"
+    },
+    {
+      "creative_id": "M2887800-344275106",
+      "aircheck_id": "992834033",
+      "creative_name": "Green T Services",
+      "station_id": "153",
+      "start_time": "2025-10-18 13:53:54.000",
+      "end_time": "2025-10-18 13:54:15.000"
+    },
+    {
+      "creative_id": "M3675395-327988787",
+      "aircheck_id": "927796558",
+      "creative_name": "Chicago Window Guys",
+      "station_id": "153",
+      "start_time": "2025-10-18 04:24:42.000",
+      "end_time": "2025-10-18 04:25:45.000"
+    },
+    {
+      "creative_id": "M3617696-347975833",
+      "aircheck_id": "1003413049",
+      "creative_name": "The Chicago Bar Association",
+      "station_id": "153",
+      "start_time": "2025-10-18 10:44:14.000",
+      "end_time": "2025-10-18 10:44:43.000"
+    },
+    {
+      "creative_id": "M2022253-336420727",
+      "aircheck_id": "958669347",
+      "creative_name": "Habitat For Humanity",
+      "station_id": "153",
+      "start_time": "2025-10-18 02:21:16.000",
+      "end_time": "2025-10-18 02:21:47.000"
+    },
+    {
+      "creative_id": "M4183387-347516185",
+      "aircheck_id": "1001947537",
+      "creative_name": "Treetime",
+      "station_id": "153",
+      "start_time": "2025-10-18 15:25:58.000",
+      "end_time": "2025-10-18 15:26:57.000"
+    },
+    {
+      "creative_id": "M3481549-343757286",
+      "aircheck_id": "992035398",
+      "creative_name": "Wesley Financial Group",
+      "station_id": "153",
+      "start_time": "2025-10-18 08:27:41.000",
+      "end_time": "2025-10-18 08:28:06.000"
+    },
+    {
+      "creative_id": "M3507045-347861154",
+      "aircheck_id": "1003392424",
+      "creative_name": "NordVPN",
+      "station_id": "153",
+      "start_time": "2025-10-18 16:57:13.000",
+      "end_time": "2025-10-18 16:57:41.000"
+    },
+    {
+      "creative_id": "M4212840-321517108",
+      "aircheck_id": "905211946",
+      "creative_name": "Stand Up To Cancer",
+      "station_id": "153",
+      "start_time": "2025-10-18 02:29:19.000",
+      "end_time": "2025-10-18 02:29:49.000"
+    },
+    {
+      "creative_id": "M4159219-347142759",
+      "aircheck_id": "1003153159",
+      "creative_name": "Penny Mustard",
+      "station_id": "153",
+      "start_time": "2025-10-18 13:56:06.000",
+      "end_time": "2025-10-18 13:57:05.000"
+    },
+    {
+      "creative_id": "M4267529-346237024",
+      "aircheck_id": "996719640",
+      "creative_name": "Nursing Home Abuse Network",
+      "station_id": "153",
+      "start_time": "2025-10-18 13:22:46.000",
+      "end_time": "2025-10-18 13:23:15.000"
+    },
+    {
+      "creative_id": "M2157844-346656601",
+      "aircheck_id": "1004042214",
+      "creative_name": "Golf Mill Ford",
+      "station_id": "153",
+      "start_time": "2025-10-18 12:42:41.000",
+      "end_time": "2025-10-18 12:42:55.000"
+    },
+    {
+      "creative_id": "M4127612-344460930",
+      "aircheck_id": "989627781",
+      "creative_name": "Duane Blanton Plumbing Sewer Heating & Cooling",
+      "station_id": "153",
+      "start_time": "2025-10-18 23:55:44.000",
+      "end_time": "2025-10-18 23:56:13.000"
+    },
+    {
+      "creative_id": "M3931342-305394195",
+      "aircheck_id": "971893630",
+      "creative_name": "TRA Tax Relief Advocates",
+      "station_id": "153",
+      "start_time": "2025-10-18 06:27:19.000",
+      "end_time": "2025-10-18 06:28:19.000"
+    },
+    {
+      "creative_id": "M4159219-347878022",
+      "aircheck_id": "1002954175",
+      "creative_name": "Penny Mustard",
+      "station_id": "153",
+      "start_time": "2025-10-18 15:36:13.000",
+      "end_time": "2025-10-18 15:36:41.000"
+    },
+    {
+      "creative_id": "M2231827-348015717",
+      "aircheck_id": "1003575324",
+      "creative_name": "The Good Feet Store",
+      "station_id": "153",
+      "start_time": "2025-10-18 15:03:45.000",
+      "end_time": "2025-10-18 15:04:45.000"
+    },
+    {
+      "creative_id": "M3106826-289640185",
+      "aircheck_id": "973083491",
+      "creative_name": "Community Tax",
+      "station_id": "153",
+      "start_time": "2025-10-18 03:23:39.000",
+      "end_time": "2025-10-18 03:24:39.000"
+    },
+    {
+      "creative_id": "M3428310-347756287",
+      "aircheck_id": "1002601363",
+      "creative_name": "HassleLess Mattress",
+      "station_id": "153",
+      "start_time": "2025-10-18 16:22:52.000",
+      "end_time": "2025-10-18 16:23:23.000"
+    },
+    {
+      "creative_id": "M2394508-338670096",
+      "aircheck_id": "967339866",
+      "creative_name": "Lerner & Rowe",
+      "station_id": "153",
+      "start_time": "2025-10-18 03:51:21.000",
+      "end_time": "2025-10-18 03:51:49.000"
+    },
+    {
+      "creative_id": "M2056981-347831426",
+      "aircheck_id": "1002760272",
+      "creative_name": "Paramount Theatre",
+      "station_id": "153",
+      "start_time": "2025-10-18 03:53:14.000",
+      "end_time": "2025-10-18 03:53:45.000"
+    },
+    {
+      "creative_id": "M2157844-347696537",
+      "aircheck_id": "1002210569",
+      "creative_name": "Golf Mill Ford",
+      "station_id": "153",
+      "start_time": "2025-10-18 04:10:11.000",
+      "end_time": "2025-10-18 04:10:27.000"
+    },
+    {
+      "creative_id": "M4310065-344926538",
+      "aircheck_id": "991444951",
+      "creative_name": "Roth-Relief",
+      "station_id": "153",
+      "start_time": "2025-10-18 15:56:03.000",
+      "end_time": "2025-10-18 15:57:00.000"
+    },
+    {
+      "creative_id": "M2022253-336457643",
+      "aircheck_id": "958850219",
+      "creative_name": "Habitat For Humanity",
+      "station_id": "153",
+      "start_time": "2025-10-18 04:13:51.000",
+      "end_time": "2025-10-18 04:14:21.000"
+    },
+    {
+      "creative_id": "M4159219-347874951",
+      "aircheck_id": "1002943786",
+      "creative_name": "Penny Mustard",
+      "station_id": "153",
+      "start_time": "2025-10-18 12:56:49.000",
+      "end_time": "2025-10-18 12:57:18.000"
+    },
+    {
+      "creative_id": "M3638039-298308028",
+      "aircheck_id": "817393550",
+      "creative_name": "Doctors Without Borders",
+      "station_id": "153",
+      "start_time": "2025-10-18 04:27:49.000",
+      "end_time": "2025-10-18 04:28:18.000"
+    },
+    {
+      "creative_id": "M2022253-336414363",
+      "aircheck_id": "958661948",
+      "creative_name": "Habitat For Humanity",
+      "station_id": "153",
+      "start_time": "2025-10-18 04:43:08.000",
+      "end_time": "2025-10-18 04:43:38.000"
+    },
+    {
+      "creative_id": "M4159219-347871839",
+      "aircheck_id": "1003018770",
+      "creative_name": "Penny Mustard",
+      "station_id": "153",
+      "start_time": "2025-10-18 16:43:43.000",
+      "end_time": "2025-10-18 16:44:41.000"
+    },
+    {
+      "creative_id": "M3947907-320920098",
+      "aircheck_id": "901037082",
+      "creative_name": "Ethos Technologies Inc",
+      "station_id": "153",
+      "start_time": "2025-10-18 04:54:32.000",
+      "end_time": "2025-10-18 04:55:00.000"
+    },
+    {
+      "creative_id": "M3130642-24092791",
+      "aircheck_id": "401107957",
+      "creative_name": "Mega Pros",
+      "station_id": "153",
+      "start_time": "2025-10-18 23:45:12.000",
+      "end_time": "2025-10-18 23:45:29.000"
+    },
+    {
+      "creative_id": "M2865065-347389790",
+      "aircheck_id": "1000793280",
+      "creative_name": "Shutter Hut",
+      "station_id": "153",
+      "start_time": "2025-10-18 15:24:58.000",
+      "end_time": "2025-10-18 15:25:58.000"
+    },
+    {
+      "creative_id": "M3341555-347704051",
+      "aircheck_id": "1002334472",
+      "creative_name": "Viant",
+      "station_id": "153",
+      "start_time": "2025-10-18 05:13:22.000",
+      "end_time": "2025-10-18 05:13:52.000"
+    },
+    {
+      "creative_id": "M2025099-346868432",
+      "aircheck_id": "1003116517",
+      "creative_name": "Mercedes-Benz Of Hoffman Estates",
+      "station_id": "153",
+      "start_time": "2025-10-18 15:11:45.000",
+      "end_time": "2025-10-18 15:12:15.000"
+    },
+    {
+      "creative_id": "M3980374-346292468",
+      "aircheck_id": "996581881",
+      "creative_name": "Jeff Buys Your House",
+      "station_id": "153",
+      "start_time": "2025-10-18 23:07:22.000",
+      "end_time": "2025-10-18 23:08:22.000"
+    },
+    {
+      "creative_id": "M2022835-347955460",
+      "aircheck_id": "1003421237",
+      "creative_name": "Menards",
+      "station_id": "153",
+      "start_time": "2025-10-18 14:23:17.000",
+      "end_time": "2025-10-18 14:23:48.000"
+    },
+    {
+      "creative_id": "M3519915-348155575",
+      "aircheck_id": "1004157754",
+      "creative_name": "Music Theater Works",
+      "station_id": "153",
+      "start_time": "2025-10-18 16:26:26.000",
+      "end_time": "2025-10-18 16:26:56.000"
+    },
+    {
+      "creative_id": "M4278815-347849360",
+      "aircheck_id": "1002835533",
+      "creative_name": "TruTrade",
+      "station_id": "153",
+      "start_time": "2025-10-18 15:15:04.000",
+      "end_time": "2025-10-18 15:15:40.000"
+    },
+    {
+      "creative_id": "M4278815-347840854",
+      "aircheck_id": "1002801531",
+      "creative_name": "TruTrade",
+      "station_id": "153",
+      "start_time": "2025-10-18 15:15:41.000",
+      "end_time": "2025-10-18 15:15:58.000"
+    },
+    {
+      "creative_id": "M4183447-346560233",
+      "aircheck_id": "997668298",
+      "creative_name": "Toyota On Edens",
+      "station_id": "153",
+      "start_time": "2025-10-18 17:52:08.000",
+      "end_time": "2025-10-18 17:52:37.000"
+    },
+    {
+      "creative_id": "M2391703-347653408",
+      "aircheck_id": "1002610620",
+      "creative_name": "MLB Shop",
+      "station_id": "153",
+      "start_time": "2025-10-18 05:27:58.000",
+      "end_time": "2025-10-18 05:28:27.000"
+    },
+    {
+      "creative_id": "M2005570-344704626",
+      "aircheck_id": "990645254",
+      "creative_name": "T-Mobile",
+      "station_id": "153",
+      "start_time": "2025-10-18 13:45:55.000",
+      "end_time": "2025-10-18 13:46:24.000"
+    },
+    {
+      "creative_id": "M2023882-336886857",
+      "aircheck_id": "1004392755",
+      "creative_name": "Loeber Motors",
+      "station_id": "153",
+      "start_time": "2025-10-18 05:36:30.000",
+      "end_time": "2025-10-18 05:36:59.000"
+    },
+    {
+      "creative_id": "M3632206-297053162",
+      "aircheck_id": "809592144",
+      "creative_name": "IJL It's Just Lunch",
+      "station_id": "153",
+      "start_time": "2025-10-18 17:15:35.000",
+      "end_time": "2025-10-18 17:16:03.000"
+    },
+    {
+      "creative_id": "M2022596-348149399",
+      "aircheck_id": "1004234123",
+      "creative_name": "Jewel-Osco",
+      "station_id": "153",
+      "start_time": "2025-10-18 16:29:36.000",
+      "end_time": "2025-10-18 16:29:50.000"
+    },
+    {
+      "creative_id": "M3675395-343688334",
+      "aircheck_id": "986635337",
+      "creative_name": "Chicago Window Guys",
+      "station_id": "153",
+      "start_time": "2025-10-18 16:37:37.000",
+      "end_time": "2025-10-18 16:38:07.000"
+    },
+    {
+      "creative_id": "M3722399-345893484",
+      "aircheck_id": "995016352",
+      "creative_name": "Big City Optical",
+      "station_id": "153",
+      "start_time": "2025-10-18 17:23:23.000",
+      "end_time": "2025-10-18 17:23:52.000"
+    },
+    {
+      "creative_id": "M2162991-348104439",
+      "aircheck_id": "1003946794",
+      "creative_name": "Razny Jewelers",
+      "station_id": "153",
+      "start_time": "2025-10-18 05:43:42.000",
+      "end_time": "2025-10-18 05:44:41.000"
+    },
+    {
+      "creative_id": "M3737558-346598489",
+      "aircheck_id": "999173711",
+      "creative_name": "Odoo",
+      "station_id": "153",
+      "start_time": "2025-10-18 05:44:55.000",
+      "end_time": "2025-10-18 05:45:12.000"
+    },
+    {
+      "creative_id": "M3591202-347804495",
+      "aircheck_id": "1003556796",
+      "creative_name": "QC Kinetix",
+      "station_id": "153",
+      "start_time": "2025-10-18 05:51:32.000",
+      "end_time": "2025-10-18 05:52:22.000"
+    },
+    {
+      "creative_id": "M4079264-347160511",
+      "aircheck_id": "999991212",
+      "creative_name": "Vertical Chimney Care",
+      "station_id": "153",
+      "start_time": "2025-10-18 23:29:54.000",
+      "end_time": "2025-10-18 23:30:22.000"
+    },
+    {
+      "creative_id": "M2760904-340314019",
+      "aircheck_id": "974344550",
+      "creative_name": "Chicago Police Memorial Foundation",
+      "station_id": "153",
+      "start_time": "2025-10-18 05:56:29.000",
+      "end_time": "2025-10-18 05:56:59.000"
+    },
+    {
+      "creative_id": "M3760961-347297398",
+      "aircheck_id": "1001925456",
+      "creative_name": "LifeLock",
+      "station_id": "153",
+      "start_time": "2025-10-18 05:56:59.000",
+      "end_time": "2025-10-18 05:57:28.000"
+    },
+    {
+      "creative_id": "M3320199-339780819",
+      "aircheck_id": "1004234106",
+      "creative_name": "Gage Diamonds",
+      "station_id": "153",
+      "start_time": "2025-10-18 05:57:29.000",
+      "end_time": "2025-10-18 05:57:58.000"
+    },
+    {
+      "creative_id": "M2022835-347957074",
+      "aircheck_id": "1003472724",
+      "creative_name": "Menards",
+      "station_id": "153",
+      "start_time": "2025-10-18 05:57:58.000",
+      "end_time": "2025-10-18 05:58:28.000"
+    },
+    {
+      "creative_id": "M2639582-305107623",
+      "aircheck_id": "852064876",
+      "creative_name": "Alliance For The Great Lakes",
+      "station_id": "153",
+      "start_time": "2025-10-18 05:58:28.000",
+      "end_time": "2025-10-18 05:58:57.000"
+    },
+    {
+      "creative_id": "M2018728-302710235",
+      "aircheck_id": "833959410",
+      "creative_name": "First American Bank",
+      "station_id": "153",
+      "start_time": "2025-10-18 06:10:49.000",
+      "end_time": "2025-10-18 06:11:49.000"
+    },
+    {
+      "creative_id": "M3183496-330048750",
+      "aircheck_id": "934301160",
+      "creative_name": "PGS Gold & Coin",
+      "station_id": "153",
+      "start_time": "2025-10-18 11:51:59.000",
+      "end_time": "2025-10-18 11:52:58.000"
+    },
+    {
+      "creative_id": "M3716559-338077345",
+      "aircheck_id": "964953238",
+      "creative_name": "Symetria Recovery",
+      "station_id": "153",
+      "start_time": "2025-10-18 23:56:15.000",
+      "end_time": "2025-10-18 23:57:08.000"
+    },
+    {
+      "creative_id": "M2162991-345901682",
+      "aircheck_id": "995684940",
+      "creative_name": "Razny Jewelers",
+      "station_id": "153",
+      "start_time": "2025-10-18 22:42:13.000",
+      "end_time": "2025-10-18 22:43:12.000"
+    },
+    {
+      "creative_id": "M2022835-347948621",
+      "aircheck_id": "1003330238",
+      "creative_name": "Menards",
+      "station_id": "153",
+      "start_time": "2025-10-18 06:29:43.000",
+      "end_time": "2025-10-18 06:30:13.000"
+    },
+    {
+      "creative_id": "M2394508-339541750",
+      "aircheck_id": "970710001",
+      "creative_name": "Lerner & Rowe",
+      "station_id": "153",
+      "start_time": "2025-10-18 06:36:07.000",
+      "end_time": "2025-10-18 06:36:37.000"
+    },
+    {
+      "creative_id": "M4159233-347705099",
+      "aircheck_id": "1002246130",
+      "creative_name": "Comer & Cross",
+      "station_id": "153",
+      "start_time": "2025-10-18 16:52:58.000",
+      "end_time": "2025-10-18 16:53:57.000"
+    },
+    {
+      "creative_id": "M2848450-37189308",
+      "aircheck_id": "817470395",
+      "creative_name": "Optima Tax Relief",
+      "station_id": "153",
+      "start_time": "2025-10-18 06:43:32.000",
+      "end_time": "2025-10-18 06:44:32.000"
+    },
+    {
+      "creative_id": "M2029271-346245122",
+      "aircheck_id": "997655565",
+      "creative_name": "Grainger",
+      "station_id": "153",
+      "start_time": "2025-10-18 15:26:57.000",
+      "end_time": "2025-10-18 15:27:27.000"
+    },
+    {
+      "creative_id": "M2022835-347948624",
+      "aircheck_id": "1003346957",
+      "creative_name": "Menards",
+      "station_id": "153",
+      "start_time": "2025-10-18 06:53:05.000",
+      "end_time": "2025-10-18 06:53:33.000"
+    },
+    {
+      "creative_id": "M4160255-348139943",
+      "aircheck_id": "1004258701",
+      "creative_name": "Schmaltz Delicatessen",
+      "station_id": "153",
+      "start_time": "2025-10-18 14:26:30.000",
+      "end_time": "2025-10-18 14:27:00.000"
+    },
+    {
+      "creative_id": "M2271486-346030026",
+      "aircheck_id": "998629163",
+      "creative_name": "Vicks",
+      "station_id": "153",
+      "start_time": "2025-10-18 06:57:32.000",
+      "end_time": "2025-10-18 06:58:01.000"
+    },
+    {
+      "creative_id": "M2933069-348129377",
+      "aircheck_id": "1004146207",
+      "creative_name": "Trajan Wealth",
+      "station_id": "153",
+      "start_time": "2025-10-18 21:34:46.000",
+      "end_time": "2025-10-18 21:35:46.000"
+    },
+    {
+      "creative_id": "M3443715-338182410",
+      "aircheck_id": "965196674",
+      "creative_name": "Geiger Wealth",
+      "station_id": "153",
+      "start_time": "2025-10-18 07:33:04.000",
+      "end_time": "2025-10-18 07:46:56.000"
+    },
+    {
+      "creative_id": "M3443715-325463163",
+      "aircheck_id": "965196675",
+      "creative_name": "Geiger Wealth",
+      "station_id": "153",
+      "start_time": "2025-10-18 07:46:56.000",
+      "end_time": "2025-10-18 07:47:35.000"
+    },
+    {
+      "creative_id": "M3443715-338182411",
+      "aircheck_id": "965196676",
+      "creative_name": "Geiger Wealth",
+      "station_id": "153",
+      "start_time": "2025-10-18 07:47:39.000",
+      "end_time": "2025-10-18 07:49:46.000"
+    },
+    {
+      "creative_id": "M3443715-338182412",
+      "aircheck_id": "965196677",
+      "creative_name": "Geiger Wealth",
+      "station_id": "153",
+      "start_time": "2025-10-18 07:49:46.000",
+      "end_time": "2025-10-18 07:54:28.000"
+    },
+    {
+      "creative_id": "M3443715-315337032",
+      "aircheck_id": "965196679",
+      "creative_name": "Geiger Wealth",
+      "station_id": "153",
+      "start_time": "2025-10-18 07:59:26.000",
+      "end_time": "2025-10-18 07:59:52.000"
+    },
+    {
+      "creative_id": "M3443715-338468743",
+      "aircheck_id": "966316474",
+      "creative_name": "Geiger Wealth",
+      "station_id": "153",
+      "start_time": "2025-10-18 07:32:35.000",
+      "end_time": "2025-10-18 07:33:04.000"
+    },
+    {
+      "creative_id": "M3443715-338468744",
+      "aircheck_id": "966316475",
+      "creative_name": "Geiger Wealth",
+      "station_id": "153",
+      "start_time": "2025-10-18 07:58:54.000",
+      "end_time": "2025-10-18 07:59:26.000"
+    },
+    {
+      "creative_id": "M2865065-347647423",
+      "aircheck_id": "1001947603",
+      "creative_name": "Shutter Hut",
+      "station_id": "153",
+      "start_time": "2025-10-18 14:11:01.000",
+      "end_time": "2025-10-18 14:11:15.000"
+    },
+    {
+      "creative_id": "M4336429-347981299",
+      "aircheck_id": "1003465207",
+      "creative_name": "HealthSpring",
+      "station_id": "153",
+      "start_time": "2025-10-18 10:52:04.000",
+      "end_time": "2025-10-18 10:53:05.000"
+    },
+    {
+      "creative_id": "M2021631-345545060",
+      "aircheck_id": "995492848",
+      "creative_name": "Chick-fil-A",
+      "station_id": "153",
+      "start_time": "2025-10-18 23:52:44.000",
+      "end_time": "2025-10-18 23:53:14.000"
+    },
+    {
+      "creative_id": "M2025854-342667307",
+      "aircheck_id": "983441283",
+      "creative_name": "eBay",
+      "station_id": "153",
+      "start_time": "2025-10-18 23:53:14.000",
+      "end_time": "2025-10-18 23:53:44.000"
+    },
+    {
+      "creative_id": "M3591202-325633436",
+      "aircheck_id": "919746583",
+      "creative_name": "QC Kinetix",
+      "station_id": "153",
+      "start_time": "2025-10-18 08:14:48.000",
+      "end_time": "2025-10-18 08:15:38.000"
+    },
+    {
+      "creative_id": "M2857167-347526206",
+      "aircheck_id": "1001442666",
+      "creative_name": "Chevrolet Dealer Association",
+      "station_id": "153",
+      "start_time": "2025-10-18 17:03:46.000",
+      "end_time": "2025-10-18 17:04:16.000"
+    },
+    {
+      "creative_id": "M3591660-347707691",
+      "aircheck_id": "1002254907",
+      "creative_name": "Seattle Sutton's Healthy Eating",
+      "station_id": "153",
+      "start_time": "2025-10-18 17:14:04.000",
+      "end_time": "2025-10-18 17:15:03.000"
+    },
+    {
+      "creative_id": "M2501841-347732562",
+      "aircheck_id": "1002355235",
+      "creative_name": "Million Dollar Quartet",
+      "station_id": "153",
+      "start_time": "2025-10-18 08:25:28.000",
+      "end_time": "2025-10-18 08:25:42.000"
+    },
+    {
+      "creative_id": "M2022835-347954848",
+      "aircheck_id": "1004174855",
+      "creative_name": "Menards",
+      "station_id": "153",
+      "start_time": "2025-10-18 08:26:41.000",
+      "end_time": "2025-10-18 08:27:11.000"
+    },
+    {
+      "creative_id": "M3737558-346556819",
+      "aircheck_id": "998001552",
+      "creative_name": "Odoo",
+      "station_id": "153",
+      "start_time": "2025-10-18 08:27:11.000",
+      "end_time": "2025-10-18 08:27:41.000"
+    },
+    {
+      "creative_id": "M2257285-313789878",
+      "aircheck_id": "874260346",
+      "creative_name": "US Waterproofing",
+      "station_id": "153",
+      "start_time": "2025-10-18 09:56:02.000",
+      "end_time": "2025-10-18 09:56:31.000"
+    },
+    {
+      "creative_id": "M3243180-347229275",
+      "aircheck_id": "1000433050",
+      "creative_name": "Grandview Homes",
+      "station_id": "153",
+      "start_time": "2025-10-18 16:43:00.000",
+      "end_time": "2025-10-18 16:43:13.000"
+    },
+    {
+      "creative_id": "M3107925-347803808",
+      "aircheck_id": "1002652952",
+      "creative_name": "MJ Miller & Co",
+      "station_id": "153",
+      "start_time": "2025-10-18 08:44:07.000",
+      "end_time": "2025-10-18 08:44:37.000"
+    },
+    {
+      "creative_id": "M2029271-346291390",
+      "aircheck_id": "1003612239",
+      "creative_name": "Grainger",
+      "station_id": "153",
+      "start_time": "2025-10-18 15:22:22.000",
+      "end_time": "2025-10-18 15:22:51.000"
+    },
+    {
+      "creative_id": "M2022835-347955908",
+      "aircheck_id": "1003923453",
+      "creative_name": "Menards",
+      "station_id": "153",
+      "start_time": "2025-10-18 08:52:19.000",
+      "end_time": "2025-10-18 08:52:49.000"
+    },
+    {
+      "creative_id": "M2005570-347491393",
+      "aircheck_id": "1002147792",
+      "creative_name": "T-Mobile",
+      "station_id": "153",
+      "start_time": "2025-10-18 14:44:36.000",
+      "end_time": "2025-10-18 14:45:05.000"
+    },
+    {
+      "creative_id": "M3727165-346245558",
+      "aircheck_id": "996390691",
+      "creative_name": "ABC Plumbing Sewer Heating Cooling & Electric",
+      "station_id": "153",
+      "start_time": "2025-10-18 11:42:34.000",
+      "end_time": "2025-10-18 11:42:48.000"
+    },
+    {
+      "creative_id": "M2018272-347978876",
+      "aircheck_id": "1003444504",
+      "creative_name": "Humana",
+      "station_id": "153",
+      "start_time": "2025-10-18 09:36:07.000",
+      "end_time": "2025-10-18 09:37:07.000"
+    },
+    {
+      "creative_id": "M2589155-346074176",
+      "aircheck_id": "996616415",
+      "creative_name": "Straight Talk",
+      "station_id": "153",
+      "start_time": "2025-10-18 08:57:27.000",
+      "end_time": "2025-10-18 08:57:56.000"
+    },
+    {
+      "creative_id": "M2005948-337203894",
+      "aircheck_id": "971470882",
+      "creative_name": "Febreze",
+      "station_id": "153",
+      "start_time": "2025-10-18 08:57:56.000",
+      "end_time": "2025-10-18 08:58:27.000"
+    },
+    {
+      "creative_id": "M2223613-347700415",
+      "aircheck_id": "1002291942",
+      "creative_name": "UnitedHealthcare",
+      "station_id": "153",
+      "start_time": "2025-10-18 15:14:30.000",
+      "end_time": "2025-10-18 15:14:58.000"
+    },
+    {
+      "creative_id": "M2014222-337559063",
+      "aircheck_id": "963552714",
+      "creative_name": "Fidelity Investments",
+      "station_id": "153",
+      "start_time": "2025-10-18 17:10:48.000",
+      "end_time": "2025-10-18 17:11:17.000"
+    },
+    {
+      "creative_id": "M2985642-293989471",
+      "aircheck_id": "812833614",
+      "creative_name": "Page Publishing",
+      "station_id": "153",
+      "start_time": "2025-10-18 09:13:52.000",
+      "end_time": "2025-10-18 09:14:22.000"
+    },
+    {
+      "creative_id": "M4278815-347840862",
+      "aircheck_id": "1002801555",
+      "creative_name": "TruTrade",
+      "station_id": "153",
+      "start_time": "2025-10-18 13:15:01.000",
+      "end_time": "2025-10-18 13:15:43.000"
+    },
+    {
+      "creative_id": "M2705976-340768251",
+      "aircheck_id": "1001407986",
+      "creative_name": "St Petersburg-Clearwater FL Tourism",
+      "station_id": "153",
+      "start_time": "2025-10-18 16:38:07.000",
+      "end_time": "2025-10-18 16:38:36.000"
+    },
+    {
+      "creative_id": "M2023097-174716245",
+      "aircheck_id": "676927820",
+      "creative_name": "Americaneagle.com",
+      "station_id": "153",
+      "start_time": "2025-10-18 15:57:02.000",
+      "end_time": "2025-10-18 15:58:00.000"
+    },
+    {
+      "creative_id": "M3825923-347253931",
+      "aircheck_id": "1001442657",
+      "creative_name": "ZzzQuil",
+      "station_id": "153",
+      "start_time": "2025-10-18 09:29:42.000",
+      "end_time": "2025-10-18 09:30:12.000"
+    },
+    {
+      "creative_id": "M3704247-329372313",
+      "aircheck_id": "931833553",
+      "creative_name": "Riklin Realty",
+      "station_id": "153",
+      "start_time": "2025-10-18 10:29:46.000",
+      "end_time": "2025-10-18 10:30:16.000"
+    },
+    {
+      "creative_id": "M4351521-346590047",
+      "aircheck_id": "997789325",
+      "creative_name": "mNEXSPIKE",
+      "station_id": "153",
+      "start_time": "2025-10-18 23:36:27.000",
+      "end_time": "2025-10-18 23:37:27.000"
+    },
+    {
+      "creative_id": "M4278804-343125476",
+      "aircheck_id": "984501033",
+      "creative_name": "Endeavor Health Cardiovascular Institute",
+      "station_id": "153",
+      "start_time": "2025-10-18 14:38:05.000",
+      "end_time": "2025-10-18 14:38:35.000"
+    },
+    {
+      "creative_id": "M2022835-347957026",
+      "aircheck_id": "1003413060",
+      "creative_name": "Menards",
+      "station_id": "153",
+      "start_time": "2025-10-18 10:04:12.000",
+      "end_time": "2025-10-18 10:04:43.000"
+    },
+    {
+      "creative_id": "M3644384-347154041",
+      "aircheck_id": "1001010326",
+      "creative_name": "Comcast Business",
+      "station_id": "153",
+      "start_time": "2025-10-18 13:25:23.000",
+      "end_time": "2025-10-18 13:26:22.000"
+    },
+    {
+      "creative_id": "M3428310-342542383",
+      "aircheck_id": "982618624",
+      "creative_name": "HassleLess Mattress",
+      "station_id": "153",
+      "start_time": "2025-10-18 10:22:05.000",
+      "end_time": "2025-10-18 10:23:04.000"
+    },
+    {
+      "creative_id": "M3341555-347712513",
+      "aircheck_id": "1002371815",
+      "creative_name": "Viant",
+      "station_id": "153",
+      "start_time": "2025-10-18 10:25:14.000",
+      "end_time": "2025-10-18 10:25:44.000"
+    },
+    {
+      "creative_id": "M2025854-334396411",
+      "aircheck_id": "1003657854",
+      "creative_name": "eBay",
+      "station_id": "153",
+      "start_time": "2025-10-18 10:27:13.000",
+      "end_time": "2025-10-18 10:27:43.000"
+    },
+    {
+      "creative_id": "M3978266-336197556",
+      "aircheck_id": "958775392",
+      "creative_name": "Pharmavite-Nature Made",
+      "station_id": "153",
+      "start_time": "2025-10-18 21:04:01.000",
+      "end_time": "2025-10-18 21:04:30.000"
+    },
+    {
+      "creative_id": "M3243180-347231620",
+      "aircheck_id": "1000455353",
+      "creative_name": "Grandview Homes",
+      "station_id": "153",
+      "start_time": "2025-10-18 10:42:58.000",
+      "end_time": "2025-10-18 10:43:13.000"
+    },
+    {
+      "creative_id": "M3105307-340064659",
+      "aircheck_id": "975992519",
+      "creative_name": "LINZESS",
+      "station_id": "153",
+      "start_time": "2025-10-18 10:44:43.000",
+      "end_time": "2025-10-18 10:45:43.000"
+    },
+    {
+      "creative_id": "M2017731-346846522",
+      "aircheck_id": "1003497884",
+      "creative_name": "Aetna",
+      "station_id": "153",
+      "start_time": "2025-10-18 12:55:36.000",
+      "end_time": "2025-10-18 12:55:51.000"
+    },
+    {
+      "creative_id": "M3428310-342602192",
+      "aircheck_id": "982624958",
+      "creative_name": "HassleLess Mattress",
+      "station_id": "153",
+      "start_time": "2025-10-18 10:55:36.000",
+      "end_time": "2025-10-18 10:56:07.000"
+    },
+    {
+      "creative_id": "M2023097-42131306",
+      "aircheck_id": "591075393",
+      "creative_name": "Americaneagle.com",
+      "station_id": "153",
+      "start_time": "2025-10-18 16:44:41.000",
+      "end_time": "2025-10-18 16:45:34.000"
+    },
+    {
+      "creative_id": "M4109026-343127299",
+      "aircheck_id": "984506857",
+      "creative_name": "Endeavor Health",
+      "station_id": "153",
+      "start_time": "2025-10-18 13:52:18.000",
+      "end_time": "2025-10-18 13:52:46.000"
+    },
+    {
+      "creative_id": "M2223613-347700336",
+      "aircheck_id": "1003953093",
+      "creative_name": "UnitedHealthcare",
+      "station_id": "153",
+      "start_time": "2025-10-18 11:11:13.000",
+      "end_time": "2025-10-18 11:11:39.000"
+    },
+    {
+      "creative_id": "M4278815-348060100",
+      "aircheck_id": "1003758234",
+      "creative_name": "TruTrade",
+      "station_id": "153",
+      "start_time": "2025-10-18 11:14:18.000",
+      "end_time": "2025-10-18 11:15:18.000"
+    },
+    {
+      "creative_id": "M4079264-347240265",
+      "aircheck_id": "1000289966",
+      "creative_name": "Vertical Chimney Care",
+      "station_id": "153",
+      "start_time": "2025-10-18 18:28:34.000",
+      "end_time": "2025-10-18 18:29:05.000"
+    },
+    {
+      "creative_id": "M3243180-347189625",
+      "aircheck_id": "1000272768",
+      "creative_name": "Grandview Homes",
+      "station_id": "153",
+      "start_time": "2025-10-18 15:14:00.000",
+      "end_time": "2025-10-18 15:14:29.000"
+    },
+    {
+      "creative_id": "M3587978-347985528",
+      "aircheck_id": "1003619110",
+      "creative_name": "Chamberlain Univ",
+      "station_id": "153",
+      "start_time": "2025-10-18 11:22:42.000",
+      "end_time": "2025-10-18 11:23:11.000"
+    },
+    {
+      "creative_id": "M3803735-343967838",
+      "aircheck_id": "987699896",
+      "creative_name": "Perfect Home Services",
+      "station_id": "153",
+      "start_time": "2025-10-18 13:26:51.000",
+      "end_time": "2025-10-18 13:27:21.000"
+    },
+    {
+      "creative_id": "M2254513-344267745",
+      "aircheck_id": "989984009",
+      "creative_name": "Chase",
+      "station_id": "153",
+      "start_time": "2025-10-18 11:27:12.000",
+      "end_time": "2025-10-18 11:27:41.000"
+    },
+    {
+      "creative_id": "M2271486-346074193",
+      "aircheck_id": "996833314",
+      "creative_name": "Vicks",
+      "station_id": "153",
+      "start_time": "2025-10-18 11:27:41.000",
+      "end_time": "2025-10-18 11:28:11.000"
+    },
+    {
+      "creative_id": "M2147924-316132259",
+      "aircheck_id": "926333720",
+      "creative_name": "California Psychics",
+      "station_id": "153",
+      "start_time": "2025-10-18 11:29:42.000",
+      "end_time": "2025-10-18 11:29:56.000"
+    },
+    {
+      "creative_id": "M2006671-344959907",
+      "aircheck_id": "992076735",
+      "creative_name": "Pfizer",
+      "station_id": "153",
+      "start_time": "2025-10-18 11:29:57.000",
+      "end_time": "2025-10-18 11:30:12.000"
+    },
+    {
+      "creative_id": "M3680774-17237482",
+      "aircheck_id": "801466666",
+      "creative_name": "Kars4Kids",
+      "station_id": "153",
+      "start_time": "2025-10-18 11:43:48.000",
+      "end_time": "2025-10-18 11:44:02.000"
+    },
+    {
+      "creative_id": "M3680774-344144915",
+      "aircheck_id": "988388136",
+      "creative_name": "Kars4Kids",
+      "station_id": "153",
+      "start_time": "2025-10-18 11:44:08.000",
+      "end_time": "2025-10-18 11:44:26.000"
+    },
+    {
+      "creative_id": "M3680774-344165501",
+      "aircheck_id": "988572652",
+      "creative_name": "Kars4Kids",
+      "station_id": "153",
+      "start_time": "2025-10-18 11:44:26.000",
+      "end_time": "2025-10-18 11:44:45.000"
+    },
+    {
+      "creative_id": "M2022835-347956704",
+      "aircheck_id": "1003413062",
+      "creative_name": "Menards",
+      "station_id": "153",
+      "start_time": "2025-10-18 11:52:58.000",
+      "end_time": "2025-10-18 11:53:28.000"
+    },
+    {
+      "creative_id": "M2014222-339058947",
+      "aircheck_id": "968937553",
+      "creative_name": "Fidelity Investments",
+      "station_id": "153",
+      "start_time": "2025-10-18 12:03:45.000",
+      "end_time": "2025-10-18 12:04:15.000"
+    },
+    {
+      "creative_id": "M2477319-323162884",
+      "aircheck_id": "912247768",
+      "creative_name": "Ooma",
+      "station_id": "153",
+      "start_time": "2025-10-18 12:04:15.000",
+      "end_time": "2025-10-18 12:04:45.000"
+    },
+    {
+      "creative_id": "M2673849-347378279",
+      "aircheck_id": "1001066860",
+      "creative_name": "XFINITY Internet",
+      "station_id": "153",
+      "start_time": "2025-10-18 23:26:23.000",
+      "end_time": "2025-10-18 23:27:21.000"
+    },
+    {
+      "creative_id": "M2025099-346852600",
+      "aircheck_id": "1002126204",
+      "creative_name": "Mercedes-Benz Of Hoffman Estates",
+      "station_id": "153",
+      "start_time": "2025-10-18 12:26:17.000",
+      "end_time": "2025-10-18 12:26:47.000"
+    },
+    {
+      "creative_id": "M2843289-342834636",
+      "aircheck_id": "990025302",
+      "creative_name": "Hims",
+      "station_id": "153",
+      "start_time": "2025-10-18 12:27:16.000",
+      "end_time": "2025-10-18 12:28:16.000"
+    },
+    {
+      "creative_id": "M4249641-334473546",
+      "aircheck_id": "950607720",
+      "creative_name": "Four Seasons Heating Air Conditioning Plmbg Elec",
+      "station_id": "153",
+      "start_time": "2025-10-18 12:37:13.000",
+      "end_time": "2025-10-18 12:37:42.000"
+    },
+    {
+      "creative_id": "M3618796-347707304",
+      "aircheck_id": "1002254911",
+      "creative_name": "Univ Of IL Health",
+      "station_id": "153",
+      "start_time": "2025-10-18 12:43:55.000",
+      "end_time": "2025-10-18 12:44:25.000"
+    },
+    {
+      "creative_id": "M2005350-347253913",
+      "aircheck_id": "1001583382",
+      "creative_name": "Lowe's",
+      "station_id": "153",
+      "start_time": "2025-10-18 12:44:25.000",
+      "end_time": "2025-10-18 12:44:55.000"
+    },
+    {
+      "creative_id": "M2271486-346030025",
+      "aircheck_id": "997518579",
+      "creative_name": "Vicks",
+      "station_id": "153",
+      "start_time": "2025-10-18 15:27:27.000",
+      "end_time": "2025-10-18 15:27:57.000"
+    },
+    {
+      "creative_id": "M3183496-341726249",
+      "aircheck_id": "996534302",
+      "creative_name": "PGS Gold & Coin",
+      "station_id": "153",
+      "start_time": "2025-10-18 13:36:41.000",
+      "end_time": "2025-10-18 13:37:10.000"
+    },
+    {
+      "creative_id": "M3818249-347161467",
+      "aircheck_id": "1000857393",
+      "creative_name": "Elmhurst Univ",
+      "station_id": "153",
+      "start_time": "2025-10-18 12:56:21.000",
+      "end_time": "2025-10-18 12:56:49.000"
+    },
+    {
+      "creative_id": "M3947907-335325015",
+      "aircheck_id": "979844022",
+      "creative_name": "Ethos Technologies Inc",
+      "station_id": "153",
+      "start_time": "2025-10-18 12:57:48.000",
+      "end_time": "2025-10-18 12:58:14.000"
+    },
+    {
+      "creative_id": "M3243180-347205987",
+      "aircheck_id": "1000336963",
+      "creative_name": "Grandview Homes",
+      "station_id": "153",
+      "start_time": "2025-10-18 16:11:33.000",
+      "end_time": "2025-10-18 16:12:16.000"
+    },
+    {
+      "creative_id": "M3243180-347153629",
+      "aircheck_id": "1000078245",
+      "creative_name": "Grandview Homes",
+      "station_id": "153",
+      "start_time": "2025-10-18 16:12:17.000",
+      "end_time": "2025-10-18 16:12:31.000"
+    },
+    {
+      "creative_id": "M2273680-294771763",
+      "aircheck_id": "1003612242",
+      "creative_name": "Busey",
+      "station_id": "153",
+      "start_time": "2025-10-18 13:22:18.000",
+      "end_time": "2025-10-18 13:22:46.000"
+    },
+    {
+      "creative_id": "M2436099-347253939",
+      "aircheck_id": "1001449338",
+      "creative_name": "Consumer Cellular",
+      "station_id": "153",
+      "start_time": "2025-10-18 23:27:21.000",
+      "end_time": "2025-10-18 23:27:51.000"
+    },
+    {
+      "creative_id": "M3978266-336197557",
+      "aircheck_id": "973964543",
+      "creative_name": "Pharmavite-Nature Made",
+      "station_id": "153",
+      "start_time": "2025-10-18 20:28:24.000",
+      "end_time": "2025-10-18 20:28:53.000"
+    },
+    {
+      "creative_id": "M2529845-342846195",
+      "aircheck_id": "983423652",
+      "creative_name": "Wind Creek",
+      "station_id": "153",
+      "start_time": "2025-10-18 22:41:44.000",
+      "end_time": "2025-10-18 22:42:13.000"
+    },
+    {
+      "creative_id": "M3587978-347983642",
+      "aircheck_id": "1003505230",
+      "creative_name": "Chamberlain Univ",
+      "station_id": "153",
+      "start_time": "2025-10-18 13:44:54.000",
+      "end_time": "2025-10-18 13:45:24.000"
+    },
+    {
+      "creative_id": "M3704247-330885716",
+      "aircheck_id": "937235896",
+      "creative_name": "Riklin Realty",
+      "station_id": "153",
+      "start_time": "2025-10-18 13:55:24.000",
+      "end_time": "2025-10-18 13:55:38.000"
+    },
+    {
+      "creative_id": "M2273680-296971496",
+      "aircheck_id": "996581902",
+      "creative_name": "Busey",
+      "station_id": "153",
+      "start_time": "2025-10-18 17:42:16.000",
+      "end_time": "2025-10-18 17:42:44.000"
+    },
+    {
+      "creative_id": "M4262784-345902095",
+      "aircheck_id": "995053946",
+      "creative_name": "Philip Blaze Preferred Rate",
+      "station_id": "153",
+      "start_time": "2025-10-18 14:11:15.000",
+      "end_time": "2025-10-18 14:12:16.000"
+    },
+    {
+      "creative_id": "M2673849-345807067",
+      "aircheck_id": "1004283259",
+      "creative_name": "XFINITY Internet",
+      "station_id": "153",
+      "start_time": "2025-10-18 14:14:53.000",
+      "end_time": "2025-10-18 14:15:51.000"
+    },
+    {
+      "creative_id": "M3243180-347156303",
+      "aircheck_id": "1000086383",
+      "creative_name": "Grandview Homes",
+      "station_id": "153",
+      "start_time": "2025-10-18 15:36:42.000",
+      "end_time": "2025-10-18 15:37:08.000"
+    },
+    {
+      "creative_id": "M2017731-346841839",
+      "aircheck_id": "999319681",
+      "creative_name": "Aetna",
+      "station_id": "153",
+      "start_time": "2025-10-18 16:55:14.000",
+      "end_time": "2025-10-18 16:55:44.000"
+    },
+    {
+      "creative_id": "M2053542-348005328",
+      "aircheck_id": "1003526259",
+      "creative_name": "Heritage Cadillac",
+      "station_id": "153",
+      "start_time": "2025-10-18 14:26:00.000",
+      "end_time": "2025-10-18 14:26:29.000"
+    },
+    {
+      "creative_id": "M3931342-318753713",
+      "aircheck_id": "942243060",
+      "creative_name": "TRA Tax Relief Advocates",
+      "station_id": "153",
+      "start_time": "2025-10-18 14:27:00.000",
+      "end_time": "2025-10-18 14:27:59.000"
+    },
+    {
+      "creative_id": "M3727165-346557213",
+      "aircheck_id": "997655567",
+      "creative_name": "ABC Plumbing Sewer Heating Cooling & Electric",
+      "station_id": "153",
+      "start_time": "2025-10-18 14:29:47.000",
+      "end_time": "2025-10-18 14:30:01.000"
+    },
+    {
+      "creative_id": "M3680774-179055",
+      "aircheck_id": "783834908",
+      "creative_name": "Kars4Kids",
+      "station_id": "153",
+      "start_time": "2025-10-18 14:37:06.000",
+      "end_time": "2025-10-18 14:37:35.000"
+    },
+    {
+      "creative_id": "M3680774-344149857",
+      "aircheck_id": "988510135",
+      "creative_name": "Kars4Kids",
+      "station_id": "153",
+      "start_time": "2025-10-18 14:37:51.000",
+      "end_time": "2025-10-18 14:38:04.000"
+    },
+    {
+      "creative_id": "M2054365-347730871",
+      "aircheck_id": "1002452420",
+      "creative_name": "Makita",
+      "station_id": "153",
+      "start_time": "2025-10-18 14:45:35.000",
+      "end_time": "2025-10-18 14:46:05.000"
+    },
+    {
+      "creative_id": "M2004064-347427464",
+      "aircheck_id": "1003604443",
+      "creative_name": "Helzberg",
+      "station_id": "153",
+      "start_time": "2025-10-18 16:26:56.000",
+      "end_time": "2025-10-18 16:27:24.000"
+    },
+    {
+      "creative_id": "M2018728-321562914",
+      "aircheck_id": "903353374",
+      "creative_name": "First American Bank",
+      "station_id": "153",
+      "start_time": "2025-10-18 18:29:05.000",
+      "end_time": "2025-10-18 18:30:04.000"
+    },
+    {
+      "creative_id": "M2025854-345833584",
+      "aircheck_id": "995348350",
+      "creative_name": "eBay",
+      "station_id": "153",
+      "start_time": "2025-10-18 14:57:15.000",
+      "end_time": "2025-10-18 14:57:45.000"
+    },
+    {
+      "creative_id": "M2271486-346074192",
+      "aircheck_id": "996459165",
+      "creative_name": "Vicks",
+      "station_id": "153",
+      "start_time": "2025-10-18 14:57:45.000",
+      "end_time": "2025-10-18 14:58:15.000"
+    },
+    {
+      "creative_id": "M2982938-328569794",
+      "aircheck_id": "930019862",
+      "creative_name": "AbbVie",
+      "station_id": "153",
+      "start_time": "2025-10-18 15:29:42.000",
+      "end_time": "2025-10-18 15:30:13.000"
+    },
+    {
+      "creative_id": "M3243180-347227155",
+      "aircheck_id": "1000480070",
+      "creative_name": "Grandview Homes",
+      "station_id": "153",
+      "start_time": "2025-10-18 15:37:08.000",
+      "end_time": "2025-10-18 15:37:24.000"
+    },
+    {
+      "creative_id": "M2406689-348118872",
+      "aircheck_id": "1004002596",
+      "creative_name": "Carmina Burana",
+      "station_id": "153",
+      "start_time": "2025-10-18 15:42:57.000",
+      "end_time": "2025-10-18 15:43:11.000"
+    },
+    {
+      "creative_id": "M4262784-342589581",
+      "aircheck_id": "982457817",
+      "creative_name": "Philip Blaze Preferred Rate",
+      "station_id": "153",
+      "start_time": "2025-10-18 15:44:13.000",
+      "end_time": "2025-10-18 15:45:13.000"
+    },
+    {
+      "creative_id": "M2933069-348128152",
+      "aircheck_id": "1004157738",
+      "creative_name": "Trajan Wealth",
+      "station_id": "153",
+      "start_time": "2025-10-18 15:52:57.000",
+      "end_time": "2025-10-18 15:53:56.000"
+    },
+    {
+      "creative_id": "M4079264-347201767",
+      "aircheck_id": "1000149754",
+      "creative_name": "Vertical Chimney Care",
+      "station_id": "153",
+      "start_time": "2025-10-18 15:55:34.000",
+      "end_time": "2025-10-18 15:56:03.000"
+    },
+    {
+      "creative_id": "M2257285-313817273",
+      "aircheck_id": "874329174",
+      "creative_name": "US Waterproofing",
+      "station_id": "153",
+      "start_time": "2025-10-18 16:11:19.000",
+      "end_time": "2025-10-18 16:11:33.000"
+    },
+    {
+      "creative_id": "M4374274-347383545",
+      "aircheck_id": "1000767376",
+      "creative_name": "Synchrony Brain Health",
+      "station_id": "153",
+      "start_time": "2025-10-18 16:23:23.000",
+      "end_time": "2025-10-18 16:23:52.000"
+    },
+    {
+      "creative_id": "M3727165-346555755",
+      "aircheck_id": "997675563",
+      "creative_name": "ABC Plumbing Sewer Heating Cooling & Electric",
+      "station_id": "153",
+      "start_time": "2025-10-18 16:23:52.000",
+      "end_time": "2025-10-18 16:24:21.000"
+    },
+    {
+      "creative_id": "M2006574-345207702",
+      "aircheck_id": "993375450",
+      "creative_name": "Tide",
+      "station_id": "153",
+      "start_time": "2025-10-18 16:27:25.000",
+      "end_time": "2025-10-18 16:27:55.000"
+    },
+    {
+      "creative_id": "M2001857-347773419",
+      "aircheck_id": "1003953092",
+      "creative_name": "Bank Of America",
+      "station_id": "153",
+      "start_time": "2025-10-18 16:27:55.000",
+      "end_time": "2025-10-18 16:28:25.000"
+    },
+    {
+      "creative_id": "M2053542-348006368",
+      "aircheck_id": "1003532681",
+      "creative_name": "Heritage Cadillac",
+      "station_id": "153",
+      "start_time": "2025-10-18 16:29:51.000",
+      "end_time": "2025-10-18 16:30:19.000"
+    },
+    {
+      "creative_id": "M4249641-340760072",
+      "aircheck_id": "975483683",
+      "creative_name": "Four Seasons Heating Air Conditioning Plmbg Elec",
+      "station_id": "153",
+      "start_time": "2025-10-18 16:36:35.000",
+      "end_time": "2025-10-18 16:37:07.000"
+    },
+    {
+      "creative_id": "M2529845-347990204",
+      "aircheck_id": "1003484981",
+      "creative_name": "Wind Creek",
+      "station_id": "153",
+      "start_time": "2025-10-18 16:37:07.000",
+      "end_time": "2025-10-18 16:37:36.000"
+    },
+    {
+      "creative_id": "M2673849-341977945",
+      "aircheck_id": "980158654",
+      "creative_name": "XFINITY Internet",
+      "station_id": "153",
+      "start_time": "2025-10-18 16:51:58.000",
+      "end_time": "2025-10-18 16:52:58.000"
+    },
+    {
+      "creative_id": "M3727165-346246751",
+      "aircheck_id": "996452366",
+      "creative_name": "ABC Plumbing Sewer Heating Cooling & Electric",
+      "station_id": "153",
+      "start_time": "2025-10-18 16:56:14.000",
+      "end_time": "2025-10-18 16:56:43.000"
+    },
+    {
+      "creative_id": "M2589155-346074175",
+      "aircheck_id": "996629448",
+      "creative_name": "Straight Talk",
+      "station_id": "153",
+      "start_time": "2025-10-18 16:56:43.000",
+      "end_time": "2025-10-18 16:57:13.000"
+    },
+    {
+      "creative_id": "M3986377-293360435",
+      "aircheck_id": "830387851",
+      "creative_name": "GATL Get A Tax Lawyer",
+      "station_id": "153",
+      "start_time": "2025-10-18 17:11:19.000",
+      "end_time": "2025-10-18 17:11:47.000"
+    },
+    {
+      "creative_id": "M2023882-342534462",
+      "aircheck_id": "982239439",
+      "creative_name": "Loeber Motors",
+      "station_id": "153",
+      "start_time": "2025-10-18 17:15:04.000",
+      "end_time": "2025-10-18 17:15:35.000"
+    },
+    {
+      "creative_id": "M2018728-302698219",
+      "aircheck_id": "833764196",
+      "creative_name": "First American Bank",
+      "station_id": "153",
+      "start_time": "2025-10-18 17:26:08.000",
+      "end_time": "2025-10-18 17:27:07.000"
+    },
+    {
+      "creative_id": "M2147924-347850221",
+      "aircheck_id": "1003024556",
+      "creative_name": "California Psychics",
+      "station_id": "153",
+      "start_time": "2025-10-18 17:27:08.000",
+      "end_time": "2025-10-18 17:28:08.000"
+    },
+    {
+      "creative_id": "M2005570-347010496",
+      "aircheck_id": "1000418857",
+      "creative_name": "T-Mobile",
+      "station_id": "153",
+      "start_time": "2025-10-18 20:16:04.000",
+      "end_time": "2025-10-18 20:17:04.000"
+    },
+    {
+      "creative_id": "M2010866-347493569",
+      "aircheck_id": "1002285534",
+      "creative_name": "Dell",
+      "station_id": "153",
+      "start_time": "2025-10-18 23:08:52.000",
+      "end_time": "2025-10-18 23:09:20.000"
+    },
+    {
+      "creative_id": "M3655505-346224647",
+      "aircheck_id": "996302355",
+      "creative_name": "Verizon Store",
+      "station_id": "153",
+      "start_time": "2025-10-18 23:08:22.000",
+      "end_time": "2025-10-18 23:08:52.000"
+    },
+    {
+      "creative_id": "M3010608-293991332",
+      "aircheck_id": "795257272",
+      "creative_name": "Finishing Chicago",
+      "station_id": "153",
+      "start_time": "2025-10-18 22:13:09.000",
+      "end_time": "2025-10-18 22:13:38.000"
+    },
+    {
+      "creative_id": "M4240587-346788071",
+      "aircheck_id": "998514519",
+      "creative_name": "Howard Bailey Financial",
+      "station_id": "153",
+      "start_time": "2025-10-18 22:31:02.000",
+      "end_time": "2025-10-18 22:31:31.000"
+    },
+    {
+      "creative_id": "M2808580-346228984",
+      "aircheck_id": "996321262",
+      "creative_name": "Allegiant",
+      "station_id": "153",
+      "start_time": "2025-10-18 23:00:12.000",
+      "end_time": "2025-10-18 23:00:41.000"
+    },
+    {
+      "creative_id": "M3569542-314653173",
+      "aircheck_id": "878371190",
+      "creative_name": "Four Winds Casinos",
+      "station_id": "153",
+      "start_time": "2025-10-18 22:31:31.000",
+      "end_time": "2025-10-18 22:32:01.000"
+    },
+    {
+      "creative_id": "M3257775-334225570",
+      "aircheck_id": "949649234",
+      "creative_name": "D&W Law Group",
+      "station_id": "153",
+      "start_time": "2025-10-18 23:06:53.000",
+      "end_time": "2025-10-18 23:07:22.000"
+    },
+    {
+      "creative_id": "M2259837-347713613",
+      "aircheck_id": "1002278763",
+      "creative_name": "Window Nation",
+      "station_id": "153",
+      "start_time": "2025-10-18 23:23:00.000",
+      "end_time": "2025-10-18 23:23:29.000"
+    },
+    {
+      "creative_id": "M2085869-347240271",
+      "aircheck_id": "1000289985",
+      "creative_name": "Baird",
+      "station_id": "153",
+      "start_time": "2025-10-18 17:53:37.000",
+      "end_time": "2025-10-18 17:54:07.000"
+    },
+    {
+      "creative_id": "M4202626-343757296",
+      "aircheck_id": "991673906",
+      "creative_name": "T-Mobile Int-Wireless",
+      "station_id": "153",
+      "start_time": "2025-10-18 21:42:21.000",
+      "end_time": "2025-10-18 21:43:21.000"
+    },
+    {
+      "creative_id": "M2097857-332749700",
+      "aircheck_id": "945128413",
+      "creative_name": "TimberTech",
+      "station_id": "153",
+      "start_time": "2025-10-18 21:34:18.000",
+      "end_time": "2025-10-18 21:34:45.000"
+    },
+    {
+      "creative_id": "M4187802-337389432",
+      "aircheck_id": "962096128",
+      "creative_name": "Advanced Hair",
+      "station_id": "153",
+      "start_time": "2025-10-18 18:06:08.000",
+      "end_time": "2025-10-18 18:07:08.000"
+    },
+    {
+      "creative_id": "M2103724-37401239",
+      "aircheck_id": "538276448",
+      "creative_name": "Lakeside Bank",
+      "station_id": "153",
+      "start_time": "2025-10-18 18:07:09.000",
+      "end_time": "2025-10-18 18:07:32.000"
+    },
+    {
+      "creative_id": "M2788884-346790691",
+      "aircheck_id": "998526429",
+      "creative_name": "Invesco",
+      "station_id": "153",
+      "start_time": "2025-10-18 23:01:11.000",
+      "end_time": "2025-10-18 23:01:41.000"
+    },
+    {
+      "creative_id": "M4374229-330632016",
+      "aircheck_id": "938328161",
+      "creative_name": "NHTSA Natl Highway Traffic Safety Administration",
+      "station_id": "153",
+      "start_time": "2025-10-18 22:00:21.000",
+      "end_time": "2025-10-18 22:00:51.000"
+    },
+    {
+      "creative_id": "M2379531-346846919",
+      "aircheck_id": "998761609",
+      "creative_name": "Rogers Roofing",
+      "station_id": "153",
+      "start_time": "2025-10-18 18:19:04.000",
+      "end_time": "2025-10-18 18:20:04.000"
+    },
+    {
+      "creative_id": "M2449980-343777743",
+      "aircheck_id": "986936924",
+      "creative_name": "Loyola Medicine",
+      "station_id": "153",
+      "start_time": "2025-10-18 18:20:04.000",
+      "end_time": "2025-10-18 18:20:32.000"
+    },
+    {
+      "creative_id": "M2183187-346225442",
+      "aircheck_id": "996308134",
+      "creative_name": "Credit Union 1",
+      "station_id": "153",
+      "start_time": "2025-10-18 20:46:52.000",
+      "end_time": "2025-10-18 20:47:17.000"
+    },
+    {
+      "creative_id": "M4252743-347750135",
+      "aircheck_id": "1003373334",
+      "creative_name": "Low T Center-SynergenX",
+      "station_id": "153",
+      "start_time": "2025-10-18 18:30:06.000",
+      "end_time": "2025-10-18 18:30:35.000"
+    },
+    {
+      "creative_id": "M2260802-331764887",
+      "aircheck_id": "956183470",
+      "creative_name": "Allstate",
+      "station_id": "153",
+      "start_time": "2025-10-18 18:59:47.000",
+      "end_time": "2025-10-18 19:00:17.000"
+    },
+    {
+      "creative_id": "M4079443-343757345",
+      "aircheck_id": "994891186",
+      "creative_name": "VEOZAH",
+      "station_id": "153",
+      "start_time": "2025-10-18 19:00:17.000",
+      "end_time": "2025-10-18 19:01:17.000"
+    },
+    {
+      "creative_id": "M2379116-296081987",
+      "aircheck_id": "804936478",
+      "creative_name": "Old Dominion Freight Line",
+      "station_id": "153",
+      "start_time": "2025-10-18 22:32:01.000",
+      "end_time": "2025-10-18 22:32:31.000"
+    },
+    {
+      "creative_id": "M2183187-346224401",
+      "aircheck_id": "996308172",
+      "creative_name": "Credit Union 1",
+      "station_id": "153",
+      "start_time": "2025-10-18 20:57:26.000",
+      "end_time": "2025-10-18 20:57:56.000"
+    },
+    {
+      "creative_id": "M2124153-345095812",
+      "aircheck_id": "996321311",
+      "creative_name": "Coca-Cola Zero Sugar",
+      "station_id": "153",
+      "start_time": "2025-10-18 23:01:41.000",
+      "end_time": "2025-10-18 23:02:10.000"
+    },
+    {
+      "creative_id": "M2449980-343784063",
+      "aircheck_id": "986966944",
+      "creative_name": "Loyola Medicine",
+      "station_id": "153",
+      "start_time": "2025-10-18 19:42:34.000",
+      "end_time": "2025-10-18 19:43:03.000"
+    },
+    {
+      "creative_id": "M2025854-342667306",
+      "aircheck_id": "999463905",
+      "creative_name": "eBay",
+      "station_id": "153",
+      "start_time": "2025-10-18 19:52:24.000",
+      "end_time": "2025-10-18 19:52:54.000"
+    },
+    {
+      "creative_id": "M4283708-346790640",
+      "aircheck_id": "998526422",
+      "creative_name": "Marini SkinSolutions",
+      "station_id": "153",
+      "start_time": "2025-10-18 20:26:55.000",
+      "end_time": "2025-10-18 20:27:24.000"
+    },
+    {
+      "creative_id": "M2010413-346225438",
+      "aircheck_id": "996308169",
+      "creative_name": "Coors Light",
+      "station_id": "153",
+      "start_time": "2025-10-18 22:00:51.000",
+      "end_time": "2025-10-18 22:01:22.000"
+    },
+    {
+      "creative_id": "M4187802-337373594",
+      "aircheck_id": "962030863",
+      "creative_name": "Advanced Hair",
+      "station_id": "153",
+      "start_time": "2025-10-18 20:21:57.000",
+      "end_time": "2025-10-18 20:22:56.000"
+    },
+    {
+      "creative_id": "M2259837-347725378",
+      "aircheck_id": "1002326645",
+      "creative_name": "Window Nation",
+      "station_id": "153",
+      "start_time": "2025-10-18 20:23:26.000",
+      "end_time": "2025-10-18 20:23:56.000"
+    },
+    {
+      "creative_id": "M2262942-314654856",
+      "aircheck_id": "877233271",
+      "creative_name": "Guinness",
+      "station_id": "153",
+      "start_time": "2025-10-18 23:00:41.000",
+      "end_time": "2025-10-18 23:01:11.000"
+    },
+    {
+      "creative_id": "M2005350-346030021",
+      "aircheck_id": "998532886",
+      "creative_name": "Lowe's",
+      "station_id": "153",
+      "start_time": "2025-10-18 20:27:54.000",
+      "end_time": "2025-10-18 20:28:23.000"
+    },
+    {
+      "creative_id": "M2005350-346449501",
+      "aircheck_id": "998540509",
+      "creative_name": "Lowe's",
+      "station_id": "153",
+      "start_time": "2025-10-18 20:33:28.000",
+      "end_time": "2025-10-18 20:33:58.000"
+    },
+    {
+      "creative_id": "M3950967-347490386",
+      "aircheck_id": "1002147791",
+      "creative_name": "PureTalk",
+      "station_id": "153",
+      "start_time": "2025-10-18 22:21:14.000",
+      "end_time": "2025-10-18 22:22:13.000"
+    },
+    {
+      "creative_id": "M3119863-346074204",
+      "aircheck_id": "997047084",
+      "creative_name": "GoodRx",
+      "station_id": "153",
+      "start_time": "2025-10-18 22:30:32.000",
+      "end_time": "2025-10-18 22:31:02.000"
+    },
+    {
+      "creative_id": "M4160685-331486400",
+      "aircheck_id": "939365493",
+      "creative_name": "AlmostFreeTeeth.com",
+      "station_id": "153",
+      "start_time": "2025-10-18 22:41:14.000",
+      "end_time": "2025-10-18 22:41:43.000"
+    },
+    {
+      "creative_id": "M4006848-316771921",
+      "aircheck_id": "899443612",
+      "creative_name": "Heat & Frost Insulators Local 17",
+      "station_id": "153",
+      "start_time": "2025-10-18 22:43:12.000",
+      "end_time": "2025-10-18 22:43:42.000"
+    },
+    {
+      "creative_id": "M2162991-345903617",
+      "aircheck_id": "995685033",
+      "creative_name": "Razny Jewelers",
+      "station_id": "153",
+      "start_time": "2025-10-18 23:25:23.000",
+      "end_time": "2025-10-18 23:26:23.000"
+    },
+    {
+      "creative_id": "M2006671-344959908",
+      "aircheck_id": "992150166",
+      "creative_name": "Pfizer",
+      "station_id": "153",
+      "start_time": "2025-10-18 23:27:52.000",
+      "end_time": "2025-10-18 23:28:21.000"
+    },
+    {
+      "creative_id": "M3380418-347714921",
+      "aircheck_id": "1002340654",
+      "creative_name": "Rockwell Automation",
+      "station_id": "153",
+      "start_time": "2025-10-18 23:37:28.000",
+      "end_time": "2025-10-18 23:37:57.000"
+    },
+    {
+      "creative_id": "M2857167-346791315",
+      "aircheck_id": "999692095",
+      "creative_name": "Chevrolet Dealer Association",
+      "station_id": "153",
+      "start_time": "2025-10-18 23:43:13.000",
+      "end_time": "2025-10-18 23:43:28.000"
+    }
+  ]
+}
