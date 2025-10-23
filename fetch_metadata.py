@@ -3,6 +3,8 @@ import xml.etree.ElementTree as ET
 import time
 import json
 import os
+import subprocess
+import sys
 from datetime import datetime
 
 # =============================================================================
@@ -28,6 +30,9 @@ RATE_LIMIT_DELAY = 1  # seconds between API calls
 # Test Mode Configuration
 TEST_MODE = False  # Set to True to test with first station only, False for production
 TEST_CREATIVES_FILE = "test_creatives.json"  # Separate file for test output
+
+# Next Script Configuration
+NEXT_SCRIPT = "get_creatives.py"  # Script to run after completion
 
 # Output Settings
 SAVE_DETAILED_RECORDS = True  # Set to False to only save creative summaries
@@ -238,6 +243,46 @@ class MediaMonitorsTracker:
         with open(self.creatives_file, 'w') as f:
             json.dump(output_data, f, indent=2)
 
+    def run_next_script(self, script_name=NEXT_SCRIPT):
+        """Run the next script in the pipeline"""
+        script_path = os.path.join(os.path.dirname(__file__), script_name)
+        
+        # Check if the next script exists
+        if not os.path.exists(script_path):
+            print(f"Warning: Next script '{script_name}' not found in current directory")
+            return False
+        
+        print(f"\n=== TRIGGERING NEXT SCRIPT ===")
+        print(f"Running: {script_name}")
+        
+        try:
+            # Run the next script using the same Python interpreter
+            result = subprocess.run([sys.executable, script_path], 
+                                  capture_output=True, 
+                                  text=True, 
+                                  cwd=os.path.dirname(__file__))
+            
+            print(f"Next script exit code: {result.returncode}")
+            
+            if result.stdout:
+                print("Next script output:")
+                print(result.stdout)
+            
+            if result.stderr:
+                print("Next script errors:")
+                print(result.stderr)
+            
+            if result.returncode == 0:
+                print(f"✓ Successfully completed {script_name}")
+                return True
+            else:
+                print(f"✗ {script_name} failed with exit code {result.returncode}")
+                return False
+                
+        except Exception as e:
+            print(f"Error running next script: {e}")
+            return False
+
     # =========================================================================
     # FUTURE SEQUENCE TRACKING METHODS (KEPT FOR FUTURE USE)
     # =========================================================================
@@ -367,6 +412,7 @@ def main():
     print(f"Username: {USERNAME}")
     print(f"Date Range: {BASELINE_START_DATE} to {BASELINE_END_DATE}")
     print(f"Rate Limit Delay: {RATE_LIMIT_DELAY}s")
+    print(f"Next Script: {NEXT_SCRIPT}")
     print("=" * 50)
     
     # Get airplay data for the configured date range
@@ -389,179 +435,16 @@ def main():
         
         if len(creatives) > 3:
             print(f"... and {len(creatives) - 3} more")
+        
+        # Trigger next script
+        success = tracker.run_next_script()
+        if success:
+            print(f"\n✓ Pipeline completed successfully!")
+        else:
+            print(f"\n✗ Pipeline completed with errors in next script")
+            
     else:
-        print("No creatives found")
+        print("No creatives found - skipping next script")
 
 if __name__ == "__main__":
     main()
-
-
-# import json
-# from datetime import datetime
-
-# def deduplicate_creatives_by_name(input_file, output_file):
-#     """
-#     Read JSON file with creatives, deduplicate by creative_name, and save clean version
-#     """
-#     try:
-#         # Read the input JSON file
-#         with open(input_file, 'r') as f:
-#             data = json.load(f)
-        
-#         print(f"Original count: {data['count']}")
-#         print(f"Original creatives in list: {len(data['creatives'])}")
-        
-#         # Use a dictionary to deduplicate by creative_name
-#         # This will keep the first occurrence of each creative_name
-#         unique_creatives = {}
-        
-#         for creative in data['creatives']:
-#             creative_name = creative['creative_name']
-#             if creative_name not in unique_creatives:
-#                 unique_creatives[creative_name] = creative
-        
-#         # Convert back to list
-#         deduplicated_list = list(unique_creatives.values())
-        
-#         # Create new clean data structure
-#         clean_data = {
-#             "timestamp": datetime.now().isoformat(),
-#             "original_count": data['count'],
-#             "original_timestamp": data['timestamp'],
-#             "deduplicated_count": len(deduplicated_list),
-#             "duplicates_removed": len(data['creatives']) - len(deduplicated_list),
-#             "deduplication_method": "by_creative_name",
-#             "creatives": deduplicated_list
-#         }
-        
-#         # Save to new file
-#         with open(output_file, 'w') as f:
-#             json.dump(clean_data, f, indent=2)
-        
-#         print(f"Deduplicated count (by name): {len(deduplicated_list)}")
-#         print(f"Duplicates removed: {len(data['creatives']) - len(deduplicated_list)}")
-#         print(f"Clean data saved to: {output_file}")
-        
-#         return True
-        
-#     except FileNotFoundError:
-#         print(f"Error: File '{input_file}' not found")
-#         return False
-#     except json.JSONDecodeError:
-#         print(f"Error: Invalid JSON in file '{input_file}'")
-#         return False
-#     except Exception as e:
-#         print(f"Error: {e}")
-#         return False
-
-# def deduplicate_both_methods(input_file, output_file_by_id, output_file_by_name):
-#     """
-#     Create both versions - deduplicated by ID and by name for comparison
-#     """
-#     try:
-#         # Read the input JSON file
-#         with open(input_file, 'r') as f:
-#             data = json.load(f)
-        
-#         print(f"Original count: {data['count']}")
-#         print(f"Original creatives in list: {len(data['creatives'])}")
-        
-#         # Deduplicate by creative_id
-#         unique_by_id = {}
-#         for creative in data['creatives']:
-#             creative_id = creative['creative_id']
-#             if creative_id not in unique_by_id:
-#                 unique_by_id[creative_id] = creative
-        
-#         # Deduplicate by creative_name
-#         unique_by_name = {}
-#         for creative in data['creatives']:
-#             creative_name = creative['creative_name']
-#             if creative_name not in unique_by_name:
-#                 unique_by_name[creative_name] = creative
-        
-#         # Convert to lists
-#         deduplicated_by_id = list(unique_by_id.values())
-#         deduplicated_by_name = list(unique_by_name.values())
-        
-#         # Create data structure for ID deduplication
-#         clean_data_by_id = {
-#             "timestamp": datetime.now().isoformat(),
-#             "original_count": data['count'],
-#             "original_timestamp": data['timestamp'],
-#             "deduplicated_count": len(deduplicated_by_id),
-#             "duplicates_removed": len(data['creatives']) - len(deduplicated_by_id),
-#             "deduplication_method": "by_creative_id",
-#             "creatives": deduplicated_by_id
-#         }
-        
-#         # Create data structure for name deduplication
-#         clean_data_by_name = {
-#             "timestamp": datetime.now().isoformat(),
-#             "original_count": data['count'],
-#             "original_timestamp": data['timestamp'],
-#             "deduplicated_count": len(deduplicated_by_name),
-#             "duplicates_removed": len(data['creatives']) - len(deduplicated_by_name),
-#             "deduplication_method": "by_creative_name",
-#             "creatives": deduplicated_by_name
-#         }
-        
-#         # Save both files
-#         with open(output_file_by_id, 'w') as f:
-#             json.dump(clean_data_by_id, f, indent=2)
-        
-#         with open(output_file_by_name, 'w') as f:
-#             json.dump(clean_data_by_name, f, indent=2)
-        
-#         print(f"\nResults:")
-#         print(f"Deduplicated by ID: {len(deduplicated_by_id)} unique creatives")
-#         print(f"Deduplicated by Name: {len(deduplicated_by_name)} unique creatives")
-#         print(f"Difference: {len(deduplicated_by_id) - len(deduplicated_by_name)} more unique IDs than names")
-#         print(f"\nFiles saved:")
-#         print(f"- By ID: {output_file_by_id}")
-#         print(f"- By Name: {output_file_by_name}")
-        
-#         return True
-        
-#     except FileNotFoundError:
-#         print(f"Error: File '{input_file}' not found")
-#         return False
-#     except json.JSONDecodeError:
-#         print(f"Error: Invalid JSON in file '{input_file}'")
-#         return False
-#     except Exception as e:
-#         print(f"Error: {e}")
-#         return False
-
-# def main():
-#     input_file = "new_creatives.json"  # Your original file
-#     output_file_by_name = "clean_creatives_by_name.json"  # Deduplicated by name
-#     output_file_by_id = "clean_creatives_by_id.json"  # Deduplicated by ID
-    
-#     print("Creative Deduplication Tool")
-#     print("=" * 40)
-    
-#     # Ask user which method they want
-#     print("Choose deduplication method:")
-#     print("1. Deduplicate by creative name only")
-#     print("2. Create both versions (by ID and by name)")
-    
-#     choice = input("Enter choice (1 or 2): ").strip()
-    
-#     if choice == "1":
-#         success = deduplicate_creatives_by_name(input_file, output_file_by_name)
-#         if success:
-#             print("\nDeduplication by name completed successfully!")
-#     elif choice == "2":
-#         success = deduplicate_both_methods(input_file, output_file_by_id, output_file_by_name)
-#         if success:
-#             print("\nBoth deduplication methods completed successfully!")
-#     else:
-#         print("Invalid choice. Please run again and select 1 or 2.")
-#         return
-    
-#     if not success:
-#         print("\nDeduplication failed!")
-
-# if __name__ == "__main__":
-#     main()
