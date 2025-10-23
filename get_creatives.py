@@ -3,6 +3,7 @@ import os
 import subprocess
 import time
 import concurrent.futures
+import threading
 from datetime import datetime
 
 # Configuration
@@ -16,6 +17,7 @@ INI_PATH = r"C:\Program Files\Media Monitors"
 GETMEDIA_EXE = r"C:\Program Files\Media Monitors\Getmedia.exe"
 BATCH_SIZE = 10
 BATCH_TIMEOUT = 60  # 1 minute per batch
+BATCH_START_DELAY = 10  # 10 seconds between batch starts
 
 def convert_time_format(time_str):
     """
@@ -132,37 +134,54 @@ def update_summary_file(batch_creatives, batch_num, is_first_batch=False):
         
         summary.write("=" * 50 + "\n\n")
 
-def process_batch(batch_creatives, batch_num, total_batches):
+def delayed_batch_check_and_log(batch_creatives, batch_num, futures, all_successful, all_failed):
     """
-    Process a batch of creatives in parallel
-    Returns list of successful and failed aircheck_ids
+    Wait for timeout, then check success and update summary in background
     """
-    batch_aircheck_ids = [creative["aircheck_id"] for creative in batch_creatives]
-    
-    print(f"Processing batch {batch_num}/{total_batches} ({len(batch_creatives)} items)...")
-    
-    # Run all processes in parallel
-    with concurrent.futures.ThreadPoolExecutor(max_workers=BATCH_SIZE) as executor:
-        futures = {executor.submit(run_single_getmedia, aircheck_id): aircheck_id 
-                  for aircheck_id in batch_aircheck_ids}
-        
+    try:
         # Wait for all to complete or timeout
-        try:
-            concurrent.futures.wait(futures, timeout=BATCH_TIMEOUT)
-        except Exception as e:
-            print(f"Batch {batch_num} timeout or error: {e}")
+        concurrent.futures.wait(futures, timeout=BATCH_TIMEOUT)
+    except Exception as e:
+        print(f"Batch {batch_num} timeout or error: {e}")
     
     # Check which ones were successful
+    batch_aircheck_ids = [creative["aircheck_id"] for creative in batch_creatives]
     successful, failed = check_batch_success(batch_aircheck_ids)
     
-    print(f"Batch {batch_num}/{total_batches} completed: {len(successful)}/{len(batch_creatives)} successful")
+    # Thread-safe updates to shared lists
+    all_successful.extend(successful)
+    all_failed.extend(failed)
     
-    # Update summary file immediately
+    print(f"Batch {batch_num} completed: {len(successful)}/{len(batch_creatives)} successful")
+    
+    # Update summary file
     is_first = batch_num == 1
     update_summary_file(batch_creatives, batch_num, is_first)
     print(f"Summary updated with batch {batch_num} results")
+
+def process_batch(batch_creatives, batch_num, total_batches, all_successful, all_failed):
+    """
+    Start a batch of creatives in parallel and return immediately
+    The success checking and logging happens in a background thread after timeout
+    """
+    batch_aircheck_ids = [creative["aircheck_id"] for creative in batch_creatives]
     
-    return successful, failed
+    print(f"Starting batch {batch_num}/{total_batches} ({len(batch_creatives)} items)...")
+    
+    # Start all processes in parallel
+    executor = concurrent.futures.ThreadPoolExecutor(max_workers=BATCH_SIZE)
+    futures = {executor.submit(run_single_getmedia, aircheck_id): aircheck_id 
+              for aircheck_id in batch_aircheck_ids}
+    
+    # Start background thread to handle timeout checking and logging
+    check_thread = threading.Thread(
+        target=delayed_batch_check_and_log,
+        args=(batch_creatives, batch_num, futures, all_successful, all_failed)
+    )
+    check_thread.daemon = True
+    check_thread.start()
+    
+    return check_thread, executor
 
 def main():
     try:
@@ -173,7 +192,8 @@ def main():
         print(f"Processing {data['count']} creatives...")
         print(f"Test mode: {data['test_mode']}")
         print(f"Date range: {data['date_range']['start']} to {data['date_range']['end']}")
-        print(f"Batch size: {BATCH_SIZE}, Batch timeout: {BATCH_TIMEOUT} seconds\n")
+        print(f"Batch size: {BATCH_SIZE}, Batch timeout: {BATCH_TIMEOUT} seconds")
+        print(f"Batch start delay: {BATCH_START_DELAY} seconds\n")
         
         # Create target directory if it doesn't exist
         os.makedirs(TARGET_PATH, exist_ok=True)
@@ -187,18 +207,34 @@ def main():
             create_ini_file(creative)
         print(f"All {total_count} .ini files created successfully!\n")
         
-        # Process in batches
+        # Process in batches with overlapping execution
         all_successful = []
         all_failed = []
+        active_threads = []
+        active_executors = []
         
         # Split into batches
         batches = [creatives[i:i + BATCH_SIZE] for i in range(0, total_count, BATCH_SIZE)]
         total_batches = len(batches)
         
         for batch_num, batch_creatives in enumerate(batches, 1):
-            successful, failed = process_batch(batch_creatives, batch_num, total_batches)
-            all_successful.extend(successful)
-            all_failed.extend(failed)
+            # Start batch processing
+            check_thread, executor = process_batch(batch_creatives, batch_num, total_batches, all_successful, all_failed)
+            active_threads.append(check_thread)
+            active_executors.append(executor)
+            
+            # Wait 10 seconds before starting next batch (unless it's the last batch)
+            if batch_num < total_batches:
+                time.sleep(BATCH_START_DELAY)
+        
+        # Wait for all background threads to complete
+        print(f"\nWaiting for all batches to complete...")
+        for thread in active_threads:
+            thread.join()
+        
+        # Clean up executors
+        for executor in active_executors:
+            executor.shutdown(wait=True)
         
         # Create failed creatives list with full details
         failed_creatives = []
