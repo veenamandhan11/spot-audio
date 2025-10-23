@@ -26,7 +26,7 @@ MAX_ROWS_PER_REQUEST = 1000
 RATE_LIMIT_DELAY = 1  # seconds between API calls
 
 # Test Mode Configuration
-TEST_MODE = True  # Set to True to test with first station only, False for production
+TEST_MODE = False  # Set to True to test with first station only, False for production
 TEST_CREATIVES_FILE = "test_creatives.json"  # Separate file for test output
 
 # Output Settings
