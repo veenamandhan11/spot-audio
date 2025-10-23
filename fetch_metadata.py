@@ -93,7 +93,7 @@ class MediaMonitorsTracker:
                     
                     # Add to creatives dict if we have the key fields (deduplicates automatically by creative_id)
                     creative_id = creative_data.get('CreativeID')
-                    aircheck_id = creative_data.get('AircheckID')
+                    aircheck_id = creative_data.get('aircheck_id')
                     creative_name = creative_data.get('Account_x002F_Title')
                     start_time_val = creative_data.get('start_time')
                     end_time_val = creative_data.get('end_time')
@@ -326,7 +326,7 @@ class MediaMonitorsTracker:
                         # Extract creative data for new additions only
                         if record.get('action') == 'true':
                             creative_id = record.get('CreativeID')
-                            aircheck_id = record.get('AircheckID')
+                            aircheck_id = record.get('aircheck_id')
                             creative_name = record.get('Account_x002F_Title')
                             start_time_val = record.get('start_time')
                             end_time_val = record.get('end_time')
