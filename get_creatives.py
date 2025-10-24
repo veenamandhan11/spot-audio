@@ -7,7 +7,7 @@ import threading
 from datetime import datetime
 
 # Configuration
-JSON_FILE_PATH = "./creatives_metadata/new_creatives.json"
+JSON_FILE_PATH = "./creatives_metadata/creatives_20251022_000000_20251022_235959.json"
 USERNAME = "CSugrue"
 PASSWORD = "Ussu8229"
 TARGET_PATH = r"C:\temp"
