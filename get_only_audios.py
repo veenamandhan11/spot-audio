@@ -5,14 +5,14 @@ from pathlib import Path
 
 def copy_pcm_files_to_desktop():
     """
-    Copy all *_pcm.wav files from C:\temp to Desktop/xyz folder,
+    Copy all *_pcm.wav files from C:\temp to Desktop/xyz_23 folder,
     renaming them from <aircheckId>_pcm.wav to <aircheckId>.wav
     """
     
     # Source and destination paths
     source_folder = r"C:\temp"
     desktop_path = Path.home() / "Desktop"
-    destination_folder = desktop_path / "xyz"
+    destination_folder = desktop_path / "xyz_23"
     
     try:
         # Create destination folder if it doesn't exist

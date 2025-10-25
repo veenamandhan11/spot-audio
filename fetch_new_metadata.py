@@ -21,8 +21,8 @@ CREATIVES_FOLDER = "creatives_metadata"
 MASTER_CREATIVE_IDS_FILE = "master_creative_ids.json"
 
 # Baseline Configuration
-BASELINE_START_DATE = "10/22/2025 00:00:00"
-BASELINE_END_DATE = "10/22/2025 23:59:59"
+BASELINE_START_DATE = "10/23/2025 00:00:00"
+BASELINE_END_DATE = "10/23/2025 23:59:59"
 
 # API Settings
 RATE_LIMIT_DELAY = 1  # seconds between API calls
@@ -31,7 +31,7 @@ RATE_LIMIT_DELAY = 1  # seconds between API calls
 TEST_MODE = False  # Set to True to test with first station only, False for production
 
 # Next Script Configuration
-NEXT_SCRIPT = "get_creatives.py"  # Script to run after completion
+NEXT_SCRIPT = ""  # Script to run after completion
 
 # Output Settings
 SAVE_DETAILED_RECORDS = True  # Set to False to only save creative summaries
