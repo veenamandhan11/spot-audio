@@ -1,0 +1,712 @@
+=== MEDIA PROCESSING SUMMARY ===
+Started: 2025-10-25 13:01:23
+==================================================
+
+BATCH 1 RESULTS:
+------------------------------
+Aircheck ID: 999130435
+Creative ID: M4200024-346947844
+Creative Name: Professional Life & Casualty Company
+Station ID: 153
+--------------------
+20251025-01:00:54	1	Arguments validated
+20251025-01:00:57	1	Username and password are correct
+20251025-01:00:57	1	Station found	153
+20251025-01:01:08	1	Media Server reached successfully
+20251025-01:01:08	1	GSM audio obtained successfully
+20251025-01:01:08	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251019_235959\999130435.wav
+
+--------------------
+
+Aircheck ID: 983676898
+Creative ID: M2837571-342913355
+Creative Name: Advent
+Station ID: 168
+--------------------
+20251025-01:00:54	1	Arguments validated
+20251025-01:00:57	1	Username and password are correct
+20251025-01:00:57	1	Station found	168
+20251025-01:01:23	1	Media Server reached successfully
+20251025-01:01:23	1	GSM audio obtained successfully
+20251025-01:01:23	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251019_235959\983676898.wav
+
+--------------------
+
+Aircheck ID: 1002210584
+Creative ID: M4127612-347696549
+Creative Name: Duane Blanton Plumbing Sewer Heating & Cooling
+Station ID: 153
+--------------------
+20251025-01:00:54	1	Arguments validated
+20251025-01:00:57	1	Username and password are correct
+20251025-01:00:57	1	Station found	153
+20251025-01:01:10	1	Media Server reached successfully
+20251025-01:01:10	1	GSM audio obtained successfully
+20251025-01:01:10	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251019_235959\1002210584.wav
+
+--------------------
+
+Aircheck ID: 550788836
+Creative ID: M3130642-38560216
+Creative Name: Mega Pros
+Station ID: 153
+--------------------
+20251025-01:00:54	1	Arguments validated
+20251025-01:00:57	1	Username and password are correct
+20251025-01:00:57	1	Station found	153
+20251025-01:01:22	1	Media Server reached successfully
+20251025-01:01:22	1	GSM audio obtained successfully
+20251025-01:01:22	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251019_235959\550788836.wav
+
+--------------------
+
+Aircheck ID: 927796558
+Creative ID: M3675395-327988787
+Creative Name: Chicago Window Guys
+Station ID: 153
+--------------------
+20251025-01:00:54	1	Arguments validated
+20251025-01:00:57	1	Username and password are correct
+20251025-01:00:57	1	Station found	153
+20251025-01:01:23	1	Media Server reached successfully
+20251025-01:01:23	1	GSM audio obtained successfully
+20251025-01:01:23	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251019_235959\927796558.wav
+
+--------------------
+
+Aircheck ID: 1003413049
+Creative ID: M3617696-347975833
+Creative Name: The Chicago Bar Association
+Station ID: 153
+--------------------
+20251025-01:00:54	1	Arguments validated
+20251025-01:00:57	1	Username and password are correct
+20251025-01:00:57	1	Station found	153
+20251025-01:01:11	1	Media Server reached successfully
+20251025-01:01:11	1	GSM audio obtained successfully
+20251025-01:01:11	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251019_235959\1003413049.wav
+
+--------------------
+
+Aircheck ID: 1003243931
+Creative ID: M4159219-347142759
+Creative Name: Penny Mustard
+Station ID: 168
+--------------------
+20251025-01:00:54	1	Arguments validated
+20251025-01:00:57	1	Username and password are correct
+20251025-01:00:57	1	Station found	168
+20251025-01:01:22	1	Media Server reached successfully
+20251025-01:01:22	1	GSM audio obtained successfully
+20251025-01:01:22	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251019_235959\1003243931.wav
+
+--------------------
+
+Aircheck ID: 989627781
+Creative ID: M4127612-344460930
+Creative Name: Duane Blanton Plumbing Sewer Heating & Cooling
+Station ID: 153
+--------------------
+20251025-01:00:54	1	Arguments validated
+20251025-01:00:57	1	Username and password are correct
+20251025-01:00:57	1	Station found	153
+20251025-01:01:11	1	Media Server reached successfully
+20251025-01:01:11	1	GSM audio obtained successfully
+20251025-01:01:11	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251019_235959\989627781.wav
+
+--------------------
+
+Aircheck ID: 1003111017
+Creative ID: M4159219-347878022
+Creative Name: Penny Mustard
+Station ID: 168
+--------------------
+20251025-01:00:54	1	Arguments validated
+20251025-01:00:57	1	Username and password are correct
+20251025-01:00:57	1	Station found	168
+20251025-01:01:10	1	Media Server reached successfully
+20251025-01:01:10	1	GSM audio obtained successfully
+20251025-01:01:10	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251019_235959\1003111017.wav
+
+--------------------
+
+Aircheck ID: 1003075202
+Creative ID: M4159219-347874951
+Creative Name: Penny Mustard
+Station ID: 168
+--------------------
+20251025-01:00:54	1	Arguments validated
+20251025-01:00:57	1	Username and password are correct
+20251025-01:00:57	1	Station found	168
+20251025-01:01:11	1	Media Server reached successfully
+20251025-01:01:11	1	GSM audio obtained successfully
+20251025-01:01:11	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251019_235959\1003075202.wav
+
+--------------------
+
+==================================================
+
+BATCH 2 RESULTS:
+------------------------------
+Aircheck ID: 1003173961
+Creative ID: M4159219-347871839
+Creative Name: Penny Mustard
+Station ID: 168
+--------------------
+20251025-01:01:04	1	Arguments validated
+20251025-01:01:07	1	Username and password are correct
+20251025-01:01:07	1	Station found	168
+20251025-01:01:30	1	Media Server reached successfully
+20251025-01:01:30	1	GSM audio obtained successfully
+20251025-01:01:30	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251019_235959\1003173961.wav
+
+--------------------
+
+Aircheck ID: 401107957
+Creative ID: M3130642-24092791
+Creative Name: Mega Pros
+Station ID: 153
+--------------------
+20251025-01:01:04	1	Arguments validated
+20251025-01:01:07	1	Username and password are correct
+20251025-01:01:07	1	Station found	153
+20251025-01:01:14	1	Media Server reached successfully
+20251025-01:01:14	1	GSM audio obtained successfully
+20251025-01:01:14	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251019_235959\401107957.wav
+
+--------------------
+
+Aircheck ID: 1000793280
+Creative ID: M2865065-347389790
+Creative Name: Shutter Hut
+Station ID: 153
+--------------------
+20251025-01:01:04	1	Arguments validated
+20251025-01:01:07	1	Username and password are correct
+20251025-01:01:07	1	Station found	153
+20251025-01:01:31	1	Media Server reached successfully
+20251025-01:01:31	1	GSM audio obtained successfully
+20251025-01:01:31	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251019_235959\1000793280.wav
+
+--------------------
+
+Aircheck ID: 1003407079
+Creative ID: M2022835-347955460
+Creative Name: Menards
+Station ID: 168
+--------------------
+20251025-01:01:04	1	Arguments validated
+20251025-01:01:07	1	Username and password are correct
+20251025-01:01:07	1	Station found	168
+20251025-01:01:19	1	Media Server reached successfully
+20251025-01:01:19	1	GSM audio obtained successfully
+20251025-01:01:19	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251019_235959\1003407079.wav
+
+--------------------
+
+Aircheck ID: 809592144
+Creative ID: M3632206-297053162
+Creative Name: IJL It's Just Lunch
+Station ID: 153
+--------------------
+20251025-01:01:04	1	Arguments validated
+20251025-01:01:07	1	Username and password are correct
+20251025-01:01:07	1	Station found	153
+20251025-01:01:18	1	Media Server reached successfully
+20251025-01:01:18	1	GSM audio obtained successfully
+20251025-01:01:19	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251019_235959\809592144.wav
+
+--------------------
+
+Aircheck ID: 1004248681
+Creative ID: M2022596-348149399
+Creative Name: Jewel-Osco
+Station ID: 168
+--------------------
+20251025-01:01:04	1	Arguments validated
+20251025-01:01:07	1	Username and password are correct
+20251025-01:01:07	1	Station found	168
+20251025-01:01:13	1	Media Server reached successfully
+20251025-01:01:13	1	GSM audio obtained successfully
+20251025-01:01:13	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251019_235959\1004248681.wav
+
+--------------------
+
+Aircheck ID: 986553770
+Creative ID: M3675395-343688334
+Creative Name: Chicago Window Guys
+Station ID: 163
+--------------------
+20251025-01:01:04	1	Arguments validated
+20251025-01:01:07	1	Username and password are correct
+20251025-01:01:07	1	Station found	163
+20251025-01:01:19	1	Media Server reached successfully
+20251025-01:01:19	1	GSM audio obtained successfully
+20251025-01:01:19	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251019_235959\986553770.wav
+
+--------------------
+
+Aircheck ID: 995016352
+Creative ID: M3722399-345893484
+Creative Name: Big City Optical
+Station ID: 153
+--------------------
+20251025-01:01:04	1	Arguments validated
+20251025-01:01:07	1	Username and password are correct
+20251025-01:01:07	1	Station found	153
+20251025-01:01:19	1	Media Server reached successfully
+20251025-01:01:19	1	GSM audio obtained successfully
+20251025-01:01:19	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251019_235959\995016352.wav
+
+--------------------
+
+Aircheck ID: 1003414695
+Creative ID: M2022835-347957074
+Creative Name: Menards
+Station ID: 168
+--------------------
+20251025-01:01:04	1	Arguments validated
+20251025-01:01:07	1	Username and password are correct
+20251025-01:01:07	1	Station found	168
+20251025-01:01:19	1	Media Server reached successfully
+20251025-01:01:19	1	GSM audio obtained successfully
+20251025-01:01:19	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251019_235959\1003414695.wav
+
+--------------------
+
+Aircheck ID: 1003301188
+Creative ID: M2022835-347948621
+Creative Name: Menards
+Station ID: 168
+--------------------
+20251025-01:01:04	1	Arguments validated
+20251025-01:01:07	1	Username and password are correct
+20251025-01:01:07	1	Station found	168
+20251025-01:01:19	1	Media Server reached successfully
+20251025-01:01:19	1	GSM audio obtained successfully
+20251025-01:01:19	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251019_235959\1003301188.wav
+
+--------------------
+
+==================================================
+
+BATCH 4 RESULTS:
+------------------------------
+Aircheck ID: 1001947603
+Creative ID: M2865065-347647423
+Creative Name: Shutter Hut
+Station ID: 153
+--------------------
+20251025-01:01:24	1	Arguments validated
+20251025-01:01:27	1	Username and password are correct
+20251025-01:01:27	1	Station found	153
+20251025-01:01:33	1	Media Server reached successfully
+20251025-01:01:33	1	GSM audio obtained successfully
+20251025-01:01:33	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251019_235959\1001947603.wav
+
+--------------------
+
+Aircheck ID: 1002254907
+Creative ID: M3591660-347707691
+Creative Name: Seattle Sutton's Healthy Eating
+Station ID: 153
+--------------------
+20251025-01:01:25	1	Arguments validated
+20251025-01:01:27	1	Username and password are correct
+20251025-01:01:27	1	Station found	153
+20251025-01:01:52	1	Media Server reached successfully
+20251025-01:01:52	1	GSM audio obtained successfully
+20251025-01:01:52	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251019_235959\1002254907.wav
+
+--------------------
+
+Aircheck ID: 1003374432
+Creative ID: M2022835-347954848
+Creative Name: Menards
+Station ID: 168
+--------------------
+20251025-01:01:24	1	Arguments validated
+20251025-01:01:27	1	Username and password are correct
+20251025-01:01:27	1	Station found	168
+20251025-01:01:40	1	Media Server reached successfully
+20251025-01:01:40	1	GSM audio obtained successfully
+20251025-01:01:40	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251019_235959\1003374432.wav
+
+--------------------
+
+Aircheck ID: 1003381417
+Creative ID: M2022835-347955908
+Creative Name: Menards
+Station ID: 168
+--------------------
+20251025-01:01:24	1	Arguments validated
+20251025-01:01:27	1	Username and password are correct
+20251025-01:01:27	1	Station found	168
+20251025-01:01:40	1	Media Server reached successfully
+20251025-01:01:40	1	GSM audio obtained successfully
+20251025-01:01:40	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251019_235959\1003381417.wav
+
+--------------------
+
+Aircheck ID: 997741912
+Creative ID: M2589155-346074176
+Creative Name: Straight Talk
+Station ID: 142
+--------------------
+20251025-01:01:24	1	Arguments validated
+20251025-01:01:27	1	Username and password are correct
+20251025-01:01:27	1	Station found	142
+20251025-01:01:40	1	Media Server reached successfully
+20251025-01:01:40	1	GSM audio obtained successfully
+20251025-01:01:40	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251019_235959\997741912.wav
+
+--------------------
+
+Aircheck ID: 676927820
+Creative ID: M2023097-174716245
+Creative Name: Americaneagle.com
+Station ID: 153
+--------------------
+20251025-01:01:24	1	Arguments validated
+20251025-01:01:27	1	Username and password are correct
+20251025-01:01:27	1	Station found	153
+20251025-01:01:51	1	Media Server reached successfully
+20251025-01:01:51	1	GSM audio obtained successfully
+20251025-01:01:51	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251019_235959\676927820.wav
+
+--------------------
+
+Aircheck ID: 931833553
+Creative ID: M3704247-329372313
+Creative Name: Riklin Realty
+Station ID: 153
+--------------------
+20251025-01:01:24	1	Arguments validated
+20251025-01:01:27	1	Username and password are correct
+20251025-01:01:27	1	Station found	153
+20251025-01:01:40	1	Media Server reached successfully
+20251025-01:01:40	1	GSM audio obtained successfully
+20251025-01:01:40	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251019_235959\931833553.wav
+
+--------------------
+
+Aircheck ID: 984489225
+Creative ID: M4278804-343125476
+Creative Name: Endeavor Health Cardiovascular Institute
+Station ID: 168
+--------------------
+20251025-01:01:24	1	Arguments validated
+20251025-01:01:27	1	Username and password are correct
+20251025-01:01:27	1	Station found	168
+20251025-01:01:40	1	Media Server reached successfully
+20251025-01:01:40	1	GSM audio obtained successfully
+20251025-01:01:40	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251019_235959\984489225.wav
+
+--------------------
+
+Aircheck ID: 1003400335
+Creative ID: M2022835-347957026
+Creative Name: Menards
+Station ID: 168
+--------------------
+20251025-01:01:24	1	Arguments validated
+20251025-01:01:27	1	Username and password are correct
+20251025-01:01:27	1	Station found	168
+20251025-01:01:40	1	Media Server reached successfully
+20251025-01:01:40	1	GSM audio obtained successfully
+20251025-01:01:40	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251019_235959\1003400335.wav
+
+--------------------
+
+Aircheck ID: 998972222
+Creative ID: M2017731-346846522
+Creative Name: Aetna
+Station ID: 168
+--------------------
+20251025-01:01:24	1	Arguments validated
+20251025-01:01:27	1	Username and password are correct
+20251025-01:01:27	1	Station found	168
+20251025-01:01:34	1	Media Server reached successfully
+20251025-01:01:34	1	GSM audio obtained successfully
+20251025-01:01:34	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251019_235959\998972222.wav
+
+--------------------
+
+==================================================
+
+BATCH 5 RESULTS:
+------------------------------
+Aircheck ID: 591964407
+Creative ID: M2023097-42131306
+Creative Name: Americaneagle.com
+Station ID: 8
+--------------------
+20251025-01:01:35	1	Arguments validated
+20251025-01:01:37	1	Username and password are correct
+20251025-01:01:37	1	Station found	8
+20251025-01:01:59	1	Media Server reached successfully
+20251025-01:01:59	1	GSM audio obtained successfully
+20251025-01:01:59	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251019_235959\591964407.wav
+
+--------------------
+
+Aircheck ID: 984501420
+Creative ID: M4109026-343127299
+Creative Name: Endeavor Health
+Station ID: 168
+--------------------
+20251025-01:01:34	1	Arguments validated
+20251025-01:01:37	1	Username and password are correct
+20251025-01:01:37	1	Station found	168
+20251025-01:01:49	1	Media Server reached successfully
+20251025-01:01:49	1	GSM audio obtained successfully
+20251025-01:01:49	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251019_235959\984501420.wav
+
+--------------------
+
+Aircheck ID: 1003407078
+Creative ID: M2022835-347956704
+Creative Name: Menards
+Station ID: 168
+--------------------
+20251025-01:01:34	1	Arguments validated
+20251025-01:01:37	1	Username and password are correct
+20251025-01:01:37	1	Station found	168
+20251025-01:01:50	1	Media Server reached successfully
+20251025-01:01:50	1	GSM audio obtained successfully
+20251025-01:01:50	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251019_235959\1003407078.wav
+
+--------------------
+
+Aircheck ID: 937235896
+Creative ID: M3704247-330885716
+Creative Name: Riklin Realty
+Station ID: 153
+--------------------
+20251025-01:01:34	1	Arguments validated
+20251025-01:01:37	1	Username and password are correct
+20251025-01:01:37	1	Station found	153
+20251025-01:01:43	1	Media Server reached successfully
+20251025-01:01:43	1	GSM audio obtained successfully
+20251025-01:01:43	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251019_235959\937235896.wav
+
+--------------------
+
+Aircheck ID: 998960371
+Creative ID: M2017731-346841839
+Creative Name: Aetna
+Station ID: 168
+--------------------
+20251025-01:01:34	1	Arguments validated
+20251025-01:01:37	1	Username and password are correct
+20251025-01:01:37	1	Station found	168
+20251025-01:01:50	1	Media Server reached successfully
+20251025-01:01:50	1	GSM audio obtained successfully
+20251025-01:01:50	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251019_235959\998960371.wav
+
+--------------------
+
+Aircheck ID: 997655567
+Creative ID: M3727165-346557213
+Creative Name: ABC Plumbing Sewer Heating Cooling & Electric
+Station ID: 153
+--------------------
+20251025-01:01:34	1	Arguments validated
+20251025-01:01:37	1	Username and password are correct
+20251025-01:01:37	1	Station found	153
+20251025-01:01:43	1	Media Server reached successfully
+20251025-01:01:43	1	GSM audio obtained successfully
+20251025-01:01:43	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251019_235959\997655567.wav
+
+--------------------
+
+Aircheck ID: 997676335
+Creative ID: M3727165-346555755
+Creative Name: ABC Plumbing Sewer Heating Cooling & Electric
+Station ID: 168
+--------------------
+20251025-01:01:35	1	Arguments validated
+20251025-01:01:37	1	Username and password are correct
+20251025-01:01:37	1	Station found	168
+20251025-01:01:49	1	Media Server reached successfully
+20251025-01:01:49	1	GSM audio obtained successfully
+20251025-01:01:49	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251019_235959\997676335.wav
+
+--------------------
+
+Aircheck ID: 982239439
+Creative ID: M2023882-342534462
+Creative Name: Loeber Motors
+Station ID: 153
+--------------------
+20251025-01:01:34	1	Arguments validated
+20251025-01:01:37	1	Username and password are correct
+20251025-01:01:37	1	Station found	153
+20251025-01:01:50	1	Media Server reached successfully
+20251025-01:01:50	1	GSM audio obtained successfully
+20251025-01:01:50	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251019_235959\982239439.wav
+
+--------------------
+
+Aircheck ID: 996302355
+Creative ID: M3655505-346224647
+Creative Name: Verizon Store
+Station ID: 153
+--------------------
+20251025-01:01:34	1	Arguments validated
+20251025-01:01:37	1	Username and password are correct
+20251025-01:01:37	1	Station found	153
+20251025-01:01:50	1	Media Server reached successfully
+20251025-01:01:50	1	GSM audio obtained successfully
+20251025-01:01:50	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251019_235959\996302355.wav
+
+--------------------
+
+Aircheck ID: 998514519
+Creative ID: M4240587-346788071
+Creative Name: Howard Bailey Financial
+Station ID: 153
+--------------------
+20251025-01:01:35	1	Arguments validated
+20251025-01:01:37	1	Username and password are correct
+20251025-01:01:37	1	Station found	153
+20251025-01:01:49	1	Media Server reached successfully
+20251025-01:01:49	1	GSM audio obtained successfully
+20251025-01:01:49	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251019_235959\998514519.wav
+
+--------------------
+
+==================================================
+
+BATCH 3 RESULTS:
+------------------------------
+Aircheck ID: 1002246130
+Creative ID: M4159233-347705099
+Creative Name: Comer & Cross
+Station ID: 153
+--------------------
+20251025-01:01:14	1	Arguments validated
+20251025-01:01:17	1	Username and password are correct
+20251025-01:01:17	1	Station found	153
+20251025-01:01:41	1	Media Server reached successfully
+20251025-01:01:41	1	GSM audio obtained successfully
+20251025-01:01:41	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251019_235959\1002246130.wav
+
+--------------------
+
+Aircheck ID: 1003307416
+Creative ID: M2022835-347948624
+Creative Name: Menards
+Station ID: 168
+--------------------
+20251025-01:01:14	1	Arguments validated
+20251025-01:01:17	1	Username and password are correct
+20251025-01:01:17	1	Station found	168
+20251025-01:01:30	1	Media Server reached successfully
+20251025-01:01:30	1	GSM audio obtained successfully
+20251025-01:01:30	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251019_235959\1003307416.wav
+
+--------------------
+
+Aircheck ID: 1004264398
+Creative ID: M4160255-348139943
+Creative Name: Schmaltz Delicatessen
+Station ID: 168
+--------------------
+20251025-01:01:14	1	Arguments validated
+20251025-01:01:17	1	Username and password are correct
+20251025-01:01:17	1	Station found	168
+20251025-01:01:29	1	Media Server reached successfully
+20251025-01:01:29	1	GSM audio obtained successfully
+20251025-01:01:29	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251019_235959\1004264398.wav
+
+--------------------
+
+Aircheck ID: 965196674
+Creative ID: M3443715-338182410
+Creative Name: Geiger Wealth
+Station ID: 153
+--------------------
+
+--------------------
+
+Aircheck ID: 906872422
+Creative ID: M3443715-325463163
+Creative Name: Geiger Wealth
+Station ID: 152
+--------------------
+20251025-01:01:14	1	Arguments validated
+20251025-01:01:17	1	Username and password are correct
+20251025-01:01:17	1	Station found	152
+20251025-01:01:34	1	Media Server reached successfully
+20251025-01:01:34	1	GSM audio obtained successfully
+20251025-01:01:34	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251019_235959\906872422.wav
+
+--------------------
+
+Aircheck ID: 965196676
+Creative ID: M3443715-338182411
+Creative Name: Geiger Wealth
+Station ID: 153
+--------------------
+20251025-01:01:14	1	Arguments validated
+20251025-01:01:17	1	Username and password are correct
+20251025-01:01:17	1	Station found	153
+20251025-01:02:11	1	Media Server reached successfully
+20251025-01:02:11	1	GSM audio obtained successfully
+20251025-01:02:11	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251019_235959\965196676.wav
+
+--------------------
+
+Aircheck ID: 965196677
+Creative ID: M3443715-338182412
+Creative Name: Geiger Wealth
+Station ID: 153
+--------------------
+
+--------------------
+
+Aircheck ID: 879561691
+Creative ID: M3443715-315337032
+Creative Name: Geiger Wealth
+Station ID: 152
+--------------------
+20251025-01:01:14	1	Arguments validated
+20251025-01:01:17	1	Username and password are correct
+20251025-01:01:17	1	Station found	152
+20251025-01:01:35	1	Media Server reached successfully
+20251025-01:01:35	1	GSM audio obtained successfully
+20251025-01:01:36	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251019_235959\879561691.wav
+
+--------------------
+
+Aircheck ID: 966316474
+Creative ID: M3443715-338468743
+Creative Name: Geiger Wealth
+Station ID: 153
+--------------------
+20251025-01:01:14	1	Arguments validated
+20251025-01:01:17	1	Username and password are correct
+20251025-01:01:17	1	Station found	153
+20251025-01:01:29	1	Media Server reached successfully
+20251025-01:01:29	1	GSM audio obtained successfully
+20251025-01:01:29	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251019_235959\966316474.wav
+
+--------------------
+
+Aircheck ID: 966316475
+Creative ID: M3443715-338468744
+Creative Name: Geiger Wealth
+Station ID: 153
+--------------------
+20251025-01:01:14	1	Arguments validated
+20251025-01:01:17	1	Username and password are correct
+20251025-01:01:17	1	Station found	153
+20251025-01:01:30	1	Media Server reached successfully
+20251025-01:01:30	1	GSM audio obtained successfully
+20251025-01:01:30	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251019_235959\966316475.wav
+
+--------------------
+
+==================================================
+
