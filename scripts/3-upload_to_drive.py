@@ -1,5 +1,6 @@
 import os
 import argparse
+import shutil
 from pathlib import Path
 from datetime import datetime
 from google.oauth2 import service_account
@@ -21,6 +22,10 @@ SERVICE_ACCOUNT_FILE = os.path.join(PROJECT_ROOT, "credentials", "service_accoun
 # Google Drive settings
 SCOPES = ['https://www.googleapis.com/auth/drive']
 MAIN_FOLDER_NAME = "ads"  # Main folder in Drive root
+
+# Paths
+TEMP_BASE_PATH = r"C:\temp"
+INI_BASE_PATH = r"C:\Program Files\Media Monitors"
 
 # =============================================================================
 # END CONFIGURATION
@@ -163,6 +168,76 @@ def file_exists_in_folder(service, filename, folder_id):
         print(f"✗ Error checking file existence: {e}")
         return False
 
+def cleanup_temp_folder(temp_folder):
+    """
+    Clean temp folder: delete non-PCM files, then rename PCM files
+    Returns count of files ready for upload
+    """
+    print_section("CLEANING TEMP FOLDER")
+    
+    temp_path = Path(temp_folder)
+    
+    if not temp_path.exists():
+        print(f"✗ Temp folder not found: {temp_folder}")
+        return 0
+    
+    # Step 1: Delete all non-PCM .wav files (compressed versions)
+    print("Step 1: Deleting compressed .wav files (non-PCM)...")
+    deleted_wav = 0
+    for wav_file in temp_path.glob("*.wav"):
+        if not wav_file.name.endswith("_pcm.wav"):
+            try:
+                wav_file.unlink()
+                deleted_wav += 1
+            except Exception as e:
+                print(f"  ⚠ Failed to delete {wav_file.name}: {e}")
+    
+    print(f"  ✓ Deleted {deleted_wav} compressed .wav files")
+    
+    # Step 2: Delete .out files
+    print("\nStep 2: Deleting .out files...")
+    deleted_out = 0
+    for out_file in temp_path.glob("*.out"):
+        try:
+            out_file.unlink()
+            deleted_out += 1
+        except Exception as e:
+            print(f"  ⚠ Failed to delete {out_file.name}: {e}")
+    
+    print(f"  ✓ Deleted {deleted_out} .out files")
+    
+    # Step 3: Delete .ini files (if any)
+    print("\nStep 3: Deleting .ini files...")
+    deleted_ini = 0
+    for ini_file in temp_path.glob("*.ini"):
+        try:
+            ini_file.unlink()
+            deleted_ini += 1
+        except Exception as e:
+            print(f"  ⚠ Failed to delete {ini_file.name}: {e}")
+    
+    print(f"  ✓ Deleted {deleted_ini} .ini files")
+    
+    # Step 4: Rename PCM files (remove _pcm suffix)
+    print("\nStep 4: Renaming PCM files...")
+    renamed_count = 0
+    pcm_files = list(temp_path.glob("*_pcm.wav"))
+    
+    for pcm_file in pcm_files:
+        try:
+            new_name = pcm_file.name.replace("_pcm.wav", ".wav")
+            new_path = pcm_file.parent / new_name
+            pcm_file.rename(new_path)
+            renamed_count += 1
+        except Exception as e:
+            print(f"  ⚠ Failed to rename {pcm_file.name}: {e}")
+    
+    print(f"  ✓ Renamed {renamed_count} PCM files")
+    
+    print(f"\n✓ Cleanup complete: {renamed_count} files ready for upload")
+    
+    return renamed_count
+
 def upload_file(service, file_path, folder_id):
     """
     Upload a single file to Google Drive folder
@@ -204,17 +279,17 @@ def upload_file(service, file_path, folder_id):
         print(f"  ✗ Error uploading {filename}: {e}")
         return False
 
-def upload_folder_contents(service, desktop_folder_path, folder_id):
+def upload_folder_contents(service, temp_folder, folder_id):
     """
-    Upload all .wav files from desktop folder to Drive folder
+    Upload all .wav files from temp folder to Drive folder
     Returns (success_count, failed_count, skipped_count)
     """
-    print_section("UPLOADING FILES")
+    print_section("UPLOADING FILES TO DRIVE")
     
-    wav_files = list(Path(desktop_folder_path).glob("*.wav"))
+    wav_files = list(Path(temp_folder).glob("*.wav"))
     
     if not wav_files:
-        print(f"⚠ No .wav files found in {desktop_folder_path}")
+        print(f"⚠ No .wav files found in {temp_folder}")
         return 0, 0, 0
     
     print(f"Found {len(wav_files)} .wav files to upload\n")
@@ -242,18 +317,29 @@ def upload_folder_contents(service, desktop_folder_path, folder_id):
     
     return success_count, failed_count, skipped_count
 
-def delete_desktop_folder(desktop_folder_path):
+def cleanup_folders(ini_folder, temp_folder):
     """
-    Delete the desktop folder after successful upload
+    Delete INI folder and temp folder after successful upload
     """
+    print_section("CLEANUP")
+    
     try:
-        import shutil
-        shutil.rmtree(desktop_folder_path)
-        print(f"✓ Deleted desktop folder: {desktop_folder_path}")
-        return True
+        # Delete INI folder
+        if os.path.exists(ini_folder):
+            shutil.rmtree(ini_folder)
+            print(f"✓ Deleted INI folder: {ini_folder}")
+        else:
+            print(f"⊘ INI folder not found (already deleted?): {ini_folder}")
+        
+        # Delete temp folder
+        if os.path.exists(temp_folder):
+            shutil.rmtree(temp_folder)
+            print(f"✓ Deleted temp folder: {temp_folder}")
+        else:
+            print(f"⊘ Temp folder not found (already deleted?): {temp_folder}")
+            
     except Exception as e:
-        print(f"✗ Error deleting desktop folder: {e}")
-        return False
+        print(f"⚠ Error during cleanup: {e}")
 
 def generate_folder_name(start_datetime, end_datetime):
     """Generate folder name from datetime strings"""
@@ -297,15 +383,17 @@ def main():
     # Generate folder name
     folder_name = generate_folder_name(start_datetime, end_datetime)
     
-    # Desktop folder path
-    desktop_path = Path.home() / "Desktop" / folder_name
+    # Temp and INI folder paths
+    temp_folder = os.path.join(TEMP_BASE_PATH, folder_name)
+    ini_folder = os.path.join(INI_BASE_PATH, f"inis_{folder_name.replace('ads_', '')}")
     
-    if not desktop_path.exists():
-        print(f"\n✗ Desktop folder not found: {desktop_path}")
+    if not os.path.exists(temp_folder):
+        print(f"\n✗ Temp folder not found: {temp_folder}")
         print("Make sure Phase 2 completed successfully.")
         return 1
     
-    print(f"Desktop folder: {desktop_path}")
+    print(f"Temp folder: {temp_folder}")
+    print(f"INI folder: {ini_folder}")
     
     # Authenticate
     print_section("AUTHENTICATING")
@@ -314,7 +402,14 @@ def main():
     if not service:
         return 1
     
-    # Ensure folder structure exists
+    # Clean temp folder (delete non-PCM files, rename PCM files)
+    files_ready = cleanup_temp_folder(temp_folder)
+    
+    if files_ready == 0:
+        print("\n⚠ No files ready for upload after cleanup")
+        return 1
+    
+    # Ensure folder structure exists in Drive
     date_folder_id = ensure_folder_structure(service, folder_name)
     
     if not date_folder_id:
@@ -325,7 +420,7 @@ def main():
     
     # Upload files
     success_count, failed_count, skipped_count = upload_folder_contents(
-        service, str(desktop_path), date_folder_id
+        service, temp_folder, date_folder_id
     )
     
     # Summary
@@ -336,14 +431,18 @@ def main():
     print(f"Skipped (existing):    {skipped_count}")
     print(f"Failed:                {failed_count}")
     
-    # Delete desktop folder if upload was successful
+    # Cleanup folders if upload was successful
     if failed_count == 0 and total_files > 0:
-        print_section("CLEANUP")
-        delete_desktop_folder(str(desktop_path))
-        print("\n✓ Phase 3 completed successfully!")
+        cleanup_folders(ini_folder, temp_folder)
+        print(f"\n{'='*80}")
+        print(f"{'✓ PHASE 3 COMPLETED SUCCESSFULLY!'.center(80)}")
+        print(f"{'='*80}")
+        print(f"\nAll files uploaded to: Google Drive/{MAIN_FOLDER_NAME}/{folder_name}")
         return 0
     elif failed_count > 0:
-        print(f"\n⚠ Some files failed to upload. Desktop folder preserved: {desktop_path}")
+        print(f"\n⚠ Some files failed to upload")
+        print(f"Temp folder preserved for retry: {temp_folder}")
+        print(f"INI folder preserved: {ini_folder}")
         return 1
     else:
         print("\n⚠ No files were uploaded")
