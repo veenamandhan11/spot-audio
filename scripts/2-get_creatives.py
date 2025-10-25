@@ -28,7 +28,6 @@ FAILED_ADS_FOLDER = os.path.join(PROJECT_ROOT, "failed_ads")
 BATCH_SIZE = 10
 BATCH_TIMEOUT = 60  # 1 minute per batch
 BATCH_START_DELAY = 10  # 10 seconds between batch starts
-MAX_RETRIES = 1  # Retry failed creatives once
 
 def ensure_folders():
     """Create necessary folders if they don't exist"""
@@ -47,7 +46,7 @@ def extract_datetime_from_filename(json_path):
     datetime_part = filename.replace('ads_', '').replace('.json', '')
     # Split into start and end
     parts = datetime_part.split('_')
-    if len(parts) == 4:  # Changed from 6 to 4
+    if len(parts) == 4:  # YYYYMMDD_HHMMSS_YYYYMMDD_HHMMSS
         start_str = f"{parts[0]}_{parts[1]}"  # YYYYMMDD_HHMMSS
         end_str = f"{parts[2]}_{parts[3]}"    # YYYYMMDD_HHMMSS
         return start_str, end_str, datetime_part
@@ -215,97 +214,74 @@ def process_batch(batch_creatives, batch_num, total_batches, all_successful, all
     
     return check_thread, executor
 
-def copy_pcm_to_desktop(target_folder, desktop_folder_name):
+def check_existing_files(failed_creatives, target_folder):
     """
-    Copy all *_pcm.wav files from target folder to Desktop folder,
-    renaming them from <aircheckId>_pcm.wav to <aircheckId>.wav
+    Check if PCM files already exist for failed creatives
+    Returns (newly_found_successful, still_missing)
     """
-    desktop_path = Path.home() / "Desktop"
-    destination_folder = desktop_path / desktop_folder_name
+    newly_found = []
+    still_missing = []
     
-    try:
-        destination_folder.mkdir(exist_ok=True)
-        print(f"\n✓ Desktop folder created: {destination_folder}")
+    for creative in failed_creatives:
+        aircheck_id = creative["aircheck_id"]
+        pcm_file = os.path.join(target_folder, f"{aircheck_id}_pcm.wav")
         
-        # Find all *_pcm.wav files in target folder
-        pcm_files = list(Path(target_folder).glob("*_pcm.wav"))
-        
-        if not pcm_files:
-            print(f"⚠ No PCM files found in {target_folder}")
-            return 0
-        
-        print(f"Copying {len(pcm_files)} PCM files to Desktop...")
-        
-        copied_count = 0
-        failed_count = 0
-        
-        for pcm_file in pcm_files:
-            try:
-                filename = pcm_file.name
-                new_filename = filename.replace('_pcm.wav', '.wav')
-                destination_file = destination_folder / new_filename
-                
-                shutil.copy2(pcm_file, destination_file)
-                copied_count += 1
-                
-            except Exception as e:
-                print(f"Failed to copy {filename}: {e}")
-                failed_count += 1
-        
-        print(f"✓ Copied {copied_count} files to Desktop")
-        if failed_count > 0:
-            print(f"⚠ Failed to copy {failed_count} files")
-        
-        return copied_count
-        
-    except Exception as e:
-        print(f"Error copying to Desktop: {e}")
-        return 0
+        if os.path.exists(pcm_file):
+            newly_found.append(creative)
+        else:
+            still_missing.append(creative)
+    
+    return newly_found, still_missing
 
-def cleanup_folders(ini_folder, target_folder):
+def retry_failed_creatives_parallel(failed_creatives, ini_folder, target_folder):
     """
-    Delete INI folder and temp subfolder
-    """
-    try:
-        if os.path.exists(ini_folder):
-            shutil.rmtree(ini_folder)
-            print(f"✓ Deleted INI folder: {ini_folder}")
-        
-        if os.path.exists(target_folder):
-            shutil.rmtree(target_folder)
-            print(f"✓ Deleted temp folder: {target_folder}")
-            
-    except Exception as e:
-        print(f"⚠ Error during cleanup: {e}")
-
-def retry_failed_creatives(failed_creatives, ini_folder, target_folder):
-    """
-    Retry failed creatives one more time
+    Retry failed creatives in parallel (much faster than sequential)
     Returns list of still-failed creatives after retry
     """
     if not failed_creatives:
         return []
     
-    print(f"\n=== RETRYING {len(failed_creatives)} FAILED CREATIVES ===")
+    print(f"\n=== RETRYING {len(failed_creatives)} FAILED CREATIVES (PARALLEL) ===")
     
-    retry_successful = []
+    # First check if any files already exist
+    newly_found, still_missing = check_existing_files(failed_creatives, target_folder)
+    
+    if newly_found:
+        print(f"✓ Found {len(newly_found)} files that were actually downloaded")
+        for creative in newly_found:
+            print(f"  ✓ Already exists: {creative['aircheck_id']}")
+    
+    if not still_missing:
+        print("✓ All files found, no retry needed!")
+        return []
+    
+    print(f"\nRetrying {len(still_missing)} truly missing files...")
+    
+    # Retry in parallel
+    executor = concurrent.futures.ThreadPoolExecutor(max_workers=BATCH_SIZE)
+    futures = {
+        executor.submit(run_single_getmedia, creative["aircheck_id"], ini_folder): creative
+        for creative in still_missing
+    }
+    
+    # Wait for all retries to complete
+    concurrent.futures.wait(futures, timeout=BATCH_TIMEOUT)
+    executor.shutdown(wait=True)
+    
+    # Check results
     still_failed = []
+    retry_successful = []
     
-    for creative in failed_creatives:
+    for creative in still_missing:
         aircheck_id = creative["aircheck_id"]
-        print(f"Retrying: {aircheck_id}")
-        
-        result = run_single_getmedia(aircheck_id, ini_folder)
-        time.sleep(2)  # Small delay between retries
-        
-        # Check if successful
         pcm_file = os.path.join(target_folder, f"{aircheck_id}_pcm.wav")
+        
         if os.path.exists(pcm_file):
-            retry_successful.append(aircheck_id)
-            print(f"  ✓ Success on retry")
+            retry_successful.append(creative)
+            print(f"  ✓ Success on retry: {aircheck_id}")
         else:
             still_failed.append(creative)
-            print(f"  ✗ Still failed")
+            print(f"  ✗ Still failed: {aircheck_id}")
     
     print(f"\nRetry results: {len(retry_successful)} succeeded, {len(still_failed)} still failed")
     
@@ -338,13 +314,19 @@ def parse_arguments():
         description='Download creative audio files from Media Monitors',
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog='''
-Example:
-  python get_creatives.py --json "../creatives_metadata/ads_20251018_000000_20251020_235959.json"
+Examples:
+  Without retry (default, faster):
+    python get_creatives.py --json "../creatives_metadata/ads_20251018_000000_20251020_235959.json"
+  
+  With retry for failed downloads:
+    python get_creatives.py --json "../creatives_metadata/ads_20251018_000000_20251020_235959.json" --retry
         '''
     )
     
     parser.add_argument('--json', required=True, 
                        help='Path to the creatives metadata JSON file')
+    parser.add_argument('--retry', action='store_true',
+                       help='Retry failed downloads (disabled by default)')
     
     return parser.parse_args()
 
@@ -352,6 +334,7 @@ def main():
     # Parse arguments
     args = parse_arguments()
     json_path = args.json
+    enable_retry = args.retry
     
     # Ensure folders exist
     ensure_folders()
@@ -373,6 +356,7 @@ def main():
         print(f"{'='*70}")
         print(f"Processing {data['count']} creatives")
         print(f"Date range: {data['date_range']['start']} to {data['date_range']['end']}")
+        print(f"Retry enabled: {'YES' if enable_retry else 'NO'}")
         print(f"Batch size: {BATCH_SIZE}, Batch timeout: {BATCH_TIMEOUT}s")
         print(f"Batch start delay: {BATCH_START_DELAY}s")
         print(f"{'='*70}\n")
@@ -380,7 +364,6 @@ def main():
         # Create folders with datetime naming
         ini_folder = os.path.join(INI_BASE_PATH, f"inis_{datetime_range_str}")
         target_folder = os.path.join(TEMP_BASE_PATH, f"ads_{datetime_range_str}")
-        desktop_folder_name = f"ads_{datetime_range_str}"
         
         os.makedirs(ini_folder, exist_ok=True)
         os.makedirs(target_folder, exist_ok=True)
@@ -438,19 +421,24 @@ def main():
             if creative["aircheck_id"] in all_failed:
                 failed_creatives.append(creative)
         
-        # Retry failed creatives
+        # Handle retry logic
+        still_failed = []
         if failed_creatives:
-            still_failed = retry_failed_creatives(failed_creatives, ini_folder, target_folder)
-            
-            # Update successful list with retry successes
-            retry_successful_ids = set(c["aircheck_id"] for c in failed_creatives) - set(c["aircheck_id"] for c in still_failed)
-            all_successful.extend(list(retry_successful_ids))
+            if enable_retry:
+                # Retry with smart checking and parallel processing
+                still_failed = retry_failed_creatives_parallel(failed_creatives, ini_folder, target_folder)
+                
+                # Update successful list
+                retry_successful_count = len(failed_creatives) - len(still_failed)
+                all_successful.extend([c["aircheck_id"] for c in failed_creatives if c not in still_failed])
+            else:
+                print(f"\n⚠ {len(failed_creatives)} downloads failed")
+                print("Tip: Use --retry flag to attempt downloading failed creatives again")
+                still_failed = failed_creatives
             
             # Save still-failed creatives
             if still_failed:
                 save_failed_creatives(still_failed, datetime_range_str)
-        else:
-            still_failed = []
         
         # Print summary
         print(f"\n{'='*70}")
@@ -458,8 +446,10 @@ def main():
         print(f"{'='*70}")
         print(f"Total creatives: {total_count}")
         print(f"Successfully downloaded: {len(all_successful)}")
-        print(f"Failed after retry: {len(still_failed)}")
+        print(f"Failed: {len(still_failed)}")
         print(f"Summary file: {summary_file}")
+        print(f"Temp folder: {target_folder} (kept for Phase 3)")
+        print(f"INI folder: {ini_folder} (kept for Phase 3)")
         
         if still_failed:
             print(f"\nFailed creatives:")
@@ -468,23 +458,11 @@ def main():
             if len(still_failed) > 5:
                 print(f"  ... and {len(still_failed) - 5} more")
         
-        # Copy PCM files to Desktop
         print(f"\n{'='*70}")
-        print(f"COPYING TO DESKTOP")
+        print(f"✓ PHASE 2 COMPLETED!")
         print(f"{'='*70}")
-        copied_count = copy_pcm_to_desktop(target_folder, desktop_folder_name)
-        
-        # Cleanup
-        print(f"\n{'='*70}")
-        print(f"CLEANUP")
-        print(f"{'='*70}")
-        cleanup_folders(ini_folder, target_folder)
-        
-        print(f"\n{'='*70}")
-        print(f"✓ PHASE 2 COMPLETED SUCCESSFULLY!")
-        print(f"{'='*70}")
-        print(f"Audio files location: Desktop/{desktop_folder_name}")
-        print(f"Total files copied: {copied_count}")
+        print(f"Audio files ready in: {target_folder}")
+        print(f"Next: Run Phase 3 to upload to Google Drive")
         
     except FileNotFoundError:
         print(f"Error: JSON file not found at {json_path}")
