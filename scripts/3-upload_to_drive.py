@@ -7,6 +7,7 @@ from google.oauth2 import service_account
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
 from googleapiclient.errors import HttpError
+import socket
 
 # =============================================================================
 # CONFIGURATION
@@ -23,6 +24,10 @@ SERVICE_ACCOUNT_FILE = os.path.join(PROJECT_ROOT, "credentials", "service_accoun
 SCOPES = ['https://www.googleapis.com/auth/drive']
 MAIN_FOLDER_NAME = "ads"  # Main folder in Drive root
 
+# Timeout settings (in seconds)
+SOCKET_TIMEOUT = 120  # 2 minutes for socket operations
+HTTP_TIMEOUT = 120    # 2 minutes for HTTP requests
+
 # Paths
 TEMP_BASE_PATH = r"C:\temp"
 INI_BASE_PATH = r"C:\Program Files\Media Monitors"
@@ -30,6 +35,9 @@ INI_BASE_PATH = r"C:\Program Files\Media Monitors"
 # =============================================================================
 # END CONFIGURATION
 # =============================================================================
+
+# Set default socket timeout
+socket.setdefaulttimeout(SOCKET_TIMEOUT)
 
 def print_header(title):
     """Print a formatted header"""
@@ -44,76 +52,106 @@ def print_section(title):
     print(f"{'-'*80}\n")
 
 def authenticate_drive():
-    """Authenticate and return Google Drive service"""
+    """Authenticate and return Google Drive service with custom timeout"""
     try:
         if not os.path.exists(SERVICE_ACCOUNT_FILE):
             print(f"✗ Service account file not found: {SERVICE_ACCOUNT_FILE}")
             return None
         
+        print("Authenticating with Google Drive...")
+        
         credentials = service_account.Credentials.from_service_account_file(
             SERVICE_ACCOUNT_FILE, scopes=SCOPES)
         
+        # Build service directly with credentials (no need to authorize separately)
         service = build('drive', 'v3', credentials=credentials)
+        
+        # Test the connection with a simple API call
+        print("Testing connection...")
+        service.files().list(pageSize=1).execute()
+        
         print("✓ Authenticated with Google Drive")
         return service
         
+    except socket.timeout:
+        print(f"✗ Authentication timed out after {SOCKET_TIMEOUT} seconds")
+        print("  Check your internet connection and try again")
+        return None
     except Exception as e:
         print(f"✗ Authentication failed: {e}")
+        import traceback
+        traceback.print_exc()
         return None
 
-def find_folder_by_name(service, folder_name, parent_id=None):
+def find_folder_by_name(service, folder_name, parent_id=None, retries=3):
     """
-    Find folder by name in Drive
+    Find folder by name in Drive with retry logic
     Returns folder ID if found, None otherwise
     """
-    try:
-        query = f"name='{folder_name}' and mimeType='application/vnd.google-apps.folder' and trashed=false"
-        
-        if parent_id:
-            query += f" and '{parent_id}' in parents"
-        
-        results = service.files().list(
-            q=query,
-            spaces='drive',
-            fields='files(id, name)',
-            pageSize=1
-        ).execute()
-        
-        files = results.get('files', [])
-        
-        if files:
-            return files[0]['id']
-        return None
-        
-    except HttpError as e:
-        print(f"✗ Error searching for folder: {e}")
-        return None
+    for attempt in range(retries):
+        try:
+            query = f"name='{folder_name}' and mimeType='application/vnd.google-apps.folder' and trashed=false"
+            
+            if parent_id:
+                query += f" and '{parent_id}' in parents"
+            
+            results = service.files().list(
+                q=query,
+                spaces='drive',
+                fields='files(id, name)',
+                pageSize=1
+            ).execute()
+            
+            files = results.get('files', [])
+            
+            if files:
+                return files[0]['id']
+            return None
+            
+        except socket.timeout:
+            if attempt < retries - 1:
+                print(f"  ⚠ Timeout, retrying ({attempt + 1}/{retries})...")
+                continue
+            else:
+                print(f"  ✗ Failed after {retries} attempts")
+                return None
+        except HttpError as e:
+            print(f"✗ Error searching for folder: {e}")
+            return None
 
-def create_folder(service, folder_name, parent_id=None):
+def create_folder(service, folder_name, parent_id=None, retries=3):
     """
-    Create a folder in Google Drive
+    Create a folder in Google Drive with retry logic
     Returns folder ID
     """
-    try:
-        file_metadata = {
-            'name': folder_name,
-            'mimeType': 'application/vnd.google-apps.folder'
-        }
-        
-        if parent_id:
-            file_metadata['parents'] = [parent_id]
-        
-        folder = service.files().create(
-            body=file_metadata,
-            fields='id'
-        ).execute()
-        
-        print(f"✓ Created folder: {folder_name}")
-        return folder.get('id')
-        
-    except HttpError as e:
-        print(f"✗ Error creating folder: {e}")
-        return None
+    for attempt in range(retries):
+        try:
+            file_metadata = {
+                'name': folder_name,
+                'mimeType': 'application/vnd.google-apps.folder'
+            }
+            
+            if parent_id:
+                file_metadata['parents'] = [parent_id]
+            
+            folder = service.files().create(
+                body=file_metadata,
+                fields='id'
+            ).execute()
+            
+            print(f"✓ Created folder: {folder_name}")
+            return folder.get('id')
+            
+        except socket.timeout:
+            if attempt < retries - 1:
+                print(f"  ⚠ Timeout, retrying ({attempt + 1}/{retries})...")
+                continue
+            else:
+                print(f"  ✗ Failed after {retries} attempts")
+                return None
+        except HttpError as e:
+            print(f"✗ Error creating folder: {e}")
+            return None
 
 def ensure_folder_structure(service, date_range_folder_name):
     """
@@ -123,6 +161,7 @@ def ensure_folder_structure(service, date_range_folder_name):
     print_section("SETTING UP DRIVE FOLDERS")
     
     # Find or create main "ads" folder
+    print(f"Looking for main folder '{MAIN_FOLDER_NAME}'...")
     main_folder_id = find_folder_by_name(service, MAIN_FOLDER_NAME)
     
     if not main_folder_id:
@@ -134,6 +173,7 @@ def ensure_folder_structure(service, date_range_folder_name):
         print(f"✓ Found main folder: {MAIN_FOLDER_NAME}")
     
     # Find or create date-range subfolder
+    print(f"Looking for date folder '{date_range_folder_name}'...")
     date_folder_id = find_folder_by_name(service, date_range_folder_name, main_folder_id)
     
     if not date_folder_id:
@@ -164,6 +204,9 @@ def file_exists_in_folder(service, filename, folder_id):
         files = results.get('files', [])
         return len(files) > 0
         
+    except socket.timeout:
+        print(f"  ⚠ Timeout checking file existence for {filename}")
+        return False
     except HttpError as e:
         print(f"✗ Error checking file existence: {e}")
         return False
@@ -181,16 +224,32 @@ def cleanup_temp_folder(temp_folder):
         print(f"✗ Temp folder not found: {temp_folder}")
         return 0
     
+    # SAFETY CHECK: If no PCM files exist, assume cleanup already done
+    pcm_files = list(temp_path.glob("*_pcm.wav"))
+    regular_wav_files = [f for f in temp_path.glob("*.wav") if not f.name.endswith("_pcm.wav")]
+    
+    if len(pcm_files) == 0 and len(regular_wav_files) > 0:
+        print("✓ Cleanup already completed (found renamed .wav files)")
+        print(f"  Found {len(regular_wav_files)} files ready for upload")
+        return len(regular_wav_files)
+    
+    if len(pcm_files) == 0:
+        print("⚠ No PCM files found and no regular wav files either")
+        print("  Temp folder may have been corrupted or already cleaned")
+        return 0
+    
+    # Continue with normal cleanup...
+    print(f"Found {len(pcm_files)} PCM files to process")
+    
     # Step 1: Delete all non-PCM .wav files (compressed versions)
-    print("Step 1: Deleting compressed .wav files (non-PCM)...")
+    print("\nStep 1: Deleting compressed .wav files (non-PCM)...")
     deleted_wav = 0
-    for wav_file in temp_path.glob("*.wav"):
-        if not wav_file.name.endswith("_pcm.wav"):
-            try:
-                wav_file.unlink()
-                deleted_wav += 1
-            except Exception as e:
-                print(f"  ⚠ Failed to delete {wav_file.name}: {e}")
+    for wav_file in regular_wav_files:  # Use the list we already created
+        try:
+            wav_file.unlink()
+            deleted_wav += 1
+        except Exception as e:
+            print(f"  ⚠ Failed to delete {wav_file.name}: {e}")
     
     print(f"  ✓ Deleted {deleted_wav} compressed .wav files")
     
@@ -238,46 +297,60 @@ def cleanup_temp_folder(temp_folder):
     
     return renamed_count
 
-def upload_file(service, file_path, folder_id):
+def upload_file(service, file_path, folder_id, retries=3):
     """
-    Upload a single file to Google Drive folder
+    Upload a single file to Google Drive folder with retry logic
     Returns True if successful, False otherwise
     """
-    try:
-        filename = os.path.basename(file_path)
-        
-        # Check if file already exists
-        if file_exists_in_folder(service, filename, folder_id):
-            print(f"  ⊘ Skipped (already exists): {filename}")
+    filename = os.path.basename(file_path)
+    
+    for attempt in range(retries):
+        try:
+            # Check if file already exists
+            if file_exists_in_folder(service, filename, folder_id):
+                print(f"  ⊘ Skipped (already exists): {filename}")
+                return True
+            
+            # Upload file
+            file_metadata = {
+                'name': filename,
+                'parents': [folder_id]
+            }
+            
+            media = MediaFileUpload(
+                file_path,
+                mimetype='audio/wav',
+                resumable=True,
+                chunksize=5 * 1024 * 1024  # 5MB chunks
+            )
+            
+            request = service.files().create(
+                body=file_metadata,
+                media_body=media,
+                fields='id'
+            )
+            
+            # Upload with progress
+            response = None
+            while response is None:
+                status, response = request.next_chunk()
+            
+            print(f"  ✓ Uploaded: {filename}")
             return True
-        
-        # Upload file
-        file_metadata = {
-            'name': filename,
-            'parents': [folder_id]
-        }
-        
-        media = MediaFileUpload(
-            file_path,
-            mimetype='audio/wav',
-            resumable=True
-        )
-        
-        file = service.files().create(
-            body=file_metadata,
-            media_body=media,
-            fields='id'
-        ).execute()
-        
-        print(f"  ✓ Uploaded: {filename}")
-        return True
-        
-    except HttpError as e:
-        print(f"  ✗ Failed to upload {filename}: {e}")
-        return False
-    except Exception as e:
-        print(f"  ✗ Error uploading {filename}: {e}")
-        return False
+            
+        except socket.timeout:
+            if attempt < retries - 1:
+                print(f"  ⚠ Timeout uploading {filename}, retrying ({attempt + 1}/{retries})...")
+                continue
+            else:
+                print(f"  ✗ Failed to upload {filename} after {retries} attempts")
+                return False
+        except HttpError as e:
+            print(f"  ✗ Failed to upload {filename}: {e}")
+            return False
+        except Exception as e:
+            print(f"  ✗ Error uploading {filename}: {e}")
+            return False
 
 def upload_folder_contents(service, temp_folder, folder_id):
     """
@@ -301,17 +374,14 @@ def upload_folder_contents(service, temp_folder, folder_id):
     for i, wav_file in enumerate(wav_files, 1):
         print(f"[{i}/{len(wav_files)}] ", end="")
         
-        # Check if already exists before uploading
-        filename = wav_file.name
-        if file_exists_in_folder(service, filename, folder_id):
-            print(f"⊘ Skipped (already exists): {filename}")
-            skipped_count += 1
-            continue
-        
         success = upload_file(service, str(wav_file), folder_id)
         
         if success:
-            success_count += 1
+            # Check if it was skipped or uploaded
+            if "Skipped" in str(success):
+                skipped_count += 1
+            else:
+                success_count += 1
         else:
             failed_count += 1
     
@@ -379,6 +449,7 @@ def main():
     print_header("GOOGLE DRIVE UPLOADER")
     print(f"Start datetime: {start_datetime}")
     print(f"End datetime:   {end_datetime}")
+    print(f"Timeout settings: Socket={SOCKET_TIMEOUT}s, HTTP={HTTP_TIMEOUT}s")
     
     # Generate folder name
     folder_name = generate_folder_name(start_datetime, end_datetime)
@@ -400,6 +471,11 @@ def main():
     service = authenticate_drive()
     
     if not service:
+        print("\n✗ Failed to authenticate with Google Drive")
+        print("Troubleshooting:")
+        print("  1. Check your internet connection")
+        print("  2. Verify service account credentials file exists")
+        print("  3. Ensure the 'ads' folder is shared with your service account")
         return 1
     
     # Clean temp folder (delete non-PCM files, rename PCM files)
