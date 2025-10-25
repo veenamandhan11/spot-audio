@@ -27,7 +27,7 @@ FAILED_ADS_FOLDER = os.path.join(PROJECT_ROOT, "failed_ads")
 # Processing settings
 BATCH_SIZE = 10
 BATCH_TIMEOUT = 60  # 1 minute per batch
-BATCH_START_DELAY = 10  # 10 seconds between batch starts
+BATCH_START_DELAY = 5  # 5 seconds between batch starts
 
 def ensure_folders():
     """Create necessary folders if they don't exist"""

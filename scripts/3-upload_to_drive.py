@@ -1,9 +1,11 @@
 import os
 import argparse
 import shutil
+import pickle
 from pathlib import Path
 from datetime import datetime
-from google.oauth2 import service_account
+from google.auth.transport.requests import Request
+from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
 from googleapiclient.errors import HttpError
@@ -18,15 +20,16 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)
 
 # Credentials
-SERVICE_ACCOUNT_FILE = os.path.join(PROJECT_ROOT, "credentials", "service_account.json")
+CREDENTIALS_FOLDER = os.path.join(PROJECT_ROOT, "credentials")
+CLIENT_SECRET_FILE = os.path.join(CREDENTIALS_FOLDER, "client_secret.json")
+TOKEN_FILE = os.path.join(CREDENTIALS_FOLDER, "token.pickle")
 
 # Google Drive settings
-SCOPES = ['https://www.googleapis.com/auth/drive']
+SCOPES = ['https://www.googleapis.com/auth/drive.file']
 MAIN_FOLDER_NAME = "ads"  # Main folder in Drive root
 
 # Timeout settings (in seconds)
 SOCKET_TIMEOUT = 120  # 2 minutes for socket operations
-HTTP_TIMEOUT = 120    # 2 minutes for HTTP requests
 
 # Paths
 TEMP_BASE_PATH = r"C:\temp"
@@ -52,31 +55,53 @@ def print_section(title):
     print(f"{'-'*80}\n")
 
 def authenticate_drive():
-    """Authenticate and return Google Drive service with custom timeout"""
+    """Authenticate using OAuth 2.0 and return Google Drive service"""
     try:
-        if not os.path.exists(SERVICE_ACCOUNT_FILE):
-            print(f"✗ Service account file not found: {SERVICE_ACCOUNT_FILE}")
-            return None
+        creds = None
         
-        print("Authenticating with Google Drive...")
+        # Check if token.pickle exists (saved credentials)
+        if os.path.exists(TOKEN_FILE):
+            print("Loading saved credentials...")
+            with open(TOKEN_FILE, 'rb') as token:
+                creds = pickle.load(token)
         
-        credentials = service_account.Credentials.from_service_account_file(
-            SERVICE_ACCOUNT_FILE, scopes=SCOPES)
+        # If no valid credentials, let user log in
+        if not creds or not creds.valid:
+            if creds and creds.expired and creds.refresh_token:
+                print("Refreshing expired credentials...")
+                creds.refresh(Request())
+            else:
+                if not os.path.exists(CLIENT_SECRET_FILE):
+                    print(f"✗ OAuth client secret file not found: {CLIENT_SECRET_FILE}")
+                    print("\nPlease follow these steps:")
+                    print("1. Go to: https://console.cloud.google.com/apis/credentials")
+                    print("2. Click 'Create Credentials' → 'OAuth client ID'")
+                    print("3. Choose 'Desktop app'")
+                    print("4. Download the JSON file")
+                    print("5. Save it as 'client_secret.json' in the credentials folder")
+                    return None
+                
+                print("Opening browser for authentication...")
+                flow = InstalledAppFlow.from_client_secrets_file(
+                    CLIENT_SECRET_FILE, SCOPES)
+                creds = flow.run_local_server(port=0)
+            
+            # Save credentials for next time
+            print("Saving credentials...")
+            with open(TOKEN_FILE, 'wb') as token:
+                pickle.dump(creds, token)
         
-        # Build service directly with credentials (no need to authorize separately)
-        service = build('drive', 'v3', credentials=credentials)
+        # Build service
+        print("Building Drive service...")
+        service = build('drive', 'v3', credentials=creds)
         
-        # Test the connection with a simple API call
+        # Test connection
         print("Testing connection...")
         service.files().list(pageSize=1).execute()
         
         print("✓ Authenticated with Google Drive")
         return service
         
-    except socket.timeout:
-        print(f"✗ Authentication timed out after {SOCKET_TIMEOUT} seconds")
-        print("  Check your internet connection and try again")
-        return None
     except Exception as e:
         print(f"✗ Authentication failed: {e}")
         import traceback
@@ -244,7 +269,7 @@ def cleanup_temp_folder(temp_folder):
     # Step 1: Delete all non-PCM .wav files (compressed versions)
     print("\nStep 1: Deleting compressed .wav files (non-PCM)...")
     deleted_wav = 0
-    for wav_file in regular_wav_files:  # Use the list we already created
+    for wav_file in regular_wav_files:
         try:
             wav_file.unlink()
             deleted_wav += 1
@@ -280,7 +305,6 @@ def cleanup_temp_folder(temp_folder):
     # Step 4: Rename PCM files (remove _pcm suffix)
     print("\nStep 4: Renaming PCM files...")
     renamed_count = 0
-    pcm_files = list(temp_path.glob("*_pcm.wav"))
     
     for pcm_file in pcm_files:
         try:
@@ -374,14 +398,17 @@ def upload_folder_contents(service, temp_folder, folder_id):
     for i, wav_file in enumerate(wav_files, 1):
         print(f"[{i}/{len(wav_files)}] ", end="")
         
+        # Check if already exists first
+        filename = wav_file.name
+        if file_exists_in_folder(service, filename, folder_id):
+            print(f"⊘ Skipped (already exists): {filename}")
+            skipped_count += 1
+            continue
+        
         success = upload_file(service, str(wav_file), folder_id)
         
         if success:
-            # Check if it was skipped or uploaded
-            if "Skipped" in str(success):
-                skipped_count += 1
-            else:
-                success_count += 1
+            success_count += 1
         else:
             failed_count += 1
     
@@ -446,10 +473,10 @@ def main():
     start_datetime = args.start
     end_datetime = args.end
     
-    print_header("GOOGLE DRIVE UPLOADER")
+    print_header("GOOGLE DRIVE UPLOADER (OAuth)")
     print(f"Start datetime: {start_datetime}")
     print(f"End datetime:   {end_datetime}")
-    print(f"Timeout settings: Socket={SOCKET_TIMEOUT}s, HTTP={HTTP_TIMEOUT}s")
+    print(f"Timeout settings: Socket={SOCKET_TIMEOUT}s")
     
     # Generate folder name
     folder_name = generate_folder_name(start_datetime, end_datetime)
@@ -472,10 +499,6 @@ def main():
     
     if not service:
         print("\n✗ Failed to authenticate with Google Drive")
-        print("Troubleshooting:")
-        print("  1. Check your internet connection")
-        print("  2. Verify service account credentials file exists")
-        print("  3. Ensure the 'ads' folder is shared with your service account")
         return 1
     
     # Clean temp folder (delete non-PCM files, rename PCM files)

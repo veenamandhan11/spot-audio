@@ -1,0 +1,35 @@
+{
+  "timestamp": "2025-10-25T13:41:29.802913",
+  "count": 3,
+  "test_mode": false,
+  "date_range": {
+    "start": "10/18/2025 00:00:00",
+    "end": "10/18/2025 23:59:59"
+  },
+  "creatives": [
+    {
+      "creative_id": "M2319120-348043181",
+      "aircheck_id": "1003675069",
+      "creative_name": "Lincoln Technical Institute",
+      "station_id": "162",
+      "start_time": "2025-10-18 15:43:53.000",
+      "end_time": "2025-10-18 15:44:08.000"
+    },
+    {
+      "creative_id": "M2319120-347989613",
+      "aircheck_id": "1003463342",
+      "creative_name": "Lincoln Technical Institute",
+      "station_id": "163",
+      "start_time": "2025-10-18 14:43:51.000",
+      "end_time": "2025-10-18 14:44:05.000"
+    },
+    {
+      "creative_id": "M3181926-348281769",
+      "aircheck_id": "1004792877",
+      "creative_name": "Taste Of The Caribbean",
+      "station_id": "106",
+      "start_time": "2025-10-18 01:03:31.000",
+      "end_time": "2025-10-18 01:04:00.000"
+    }
+  ]
+}

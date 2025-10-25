@@ -1,0 +1,50 @@
+=== MEDIA PROCESSING SUMMARY ===
+Started: 2025-10-25 13:44:40
+==================================================
+
+BATCH 1 RESULTS:
+------------------------------
+Aircheck ID: 1003675069
+Creative ID: M2319120-348043181
+Creative Name: Lincoln Technical Institute
+Station ID: 162
+--------------------
+20251025-01:44:27	1	Arguments validated
+20251025-01:44:29	1	Username and password are correct
+20251025-01:44:29	1	Station found	162
+20251025-01:44:35	1	Media Server reached successfully
+20251025-01:44:35	1	GSM audio obtained successfully
+20251025-01:44:35	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251018_235959\1003675069.wav
+
+--------------------
+
+Aircheck ID: 1003463342
+Creative ID: M2319120-347989613
+Creative Name: Lincoln Technical Institute
+Station ID: 163
+--------------------
+20251025-01:44:27	1	Arguments validated
+20251025-01:44:29	1	Username and password are correct
+20251025-01:44:29	1	Station found	163
+20251025-01:44:36	1	Media Server reached successfully
+20251025-01:44:36	1	GSM audio obtained successfully
+20251025-01:44:36	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251018_235959\1003463342.wav
+
+--------------------
+
+Aircheck ID: 1004792877
+Creative ID: M3181926-348281769
+Creative Name: Taste Of The Caribbean
+Station ID: 106
+--------------------
+20251025-01:44:27	1	Arguments validated
+20251025-01:44:29	1	Username and password are correct
+20251025-01:44:29	1	Station found	106
+20251025-01:44:40	1	Media Server reached successfully
+20251025-01:44:40	1	GSM audio obtained successfully
+20251025-01:44:40	1	.wav file successfully created.	C:\temp\ads_20251018_000000_20251018_235959\1004792877.wav
+
+--------------------
+
+==================================================
+
